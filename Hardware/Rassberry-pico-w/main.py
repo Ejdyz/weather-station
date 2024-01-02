@@ -2,7 +2,7 @@ from machine import Pin, I2C, UART,Timer
 import utime as time
 from dht import DHT11, InvalidChecksum
 import network
-# import requests
+import requests
 import gc
 
 # On board led setup

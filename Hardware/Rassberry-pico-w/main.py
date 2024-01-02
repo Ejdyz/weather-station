@@ -2,8 +2,13 @@ from machine import Pin, I2C, UART,Timer
 import utime as time
 from dht import DHT11, InvalidChecksum
 import network
-import requests
+# import requests
 import gc
+
+# On board led setup
+led = machine.Pin("LED", machine.Pin.OUT)
+timer = Timer()
+
 
 # WiFi setup
 ssid = "Petr"
@@ -11,28 +16,32 @@ password = "janajana"
 api_url = "http://192.168.1.104:3000/api/weather"
 api_password = "password"
 
-# delay between posts in hours (now set to 1)
-delay = 60*60*1
+# delay between posts in minutes (now set to 1)
+delay = 60*1000*1
 
 # port setup
-dhtPin = 28
+dhtPin = Pin(27, Pin.OUT, Pin.PULL_DOWN)
 adc = machine.ADC(26)
-photo_pin = machine.ADC(27)
+photo_pin = machine.ADC(2)
 uart = UART(0,9600)
 
 # functions for getting weather details
 
 def getTemp():
     global dhtPin
-    pin = Pin(dhtPin, Pin.OUT, Pin.PULL_DOWN)
-    sensor = DHT11(pin)
-    return sensor.temperature
+    sensor = DHT11(dhtPin)
+    try:
+        return sensor.temperature
+    except:
+        return -1
 
 def getHumidity():
     global dhtPin
-    pin = Pin(dhtPin, Pin.OUT, Pin.PULL_DOWN)
-    sensor = DHT11(pin)
-    return sensor.humidity
+    sensor = DHT11(dhtPin)
+    try:
+        return sensor.humidity
+    except:
+        return -1
 
 def getRain():
     global adc
@@ -51,43 +60,62 @@ def getPressure():
     global uart
     sensorData=uart.readline()
     return sensorData
+
+def ledBlink():
+    led.on()
+    time.sleep_ms(100)
+    led.off()
+    time.sleep_ms(100)
+    led.on()
+    time.sleep_ms(100)
+    led.off()
     
     
 #connecting to wifi
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(ssid, password)
+    
+# wlan = network.WLAN(network.STA_IF)
+# wlan.active(True)
+# wlan.connect(ssid, password)
 
-while not wlan.isconnected():
-    pass
-if wlan.active():
-    # Check if the Pico is connected to Wi-Fi
-    if wlan.isconnected():
-        print("Connected to Wi-Fi")
-    else:
-        print("Cant connect to Wi-Fi")
-        
+# while not wlan.isconnected():
+#     pass
+# if wlan.active():
+#     # Check if the Pico is connected to Wi-Fi
+#     if wlan.isconnected():
+#         print("Connected to Wi-Fi")
+#     else:
+#         print("Cant connect to Wi-Fi")
+
 #garbage collector
 gc.collect()
 
-# Define API endpoint and data
-post_data = {
-  "temperature": getTemp(),
-  "humidity": getHumidity(),
-  "pressure": getPressure(),
-  "sunlight": getLumens,
-  "isRaining":isRaining(),
-  "rain":getRain(),    
-  "password": api_password
-}
-while True:
-    #sending req to api
-    x = requests.post(api_url,json=post_data)
 
-    #printing response
-    print(x.text)
+# temporary code for testing 
+while True:
+    print(getRain())
+    time.sleep(1)
+
+def SendData(timer):
     
-    # delay between posts
-    time.sleep(delay)
-#disconnecting from wlan
-wlan.disconnect()    
+    # Define API endpoint and data
+    post_data = {
+      "temperature": getTemp(),
+      "humidity": getHumidity(),
+      "pressure": getPressure(),
+      "sunlight": getLumens(),
+      "isRaining":isRaining(),
+      "rain":getRain(),    
+      "password": api_password
+    }
+    
+    #sending req to api
+    req = requests.post(api_url,json=post_data)
+ 
+    #printing response
+    print(req.text)
+    
+    # indicate sended data
+    ledBlink()
+    
+# loop for sending data
+#timer.init(period=delay, mode=Timer.PERIODIC, callback=SendData)

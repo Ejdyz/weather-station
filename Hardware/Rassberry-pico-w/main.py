@@ -2,6 +2,7 @@ from machine import Pin, I2C, UART,Timer
 import utime as time
 from dht import DHT11, InvalidChecksum
 import network
+import ntptime
 import requests
 import gc
 
@@ -11,7 +12,7 @@ timer = Timer()
 
 
 # WiFi setup
-ssid = "Petr"
+ssid = "SSID"
 password = "janajana"
 api_url = "http://192.168.1.104:3000/api/weather"
 api_password = "password"
@@ -61,6 +62,10 @@ def getPressure():
     sensorData=uart.readline()
     return sensorData
 
+def getTimestamp():
+    return utime.localtime()
+
+    
 def ledBlink():
     led.on()
     time.sleep_ms(100)
@@ -71,32 +76,29 @@ def ledBlink():
     led.off()
     
     
-#connecting to wifi
-    
-# wlan = network.WLAN(network.STA_IF)
-# wlan.active(True)
-# wlan.connect(ssid, password)
+#connecting to wifi   
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, password)
 
-# while not wlan.isconnected():
-#     pass
-# if wlan.active():
-#     # Check if the Pico is connected to Wi-Fi
-#     if wlan.isconnected():
-#         print("Connected to Wi-Fi")
-#     else:
-#         print("Cant connect to Wi-Fi")
+while not wlan.isconnected():
+     pass
+if wlan.active():
+     # Check if the Pico is connected to Wi-Fi
+     if wlan.isconnected():
+         print("Connected to Wi-Fi")
+     else:
+         print("Cant connect to Wi-Fi")
+
+# Synchronize time
+ntptime.host = 'pool.ntp.org'  # You can use other NTP servers
+ntptime.settime()
 
 #garbage collector
 gc.collect()
 
-
-# temporary code for testing 
-while True:
-    print(getRain())
-    time.sleep(1)
-
 def SendData(timer):
-    
+    global api_password 
     # Define API endpoint and data
     post_data = {
       "temperature": getTemp(),
@@ -104,7 +106,8 @@ def SendData(timer):
       "pressure": getPressure(),
       "sunlight": getLumens(),
       "isRaining":isRaining(),
-      "rain":getRain(),    
+      "rain":getRain(),
+      "time": getTimestamp(),
       "password": api_password
     }
     
@@ -118,4 +121,4 @@ def SendData(timer):
     ledBlink()
     
 # loop for sending data
-#timer.init(period=delay, mode=Timer.PERIODIC, callback=SendData)
+timer.init(period=delay, mode=Timer.PERIODIC, callback=SendData)

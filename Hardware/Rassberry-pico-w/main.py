@@ -21,7 +21,7 @@ api_url = "http://192.168.1.101:3000/api/weather"
 api_password = "password"
 
 # delay between posts in miliseconds (now set to 1 min)
-delay = 1000*6 
+delay = 1000*60*1 
 
 reqNumber = 0;
 

@@ -31,7 +31,6 @@ import {
   SunsetIcon,
   ThermometerIcon
 } from "@/components/icons/Icons";
-import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 
 const Page = () => {
   return (

@@ -1594,3 +1594,43 @@ export const PartlyCloudyNightSnowIcon = () => {
     </svg>
   );
 }
+export const LogoIcon = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_1"
+      data-name="Layer 1"
+      viewBox="0 0 2048 2048"
+      {...props}
+    >
+      <defs>
+        <style>{".cls-2{opacity:.24}.cls-3{fill:#fff}"}</style>
+      </defs>
+      <circle cx={1024} cy={1025} r={871}/>
+      <circle
+        cx={1024}
+        cy={1025}
+        r={779}
+        style={{
+          opacity: 0.16,
+        }}
+      />
+      <path
+        d="m1262.25 733.75-633 .5v-180h756ZM808.75 1567.75l-179.5-72.5-.5-687.5h180Z"
+        className="cls-2"
+      />
+      <path
+        d="m808.25 1387.75 453.5 4.5 118.5 175.5h-572ZM808.25 986.75h344v128h-344Z"
+        className="cls-2"
+      />
+      <path
+        d="m1289 707-633 .5v-180h756ZM835.5 1541 656 1468.5l-.5-687.5h180Z"
+        className="cls-3"
+      />
+      <path
+        d="m835 1361 453.5 4.5L1407 1541H835ZM835 960h344v128H835Z"
+        className="cls-3"
+      />
+    </svg>
+  )
+}

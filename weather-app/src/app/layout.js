@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Weather App',
   description: 'Weather App built with Next.js and Tailwind CSS',
+  manifest: "/manifest.json",
 }
 
 export default function RootLayout({ children }) {

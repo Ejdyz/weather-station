@@ -1,0 +1,58 @@
+{
+  "theme_color":"#06B6D4",
+  "background_color":"#ffffff",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-256x256.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src":"/icons/icon512_maskable.png",
+      "purpose":"maskable",
+      "sizes":"512x512",
+      "type":"image/png"
+    },
+    {
+      "src":"/icons/icon512_rounded.png",
+      "purpose":"any",
+      "sizes":"512x512",
+      "type":"image/png"
+    }
+
+  ],
+  "orientation":"any",
+  "display":"standalone",
+  "dir":"left",
+  "lang":"cs-CZ",
+  "name":"Weather Website",
+  "short_name":"Weather Web",
+  "start_url":"/",
+  "scope":"localhost:3000",
+  "description":"Web interface for weather data"
+}

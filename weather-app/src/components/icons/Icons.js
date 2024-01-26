@@ -1598,39 +1598,131 @@ export const LogoIcon = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      id="Layer_1"
-      data-name="Layer 1"
-      viewBox="0 0 2048 2048"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 173.32 151.67"
       {...props}
     >
       <defs>
-        <style>{".cls-2{opacity:.24}.cls-3{fill:#fff}"}</style>
+        <linearGradient
+          id="linear-gradient"
+          x1={50.71}
+          x2={130.47}
+          y1={61.82}
+          y2={107.88}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.5} stopColor="#f7e74b"/>
+          <stop offset={0.5} stopColor="#f8d549"/>
+        </linearGradient>
+        <linearGradient
+          id="linear-gradient-2"
+          x1={46.38}
+          x2={134.8}
+          y1={59.32}
+          y2={110.38}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.5} stopColor="#345d87"/>
+          <stop offset={0.5} stopColor="#1e416a"/>
+        </linearGradient>
+        <linearGradient
+          id="linear-gradient-3"
+          x1={113.18}
+          x2={141.72}
+          y1={112.43}
+          y2={161.85}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.64} stopColor="#00b5e9"/>
+          <stop offset={0.64} stopColor="#0077bf"/>
+        </linearGradient>
+        <linearGradient
+          id="linear-gradient-4"
+          x1={95.95}
+          x2={130.41}
+          y1={116.6}
+          y2={176.29}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.6} stopColor="#345d87"/>
+          <stop offset={0.6} stopColor="#1e416a"/>
+        </linearGradient>
+        <linearGradient
+          id="linear-gradient-5"
+          x1={27.85}
+          x2={91.11}
+          y1={94.38}
+          y2={157.64}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0} stopColor="#fff"/>
+          <stop offset={0.58} stopColor="#fff"/>
+          <stop offset={0.58} stopColor="#e2e2e2"/>
+        </linearGradient>
+        <linearGradient
+          id="linear-gradient-6"
+          x1={24.31}
+          x2={94.65}
+          y1={90.85}
+          y2={161.18}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset={0.57} stopColor="#1e5e8c"/>
+          <stop offset={0.57} stopColor="#00406e"/>
+        </linearGradient>
+        <style>
+          {
+            ".cls-1,.cls-5{stroke:#1e416a;stroke-miterlimit:10;fill:#0076bf;stroke-width:8px}.cls-5{stroke:#1e5e8c}"
+          }
+        </style>
       </defs>
-      <circle cx={1024} cy={1025} r={871}/>
-      <circle
-        cx={1024}
-        cy={1025}
-        r={779}
-        style={{
-          opacity: 0.16,
-        }}
-      />
-      <path
-        d="m1262.25 733.75-633 .5v-180h756ZM808.75 1567.75l-179.5-72.5-.5-687.5h180Z"
-        className="cls-2"
-      />
-      <path
-        d="m808.25 1387.75 453.5 4.5 118.5 175.5h-572ZM808.25 986.75h344v128h-344Z"
-        className="cls-2"
-      />
-      <path
-        d="m1289 707-633 .5v-180h756ZM835.5 1541 656 1468.5l-.5-687.5h180Z"
-        className="cls-3"
-      />
-      <path
-        d="m835 1361 453.5 4.5L1407 1541H835ZM835 960h344v128H835Z"
-        className="cls-3"
-      />
+      <g id="Layer_1-2" data-name="Layer 1">
+        <circle
+          cx={90.59}
+          cy={84.85}
+          r={46.05}
+          style={{
+            fill: "url(#linear-gradient)",
+            stroke: "url(#linear-gradient-2)",
+            strokeWidth: 10,
+            strokeMiterlimit: 10,
+          }}
+        />
+        <path
+          id="malymracek"
+          d="M168.26 146.53c.03-7.69 2.45-32.06-26.64-24.56-.36-17.37-20.26-12.68-20.26-12.68s-13.78 1.04-16.42 17.59c-2.64 16.55-15.49 19.65-15.49 19.65s68.51-.06 78.81 0Z"
+          style={{
+            strokeWidth: 10,
+            fill: "url(#linear-gradient-3)",
+            stroke: "url(#linear-gradient-4)",
+            strokeMiterlimit: 10,
+          }}
+        />
+        <path
+          id="mr\xE1\u010Dek_1"
+          d="M31.44 106.21s2.09-23.52 27.97-23.52c25.89 0 28.61 23.52 28.61 23.52s25.81-3.9 25.81 19.48-25.81 20.74-25.81 20.74l-55.89.09s-27.14 3.25-27.14-20.27 26.44-20.04 26.44-20.04Z"
+          data-name="mr\xE1\u010Dek 1"
+          style={{
+            fill: "url(#linear-gradient-5)",
+            stroke: "url(#linear-gradient-6)",
+            strokeWidth: 10,
+            strokeMiterlimit: 10,
+          }}
+        />
+        <path
+          d="M132.31 38.22c1.18 1.18 3.77.52 5.77-1.49l4.78-4.78c2-2 2.67-4.59 1.49-5.77-1.18-1.18-3.77-.52-5.77 1.49l-4.78 4.78c-2 2-2.67 4.59-1.49 5.77Z"
+          className="cls-1"
+        />
+        <path
+          d="M89.45 21.02c1.67 0 3.03-2.3 3.03-5.13V9.13C92.48 6.3 91.12 4 89.45 4c-1.67 0-3.03 2.3-3.03 5.13v6.76c0 2.83 1.36 5.13 3.03 5.13ZM46.59 38.22c1.18-1.18.52-3.77-1.49-5.77l-4.78-4.78c-2-2-4.59-2.67-5.77-1.49-1.18 1.18-.52 3.77 1.49 5.77l4.78 4.78c2 2 4.59 2.67 5.77 1.49ZM30.98 76.58c0-1.67-2.3-3.03-5.13-3.03h-6.76c-2.83 0-5.13 1.36-5.13 3.03 0 1.67 2.3 3.03 5.13 3.03h6.76c2.83 0 5.13-1.36 5.13-3.03Z"
+          className="cls-5"
+        />
+        <path
+          d="M166.48 76.58c0-1.67-2.3-3.03-5.13-3.03h-6.76c-2.83 0-5.13 1.36-5.13 3.03 0 1.67 2.3 3.03 5.13 3.03h6.76c2.83 0 5.13-1.36 5.13-3.03Z"
+          className="cls-1"
+        />
+      </g>
     </svg>
   )
 }

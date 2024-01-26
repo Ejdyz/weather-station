@@ -68,7 +68,6 @@ export async function POST(request) {
     const RecordTable = env.DB_TABLE_RECORDS.toString()
     const DayTable = env.DB_TABLE_DAYS.toString()
     const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperatrue, lowestTemperatrue, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, averagePressure ) SELECT NOW(), MAX(temperature) AS highestTemperatrue, MIN(temperature) AS lowestTemperatrue, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MAX(light) AS highestLight, AVG(pressure) AS averagePressure FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 143 ;"
-    let dbResults = []
     db.query(sql, (err) => {
       if (err) {
         console.error('Error executing the query:', err);

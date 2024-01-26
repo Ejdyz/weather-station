@@ -86,7 +86,7 @@ export async function GET() {
   const table = env.DB_TABLE_RECORDS.toString();
   const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT 1";
 
-  let lastRecord = await new Promise((resolve, reject) => {
+  const lastRecord = await new Promise((resolve, reject) => {
     db.query(sql, (err, results) => {
       if (err) {
         console.error('Error executing the query:', err);

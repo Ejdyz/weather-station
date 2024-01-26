@@ -3,7 +3,6 @@ import React from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuToggle} from "@nextui-org/navbar";
 import {Link} from "@nextui-org/link"
 import {LogoIcon} from "@/components/icons/Icons";
-import {Button} from "@nextui-org/button";
 
 export default function App({page}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

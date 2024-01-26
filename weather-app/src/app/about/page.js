@@ -1,7 +1,8 @@
+import MyNavbar from "@/components/navbar/MyNavbar";
 const Page = () => {
   return (
     <>
-      About page
+      <MyNavbar page={"about"}/>
     </>
   );
 };

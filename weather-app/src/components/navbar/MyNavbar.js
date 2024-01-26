@@ -11,7 +11,7 @@ export default function App({page}) {
   <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
     <NavbarContent>
       <NavbarBrand>
-        <LogoIcon className="w-10"/>
+        <LogoIcon className="w-11"/>
       </NavbarBrand>
     </NavbarContent>
     <NavbarContent className="hidden sm:flex gap-4" justify="center">

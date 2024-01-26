@@ -1,6 +1,6 @@
-export const SunriseIcon = () => {
+export const SunriseIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path fill="none" d="M0 7.5H64V39.5H0z"></path>
@@ -27,9 +27,9 @@ export const SunriseIcon = () => {
     </svg>
   );
 };
-export const SunsetIcon = () => {
+export const SunsetIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path fill="none" d="M0 7.5H64V39.5H0z"></path>
@@ -56,9 +56,9 @@ export const SunsetIcon = () => {
     </svg>
   );
 };
-export const MoonriseIcon = () => {
+export const MoonriseIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path fill="none" d="M0 7.5H64V39.5H0z"></path>
@@ -85,9 +85,9 @@ export const MoonriseIcon = () => {
     </svg>
   )
 }
-export const MoonsetIcon = () => {
+export const MoonsetIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path fill="none" d="M0 7.5H64V39.5H0z"></path>
@@ -114,9 +114,9 @@ export const MoonsetIcon = () => {
     </svg>
   )
 }
-export const NewMoonIcon = () => {
+export const NewMoonIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -132,9 +132,9 @@ export const NewMoonIcon = () => {
     </svg>
   )
 }
-export const FullMoonIcon = () => {
+export const FullMoonIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -148,9 +148,9 @@ export const FullMoonIcon = () => {
     </svg>
   )
 }
-export const MoonFirstQuarterIcon = () => {
+export const MoonFirstQuarterIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -173,9 +173,9 @@ export const MoonFirstQuarterIcon = () => {
     </svg>
   )
 }
-export const MoonLastQuarterIcon = () => {
+export const MoonLastQuarterIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -198,9 +198,9 @@ export const MoonLastQuarterIcon = () => {
     </svg>
   )
 }
-export const MoonWaningCrescentIcon = () => {
+export const MoonWaningCrescentIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -223,9 +223,9 @@ export const MoonWaningCrescentIcon = () => {
     </svg>
   )
 }
-export const MoonWaxingCrescentIcon = () => {
+export const MoonWaxingCrescentIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -248,9 +248,9 @@ export const MoonWaxingCrescentIcon = () => {
     </svg>
   )
 }
-export const MoonWaxingGibbousIcon = () => {
+export const MoonWaxingGibbousIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -273,9 +273,9 @@ export const MoonWaxingGibbousIcon = () => {
     </svg>
   )
 }
-export const MoonWaningGibbousIcon = () => {
+export const MoonWaningGibbousIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -298,9 +298,9 @@ export const MoonWaningGibbousIcon = () => {
     </svg>
   )
 }
-export const ClearDayIcon = () => {
+export const ClearDayIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <g>
         <path
           fill="none"
@@ -322,9 +322,9 @@ export const ClearDayIcon = () => {
     </svg>
   )
 }
-export const CleanNightIcon = () => {
+export const CleanNightIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <g>
         <path
           fill="none"
@@ -345,9 +345,9 @@ export const CleanNightIcon = () => {
     </svg>
   )
 }
-export const RaindropsIcon = () => {
+export const RaindropsIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="none"
         stroke="#2885c7"
@@ -388,9 +388,9 @@ export const RaindropsIcon = () => {
     </svg>
   )
 }
-export const ThermometerIcon = () => {
+export const ThermometerIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle cx="32" cy="42" r="4" fill="#ef4444"></circle>
       <path
         fill="none"
@@ -423,9 +423,9 @@ export const ThermometerIcon = () => {
     </svg>
   )
 }
-export const BarometerIcon = () => {
+export const BarometerIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <circle
         cx="32"
         cy="32"
@@ -464,9 +464,9 @@ export const BarometerIcon = () => {
     </svg>
   )
 }
-export const CelsiusIcon = () => {
+export const CelsiusIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="#374151"
         d="M27 30a3.75 3.75 0 01-2.75 1.18A3.8 3.8 0 0121.48 30a3.91 3.91 0 012.78-6.69A3.89 3.89 0 0127 30zm-4-1.54a1.65 1.65 0 001.22.51 1.69 1.69 0 001.22-.51 1.61 1.61 0 00.51-1.2 1.71 1.71 0 00-.5-1.23 1.65 1.65 0 00-1.23-.52A1.63 1.63 0 0023 26a1.68 1.68 0 00-.51 1.23 1.61 1.61 0 00.51 1.19zm9-3.67a7.12 7.12 0 015.08-1.67c3.4 0 5.58 1.34 6.52 4a.72.72 0 01-.5 1.05l-1.32.46a.88.88 0 01-.65 0 1 1 0 01-.38-.54c-.53-1.48-1.75-2.21-3.67-2.21a4.19 4.19 0 00-2.85.87 3.23 3.23 0 00-1 2.54v5.3a3.24 3.24 0 001 2.54 4.09 4.09 0 002.85.89c1.9 0 3.12-.74 3.67-2.23a1 1 0 01.41-.56.75.75 0 01.64.06l1.3.45a.75.75 0 01.53 1.06q-1.43 4-6.55 4A7.17 7.17 0 0132 39.21a6 6 0 01-1.79-4.59v-5.26A5.94 5.94 0 0132 24.79z"
@@ -474,9 +474,9 @@ export const CelsiusIcon = () => {
     </svg>
   )
 }
-export const HumidityIcon = () => {
+export const HumidityIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="none"
         stroke="#2885c7"
@@ -492,9 +492,9 @@ export const HumidityIcon = () => {
     </svg>
   )
 }
-export const NotAvailableIcon = () => {
+export const NotAvailableIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="#374151"
         d="M26.1 24.08a.83.83 0 01.16.56v13.48a.59.59 0 01-.72.71h-1.2a.75.75 0 01-.69-.35l-5.14-7.6a11.62 11.62 0 01-.85-1.5 19.708 19.708 0 01-.87-2.03h-.13s0 .23.12.66.15 1 .23 1.64a18 18 0 01.11 1.88v6.59a.77.77 0 01-.16.56.79.79 0 01-.55.15H15.3a.85.85 0 01-.57-.15.76.76 0 01-.17-.56V24.64a.78.78 0 01.17-.56.85.85 0 01.57-.15h1.19a.81.81 0 01.7.33l5.1 7.56a13 13 0 01.89 1.56c.27.55.48 1 .63 1.41s.23.59.24.6h.13s0-.25-.12-.67-.15-1-.23-1.63a16.11 16.11 0 01-.11-1.94v-6.51a.83.83 0 01.15-.56.82.82 0 01.56-.15h1.11a.82.82 0 01.56.15zM30.47 40a1 1 0 01-.54.12h-1.17c-.24 0-.4-.05-.46-.14a.43.43 0 010-.44l5.58-15a1.16 1.16 0 01.33-.46.94.94 0 01.53-.12H36c.24 0 .39.05.45.14a.5.5 0 010 .44l-5.59 15a1.06 1.06 0 01-.39.46zm18.42-1.17H47.8a2.4 2.4 0 01-.91-.12.78.78 0 01-.39-.51l-1-2.7h-5.76l-1 2.7a.78.78 0 01-.39.51 2.4 2.4 0 01-.91.12h-1q-.73 0-.48-.69l5.25-13.65a1.07 1.07 0 01.33-.47 1 1 0 01.55-.11h1.11a1.06 1.06 0 01.57.11.9.9 0 01.32.45l5.24 13.67q.3.69-.44.69zm-6-11.13c-.09-.43-.14-.76-.17-1v-.36h-.15a7.73 7.73 0 01-.46 2.54l-1.62 4.45h4.31l-1.6-4.43a10 10 0 01-.31-1.2z"
@@ -502,9 +502,9 @@ export const NotAvailableIcon = () => {
     </svg>
   )
 }
-export const RainingIcon = () => {
+export const RainingIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="none"
         stroke="#e5e7eb"
@@ -589,9 +589,9 @@ export const RainingIcon = () => {
     </svg>
   )
 }
-export const SnowingIcon = () => {
+export const SnowingIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <path
         fill="none"
         stroke="#e5e7eb"
@@ -724,9 +724,9 @@ export const SnowingIcon = () => {
     </svg>
   );
 }
-export const CloudyIcon = () => {
+export const CloudyIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <g>
         <path
           fill="none"
@@ -746,9 +746,9 @@ export const CloudyIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyIcon = () => {
+export const PartlyCloudyIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -785,9 +785,9 @@ export const PartlyCloudyIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyDayDrizzleIcon = () => {
+export const PartlyCloudyDayDrizzleIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -898,9 +898,9 @@ export const PartlyCloudyDayDrizzleIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyDayRainIcon = () => {
+export const PartlyCloudyDayRainIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -1011,9 +1011,9 @@ export const PartlyCloudyDayRainIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyDaySnowIcon = () => {
+export const PartlyCloudyDaySnowIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -1172,9 +1172,9 @@ export const PartlyCloudyDaySnowIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyNightDrizzleIcon = () => {
+export const PartlyCloudyNightDrizzleIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -1284,9 +1284,9 @@ export const PartlyCloudyNightDrizzleIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyNightIcon = () => {
+export const PartlyCloudyNightIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -1322,9 +1322,9 @@ export const PartlyCloudyNightIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyNightRainIcon = () => {
+export const PartlyCloudyNightRainIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path
@@ -1434,9 +1434,9 @@ export const PartlyCloudyNightRainIcon = () => {
     </svg>
   );
 }
-export const PartlyCloudyNightSnowIcon = () => {
+export const PartlyCloudyNightSnowIcon = (props) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
           <path

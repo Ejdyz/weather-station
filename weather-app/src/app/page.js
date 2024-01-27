@@ -1,5 +1,4 @@
 import MyNavbar from "@/components/navbar/MyNavbar";
-import MyChart from "@/components/charts/MyChart";
 import {
   CleanNightIcon,
   ClearDayIcon,
@@ -8,7 +7,6 @@ import {
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
-import {getLastTenDays} from "@/lib/weatherData";
 import Charts from "@/components/charts/Charts";
 
 

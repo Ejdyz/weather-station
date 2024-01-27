@@ -1,11 +1,8 @@
 "use client"
-import React,{useState} from "react";
-import {Select, SelectSection, SelectItem} from "@nextui-org/react";
-import WeatherCharts from "@/components/charts/WeatherCharts";
+import {Select, SelectItem} from "@nextui-org/react";
 const ChartSwitcher = ({value, setValue}) => {
 
   const handleSelectionChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
   const days = [

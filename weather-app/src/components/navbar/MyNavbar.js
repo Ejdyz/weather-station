@@ -48,6 +48,11 @@ export default function App({page}) {
           Home
         </Link>
       </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" href="icons">
+          Icons
+        </Link>
+      </NavbarItem>
     </NavbarMenu>
   </Navbar>
   );

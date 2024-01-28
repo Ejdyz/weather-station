@@ -43,14 +43,38 @@ const Page = () => {
         <MoonsetIcon/>
       </div>
       <div className="flex h-32 bg-white">
-        <NewMoonIcon/>
-        <FullMoonIcon/>
-        <MoonFirstQuarterIcon/>
-        <MoonLastQuarterIcon/>
+        <>
+          <NewMoonIcon/>
+          new moon
+        </>
+        <>
+          <FullMoonIcon/>
+          full moon
+        </>
+        <>
+          <MoonFirstQuarterIcon/>
+          1st quarter
+        </>
+        <>
+          <MoonLastQuarterIcon/>
+          3rd quarter
+        </>
+        <>
         <MoonWaningCrescentIcon/>
+         waning crescent
+        </>
+        <>
         <MoonWaxingCrescentIcon/>
+         waxing crescent
+        </>
+        <>
         <MoonWaningGibbousIcon/>
+          waning gibbous
+        </>
+        <>
         <MoonWaxingGibbousIcon/>
+          waxing gibbous
+        </>
       </div>
       <div className="flex h-32 bg-white">
         <ClearDayIcon/>

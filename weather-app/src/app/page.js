@@ -8,6 +8,10 @@ import {
   SnowingIcon
 } from "@/components/icons/Icons";
 import Selector from "@/components/Selector";
+import {getSunriseAndSunset} from "@/lib/weatherData";
+import Sunrise from "@/components/sunrise/Sunrise";
+import Moonrise from "@/components/moonrise/Moonrise";
+import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
 
 
 export default async function Home() {
@@ -23,7 +27,6 @@ export default async function Home() {
   const rainyWeather = "from-sky-800  to-gray-500"
   const snowyWeather = "from-sky-300  to-cyan-600"
 
-
   return (
     <>
 
@@ -31,6 +34,7 @@ export default async function Home() {
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
           <ClearDayIcon className={"w-64"} />
+          <MoonAndSunriseWrapper />
           <Selector/>
         </div>
       </div>

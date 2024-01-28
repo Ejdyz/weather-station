@@ -8,7 +8,7 @@ export const SunriseIcon = (props) => {
       </defs>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -37,7 +37,7 @@ export const SunsetIcon = (props) => {
       </defs>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -76,7 +76,7 @@ export const MoonriseIcon = (props) => {
       </g>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -105,7 +105,7 @@ export const MoonsetIcon = (props) => {
       </g>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -2250,6 +2250,25 @@ export const LogoIcon = (props) => {
           className="cls-1"
         />
       </g>
+    </svg>
+  )
+}
+
+export const SunRiseLine = (props) => {
+  return (
+    <svg
+      width={258}
+      height={43}
+      viewBox="0 0 258 43"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1 42L7.91814 37.4196C79.9655 -10.2822 173.326 -11.1611 246.259 35.1758L257 42"
+        stroke="white"
+        strokeDasharray="2 2"
+      />
     </svg>
   )
 }

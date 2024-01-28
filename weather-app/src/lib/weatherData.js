@@ -102,3 +102,8 @@ export const getSunriseAndSunset = async () => {
   //return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
 };
 
+export const getMoonPhase = async () => {
+  const currTime =  Math.floor(Date.now() / 1000)
+  const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime).then(response => response.json())
+  return data[0].Phase;
+}

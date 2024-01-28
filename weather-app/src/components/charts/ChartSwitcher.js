@@ -14,12 +14,12 @@ const ChartSwitcher = ({value, setValue}) => {
     {label: "100 Days", value: 100, },
     ];
   return (
-    <div className="flex w-full max-w-xs flex-col gap-2 m-2">
+    <div className="flex w-full md:max-w-xs flex-col  pr-4 ml-2">
       <Select
         label="Range of days"
         placeholder="select a range of days"
         defaultSelectedKeys={[value]}
-        className="max-w-xs"
+        className="w-full"
         selectionMode="single"
         color="primary"
         disallowEmptySelection

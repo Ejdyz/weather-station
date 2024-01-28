@@ -3,14 +3,10 @@ import {
   CleanNightIcon,
   ClearDayIcon,
   CloudyIcon, PartlyCloudyDayDrizzleIcon, PartlyCloudyDayIcon,
-  PartlyCloudyIcon,
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
 import Selector from "@/components/Selector";
-import {getSunriseAndSunset} from "@/lib/weatherData";
-import Sunrise from "@/components/sunrise/Sunrise";
-import Moonrise from "@/components/moonrise/Moonrise";
 import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
 
 

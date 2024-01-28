@@ -2,7 +2,7 @@ import MyNavbar from "@/components/navbar/MyNavbar";
 import {
   CleanNightIcon,
   ClearDayIcon,
-  CloudyIcon, PartlyCloudyDayDrizzleIcon,
+  CloudyIcon, PartlyCloudyDayDrizzleIcon, PartlyCloudyDayIcon,
   PartlyCloudyIcon,
   RainingIcon,
   SnowingIcon
@@ -35,7 +35,7 @@ export default async function Home() {
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >
-        <PartlyCloudyIcon className={"w-64"} />
+        <PartlyCloudyDayIcon className={"w-64"} />
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr " + clearWeatherNight} >
         <CleanNightIcon className={"w-64"}/>

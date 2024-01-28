@@ -298,136 +298,6 @@ export const MoonWaningGibbousIcon = (props) => {
     </svg>
   )
 }
-export const ClearDayIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#f59e0b"
-          strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="3"
-          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 32 32"
-          repeatCount="indefinite"
-          to="360 32 32"
-          type="rotate"
-        ></animateTransform>
-      </g>
-    </svg>
-  )
-}
-export const ClearDayIconStatic = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#f59e0b"
-          strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="3"
-          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
-        ></path>
-      </g>
-    </svg>
-  )
-}
-export const CleanNightIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-5 32 32;15 32 32;-5 32 32"
-        ></animateTransform>
-      </g>
-    </svg>
-  )
-}
-export const RaindropsIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M38 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C48 31.62 44.09 26 38 17z"
-      >
-        <animateTransform
-          attributeName="transform"
-          calcMode="spline"
-          dur="5s"
-          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
-          repeatCount="indefinite"
-          type="scale"
-          values="1 1; 1 .9; 1 1"
-        ></animateTransform>
-      </path>
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M26 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C36 31.62 32.09 26 26 17z"
-      >
-        <animateTransform
-          attributeName="transform"
-          begin="-3s"
-          calcMode="spline"
-          dur="5s"
-          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
-          repeatCount="indefinite"
-          type="scale"
-          values="1 1; 1 .9; 1 1"
-        ></animateTransform>
-      </path>
-    </svg>
-  )
-}
-export const RaindropsIconStatic = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M38 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C48 31.62 44.09 26 38 17z"
-      >
-      </path>
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M26 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C36 31.62 32.09 26 26 17z"
-      >
-      </path>
-    </svg>
-  )
-} //spatna
 export const ThermometerIcon = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -542,6 +412,114 @@ export const NotAvailableIcon = (props) => {
     </svg>
   )
 }
+//icons for displaying weather
+
+export const RaindropsIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <path
+        fill="none"
+        stroke="#2885c7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M38 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C48 31.62 44.09 26 38 17z"
+      >
+        <animateTransform
+          attributeName="transform"
+          calcMode="spline"
+          dur="5s"
+          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+          repeatCount="indefinite"
+          type="scale"
+          values="1 1; 1 .9; 1 1"
+        ></animateTransform>
+      </path>
+      <path
+        fill="none"
+        stroke="#2885c7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M26 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C36 31.62 32.09 26 26 17z"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="-3s"
+          calcMode="spline"
+          dur="5s"
+          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+          repeatCount="indefinite"
+          type="scale"
+          values="1 1; 1 .9; 1 1"
+        ></animateTransform>
+      </path>
+    </svg>
+  )
+}
+export const ClearDayIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#f59e0b"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="3"
+          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
+        ></path>
+        <animateTransform
+          attributeName="transform"
+          dur="45s"
+          from="0 32 32"
+          repeatCount="indefinite"
+          to="360 32 32"
+          type="rotate"
+        ></animateTransform>
+      </g>
+    </svg>
+  )
+}
+export const ClearDayIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#f59e0b"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="3"
+          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
+        ></path>
+      </g>
+    </svg>
+  )
+}
+export const CleanNightIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#72b9d5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
+        ></path>
+        <animateTransform
+          attributeName="transform"
+          dur="10s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="-5 32 32;15 32 32;-5 32 32"
+        ></animateTransform>
+      </g>
+    </svg>
+  )
+}
 export const RainingIcon = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -628,7 +606,7 @@ export const RainingIcon = (props) => {
       </g>
     </svg>
   )
-}
+} //musi byt static v tablu
 export const RainingIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -672,7 +650,7 @@ export const RainingIconStatic = (props) => {
       </g>
     </svg>
   )
-} //spatna
+}
 export const SnowingIcon = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -807,7 +785,7 @@ export const SnowingIcon = (props) => {
       </g>
     </svg>
   );
-}
+}//musi byt static v tablu
 export const SnowingIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -891,6 +869,21 @@ export const CloudyIcon = (props) => {
           type="translate"
           values="-3 0; 3 0; -3 0"
         ></animateTransform>
+      </g>
+    </svg>
+  );
+}
+export const CloudyIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#e5e7eb"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+        ></path>
       </g>
     </svg>
   );
@@ -981,7 +974,7 @@ export const DrizzleIcon = (props) => {
       </g>
     </svg>
   );
-}
+} //musi byt static v tablu
 export const DrizzleIconStatic = (props) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
@@ -1026,21 +1019,6 @@ export const DrizzleIconStatic = (props) => {
     </svg>
   );
 }
-export const CloudyIconStatic = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#e5e7eb"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
-        ></path>
-      </g>
-    </svg>
-  );
-}
 export const PartlyCloudyDayIcon = (props) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
@@ -1081,7 +1059,7 @@ export const PartlyCloudyDayIcon = (props) => {
       />
     </svg>
   );
-}
+} //musi byt static v tablu
 export const PartlyCloudyDayIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -1227,7 +1205,7 @@ export const PartlyCloudyDayDrizzleIcon = (props) => {
       </g>
     </svg>
   );
-}
+} //musi byt static v tablu
 export const PartlyCloudyDayDrizzleIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -1404,7 +1382,7 @@ export const PartlyCloudyDayRainIcon = (props) => {
       </g>
     </svg>
   );
-}
+} //musi byt static v tablu
 export const PartlyCloudyDayRainIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -1629,7 +1607,7 @@ export const PartlyCloudyDaySnowIcon = (props) => {
       </g>
     </svg>
   );
-}
+} //musi byt static v tablu
 export const PartlyCloudyDaySnowIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">

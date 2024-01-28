@@ -1,6 +1,6 @@
 "use client"
 import {Spinner} from "@nextui-org/spinner";
-import {VercelTable} from "@/components/component/vercel-table";
+import {VercelTable} from "@/components/tables/vercel-table";
 
 export default function App({data, loading}) {
   return (

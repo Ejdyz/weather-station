@@ -2,7 +2,7 @@
 import {Spinner} from "@nextui-org/spinner";
 import {VercelTable} from "@/components/component/vercel-table";
 
-export default function App({data,forWhat, loading}) {
+export default function App({data, loading}) {
   return (
     <>
       <div className={"grid justify-center"}>

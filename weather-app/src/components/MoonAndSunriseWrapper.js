@@ -1,7 +1,6 @@
 import {getSunriseAndSunset} from "@/lib/weatherData";
 import Sunrise from "@/components/sunrise/Sunrise";
 import Moonrise from "@/components/moonrise/Moonrise";
-import {MoonWaxingGibbousIcon} from "@/components/icons/Icons";
 import MoonPhase from "@/components/moonphase/MoonPhase";
 
 const MoonAndSunriseWrapper = async () => {

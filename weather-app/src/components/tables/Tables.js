@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { getLastTenDays } from '@/lib/weatherData';
 import DaySwitcher from '@/components/DaySwitcher';
-import WeatherTables from "@/components/tables/WeatherTables";
+import MyTable from "@/components/tables/MyTable";
 
 export default function Home() {
   const [days, setDays] = useState("7");
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="m-1">
       <DaySwitcher value={days} setValue={setDays} />
-      <WeatherTables data={data} loading={loading}/>
+      <MyTable data={data} loading={loading}/>
     </div>
   );
 }

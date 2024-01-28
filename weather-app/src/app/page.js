@@ -7,9 +7,11 @@ import {
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
+import Selector from "@/components/Selector";
 
 
 export default async function Home() {
+
   const clearWeatherDay = "from-gray-300 via-cyan-500 to-blue-600"
   const partlyCloudyDay = "from-sky-400 to-gray-400"
 
@@ -25,10 +27,11 @@ export default async function Home() {
   return (
     <>
 
-      <div className={"h-screen w-full bg-gradient-to-tr " + clearWeatherDay} >
+      <div className={"h-full w-full bg-gradient-to-tr " + clearWeatherDay} >
       <MyNavbar page="home"/>
-        <div className="w-full h-full flex items-start justify-end">
+        <div className="w-full h-full ">
           <ClearDayIcon className={"w-64"} />
+          <Selector/>
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >

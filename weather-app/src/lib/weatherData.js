@@ -1,3 +1,4 @@
+"use server"
 import db from "@/database/database";
 import {env} from "process"
 export const getLastRecord = async () => {
@@ -33,9 +34,9 @@ export const getLastTenRecords = async () => {
   return lastRecords;
 }
 
-export const getLastTenDays = async () => {
+export const getLastTenDays = async ({forCharts,days}) => {
   const table = env.DB_TABLE_DAYS.toString();
-  const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT 10";
+  const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT " + days + ";";
 
   const lastDays = await new Promise((resolve, reject) => {
     db.query(sql, (err, results) => {
@@ -47,7 +48,21 @@ export const getLastTenDays = async () => {
       }
     });
   });
-  return lastDays;
+  if (!forCharts){
+    return lastDays
+  }
+  const data = lastDays.map((day) => {
+    let date = new Date(day.day)
+    return {
+      day: date.getDate() + "/" + date.getMonth()+1,
+      temperature: day.highestTemperatrue,
+      humidity: day.highestHumidity,
+      pressure: day.averagePressure,
+      rain: day.highestRaining
+    }
+  })
+
+  return data
 }
 
 

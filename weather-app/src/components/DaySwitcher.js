@@ -1,6 +1,6 @@
 "use client"
 import {Select, SelectItem} from "@nextui-org/react";
-const ChartSwitcher = ({value, setValue}) => {
+const DaySwitcher = ({value, setValue}) => {
 
   const handleSelectionChange = (e) => {
     setValue(e.target.value);
@@ -35,4 +35,4 @@ const ChartSwitcher = ({value, setValue}) => {
   );
 };
 
-export default ChartSwitcher;
+export default DaySwitcher;

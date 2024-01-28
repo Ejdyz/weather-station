@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { getLastTenDays } from '@/lib/weatherData';
-import ChartSwitcher from '@/components/charts/ChartSwitcher';
+import DaySwitcher from '@/components/DaySwitcher';
 import WeatherCharts from "@/components/charts/WeatherCharts";
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <div className="m-1">
-      <ChartSwitcher value={days} setValue={setDays} />
+      <DaySwitcher value={days} setValue={setDays} />
       <WeatherCharts data={data} loading={loading}/>
     </div>
   );

@@ -1,7 +1,6 @@
 "use client"
 import {Tab, Tabs} from "@nextui-org/tabs";
 import Charts from "@/components/charts/Charts";
-import {Divider} from "@nextui-org/react";
 
 const Selector = () => {
   return (

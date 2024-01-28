@@ -7,7 +7,7 @@ import {
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
-import Charts from "@/components/charts/Charts";
+import Selector from "@/components/Selector";
 
 
 export default async function Home() {
@@ -31,7 +31,7 @@ export default async function Home() {
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
           <ClearDayIcon className={"w-64"} />
-          <Charts/>
+          <Selector/>
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >

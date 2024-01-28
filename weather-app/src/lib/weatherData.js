@@ -55,9 +55,9 @@ export const getLastTenDays = async ({forCharts,days}) => {
     let date = new Date(day.day)
     return {
       day: date.getDate() + "/" + date.getMonth()+1,
-      temperature: day.highestTemperatrue,
+      temperature: day.highestTemperature,
       humidity: day.highestHumidity,
-      pressure: day.averagePressure,
+      pressure: day.highestPressure,
       rain: day.highestRaining
     }
   })

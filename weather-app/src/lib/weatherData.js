@@ -13,6 +13,7 @@ export const getLastRecord = async () => {
       } else {
         resolve(results[0]);
       }
+      db.releaseConnection();
     });
   });
   return lastRecord;
@@ -29,6 +30,7 @@ export const getLastTenRecords = async () => {
       } else {
         resolve(results);
       }
+      db.releaseConnection();
     });
   });
   return lastRecords;
@@ -46,6 +48,7 @@ export const getLastTenDays = async ({forCharts,days}) => {
       } else {
         resolve(results);
       }
+      db.releaseConnection();
     });
   });
   if (!forCharts){

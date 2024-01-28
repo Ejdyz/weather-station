@@ -74,6 +74,7 @@ export async function POST(request) {
       }else{
         console.log("data saved succesfully to days database")
       }
+      db.releaseConnection();
     });
   }
 
@@ -94,6 +95,7 @@ export async function GET() {
         resolve(results[0]);
       }
     });
+    db.releaseConnection();
   });
 
   return NextResponse.json(lastRecord, { status: 200 })

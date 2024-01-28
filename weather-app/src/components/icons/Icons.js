@@ -8,7 +8,7 @@ export const SunriseIcon = (props) => {
       </defs>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -37,7 +37,7 @@ export const SunsetIcon = (props) => {
       </defs>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -76,7 +76,7 @@ export const MoonriseIcon = (props) => {
       </g>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -105,7 +105,7 @@ export const MoonsetIcon = (props) => {
       </g>
       <path
         fill="none"
-        stroke="#374151"
+        stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -268,7 +268,7 @@ export const MoonWaxingGibbousIcon = (props) => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"
-        d="M44.68 40.83a17.84 17.84 0 01-11.93-21.72 17.2 17.2 0 011.73-4A16.78 16.78 0 0015 27a17.83 17.83 0 0012 21.74 16.83 16.83 0 0019.58-7.45 18 18 0 01-1.9-.46z"
+        d="M49 27a16.78 16.78 0 00-19.45-11.9 17.2 17.2 0 011.73 4 17.76 17.76 0 01-13.82 22.19A16.83 16.83 0 0037 48.74 17.83 17.83 0 0049 27z"
       ></path>
     </svg>
   )
@@ -293,99 +293,9 @@ export const MoonWaningGibbousIcon = (props) => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="3"
-        d="M49 27a16.78 16.78 0 00-19.45-11.9 17.2 17.2 0 011.73 4 17.76 17.76 0 01-13.82 22.19A16.83 16.83 0 0037 48.74 17.83 17.83 0 0049 27z"
-      ></path>
-    </svg>
-  )
-}
-export const ClearDayIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#f59e0b"
-          strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="3"
-          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 32 32"
-          repeatCount="indefinite"
-          to="360 32 32"
-          type="rotate"
-        ></animateTransform>
-      </g>
-    </svg>
-  )
-}
-export const CleanNightIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <g>
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-5 32 32;15 32 32;-5 32 32"
-        ></animateTransform>
-      </g>
-    </svg>
-  )
-}
-export const RaindropsIcon = (props) => {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M38 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C48 31.62 44.09 26 38 17z"
-      >
-        <animateTransform
-          attributeName="transform"
-          calcMode="spline"
-          dur="5s"
-          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
-          repeatCount="indefinite"
-          type="scale"
-          values="1 1; 1 .9; 1 1"
-        ></animateTransform>
-      </path>
-      <path
-        fill="none"
-        stroke="#2885c7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-        d="M26 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C36 31.62 32.09 26 26 17z"
-      >
-        <animateTransform
-          attributeName="transform"
-          begin="-3s"
-          calcMode="spline"
-          dur="5s"
-          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
-          repeatCount="indefinite"
-          type="scale"
-          values="1 1; 1 .9; 1 1"
-        ></animateTransform>
-      </path>
-    </svg>
+        d="M44.68 40.83a17.84 17.84 0 01-11.93-21.72 17.2 17.2 0 011.73-4A16.78 16.78 0 0015 27a17.83 17.83 0 0012 21.74 16.83 16.83 0 0019.58-7.45 18 18 0 01-1.9-.46z"
+    ></path>
+  </svg>
   )
 }
 export const ThermometerIcon = (props) => {
@@ -502,6 +412,114 @@ export const NotAvailableIcon = (props) => {
     </svg>
   )
 }
+//icons for displaying weather
+
+export const RaindropsIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <path
+        fill="none"
+        stroke="#2885c7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M38 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C48 31.62 44.09 26 38 17z"
+      >
+        <animateTransform
+          attributeName="transform"
+          calcMode="spline"
+          dur="5s"
+          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+          repeatCount="indefinite"
+          type="scale"
+          values="1 1; 1 .9; 1 1"
+        ></animateTransform>
+      </path>
+      <path
+        fill="none"
+        stroke="#2885c7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M26 17c-6.09 9-10 14.62-10 20.09a10 10 0 0020 0C36 31.62 32.09 26 26 17z"
+      >
+        <animateTransform
+          attributeName="transform"
+          begin="-3s"
+          calcMode="spline"
+          dur="5s"
+          keySplines="0.5 0 0.5 1; 0.5 0 0.5 1"
+          repeatCount="indefinite"
+          type="scale"
+          values="1 1; 1 .9; 1 1"
+        ></animateTransform>
+      </path>
+    </svg>
+  )
+}
+export const ClearDayIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#f59e0b"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="3"
+          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
+        ></path>
+        <animateTransform
+          attributeName="transform"
+          dur="45s"
+          from="0 32 32"
+          repeatCount="indefinite"
+          to="360 32 32"
+          type="rotate"
+        ></animateTransform>
+      </g>
+    </svg>
+  )
+}
+export const ClearDayIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#f59e0b"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="3"
+          d="M42.5 32A10.5 10.5 0 1132 21.5 10.5 10.5 0 0142.5 32zM32 15.71V9.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 47.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 32H9.5m45 0h-6.21"
+        ></path>
+      </g>
+    </svg>
+  )
+}
+export const CleanNightIcon = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#72b9d5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
+        ></path>
+        <animateTransform
+          attributeName="transform"
+          dur="10s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="-5 32 32;15 32 32;-5 32 32"
+        ></animateTransform>
+      </g>
+    </svg>
+  )
+}
 export const RainingIcon = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -585,6 +603,50 @@ export const RainingIcon = (props) => {
           repeatCount="indefinite"
           values="0;1;1;0"
         ></animate>
+      </g>
+    </svg>
+  )
+} //musi byt static v tablu
+export const RainingIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      ></path>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
+          d="M24.39 43.03l-.78 4.94"
+        ></path>
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
+          d="M31.39 43.03l-.78 4.94"
+        ></path>
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
+          d="M38.39 43.03l-.78 4.94"
+        ></path>
       </g>
     </svg>
   )
@@ -723,7 +785,72 @@ export const SnowingIcon = (props) => {
       </g>
     </svg>
   );
-}
+}//musi byt static v tablu
+export const SnowingIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="3"
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      ></path>
+      <g>
+        <circle
+          cx="31"
+          cy="45"
+          r="1.25"
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit="10"
+        ></circle>
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          d="M33.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M31 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        ></path>
+      </g>
+      <g>
+        <circle
+          cx="24"
+          cy="45"
+          r="1.25"
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit="10"
+        ></circle>
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          d="M26.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M24 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        ></path>
+      </g>
+      <g>
+        <circle
+          cx="38"
+          cy="45"
+          r="1.25"
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit="10"
+        ></circle>
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          d="M40.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M38 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        ></path>
+      </g>
+    </svg>
+  );
+} //spatna
 export const CloudyIcon = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -746,7 +873,194 @@ export const CloudyIcon = (props) => {
     </svg>
   );
 }
-export const PartlyCloudyIcon = (props) => {
+export const CloudyIconStatic = (props) => {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <g>
+        <path
+          fill="none"
+          stroke="#e5e7eb"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+        ></path>
+      </g>
+    </svg>
+  );
+}
+export const DrizzleIcon = (props) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      />
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M24.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M31.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-0.5s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-0.5s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M38.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-1s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-1s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+    </svg>
+  );
+} //musi byt static v tablu
+export const DrizzleIconStatic = (props) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      />
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M24.08 45.01l-.16.98"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M31.08 45.01l-.16.98"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M38.08 45.01l-.16.98"
+        />
+      </g>
+    </svg>
+  );
+}
+export const PartlyCloudyDayIcon = (props) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="none"
+            d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
+          />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <g>
+          <path
+            fill="none"
+            stroke="#f59e0b"
+            strokeLinecap="round"
+            strokeMiterlimit={10}
+            strokeWidth={2}
+            d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="45s"
+            from="0 19 24"
+            repeatCount="indefinite"
+            to="360 19 24"
+            type="rotate"
+          />
+        </g>
+      </g>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
+      />
+    </svg>
+  );
+} //musi byt static v tablu
+export const PartlyCloudyDayIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
@@ -766,14 +1080,6 @@ export const PartlyCloudyIcon = (props) => {
           strokeWidth="2"
           d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 19 24"
-          repeatCount="indefinite"
-          to="360 19 24"
-          type="rotate"
-        ></animateTransform>
       </g>
       <path
         fill="none"
@@ -787,6 +1093,121 @@ export const PartlyCloudyIcon = (props) => {
 }
 export const PartlyCloudyDayDrizzleIcon = (props) => {
   return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="none"
+            d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
+          />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <g>
+          <path
+            fill="none"
+            stroke="#f59e0b"
+            strokeLinecap="round"
+            strokeMiterlimit={10}
+            strokeWidth={2}
+            d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="45s"
+            from="0 19 24"
+            repeatCount="indefinite"
+            to="360 19 24"
+            type="rotate"
+          />
+        </g>
+      </g>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      />
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M24.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M31.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-0.5s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-0.5s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M38.08 45.01l-.16.98"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-1s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-1s"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+    </svg>
+  );
+} //musi byt static v tablu
+export const PartlyCloudyDayDrizzleIconStatic = (props) => {
+  return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
         <clipPath id="a">
@@ -805,14 +1226,6 @@ export const PartlyCloudyDayDrizzleIcon = (props) => {
           strokeWidth="2"
           d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 19 24"
-          repeatCount="indefinite"
-          to="360 19 24"
-          type="rotate"
-        ></animateTransform>
       </g>
       <path
         fill="none"
@@ -831,19 +1244,6 @@ export const PartlyCloudyDayDrizzleIcon = (props) => {
           strokeWidth="2"
           d="M24.08 45.01l-.16.98"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="1.5s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          dur="1.5s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
       <g>
         <path
@@ -854,21 +1254,6 @@ export const PartlyCloudyDayDrizzleIcon = (props) => {
           strokeWidth="2"
           d="M31.08 45.01l-.16.98"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          begin="-0.5s"
-          dur="1.5s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-0.5s"
-          dur="1.5s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
       <g>
         <path
@@ -879,26 +1264,126 @@ export const PartlyCloudyDayDrizzleIcon = (props) => {
           strokeWidth="2"
           d="M38.08 45.01l-.16.98"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          begin="-1s"
-          dur="1.5s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-1s"
-          dur="1.5s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
     </svg>
   );
-}
+} //spatna
 export const PartlyCloudyDayRainIcon = (props) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="none"
+            d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
+          />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <g>
+          <path
+            fill="none"
+            stroke="#f59e0b"
+            strokeLinecap="round"
+            strokeMiterlimit={10}
+            strokeWidth={2}
+            d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="45s"
+            from="0 19 24"
+            repeatCount="indefinite"
+            to="360 19 24"
+            type="rotate"
+          />
+        </g>
+      </g>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      />
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M24.39 43.03l-.78 4.94"
+        />
+        <animateTransform
+          attributeName="transform"
+          dur="0.7s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          dur="0.7s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M31.39 43.03l-.78 4.94"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-0.4s"
+          dur="0.7s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-0.4s"
+          dur="0.7s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+      <g>
+        <path
+          fill="none"
+          stroke="#2885c7"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          strokeWidth={2}
+          d="M38.39 43.03l-.78 4.94"
+        />
+        <animateTransform
+          attributeName="transform"
+          begin="-0.2s"
+          dur="0.7s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -5; -2 10"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-0.2s"
+          dur="0.7s"
+          repeatCount="indefinite"
+          values="0;1;1;0"
+        />
+      </g>
+    </svg>
+  );
+} //musi byt static v tablu
+export const PartlyCloudyDayRainIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
@@ -918,14 +1403,6 @@ export const PartlyCloudyDayRainIcon = (props) => {
           strokeWidth="2"
           d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 19 24"
-          repeatCount="indefinite"
-          to="360 19 24"
-          type="rotate"
-        ></animateTransform>
       </g>
       <path
         fill="none"
@@ -944,19 +1421,6 @@ export const PartlyCloudyDayRainIcon = (props) => {
           strokeWidth="2"
           d="M24.39 43.03l-.78 4.94"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="0.7s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          dur="0.7s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
       <g>
         <path
@@ -967,21 +1431,6 @@ export const PartlyCloudyDayRainIcon = (props) => {
           strokeWidth="2"
           d="M31.39 43.03l-.78 4.94"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          begin="-0.4s"
-          dur="0.7s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-0.4s"
-          dur="0.7s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
       <g>
         <path
@@ -992,26 +1441,174 @@ export const PartlyCloudyDayRainIcon = (props) => {
           strokeWidth="2"
           d="M38.39 43.03l-.78 4.94"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          begin="-0.2s"
-          dur="0.7s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -5; -2 10"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-0.2s"
-          dur="0.7s"
-          repeatCount="indefinite"
-          values="0;1;1;0"
-        ></animate>
       </g>
     </svg>
   );
-}
+} //spatna
 export const PartlyCloudyDaySnowIcon = (props) => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <defs>
+        <clipPath id="a">
+          <path
+            fill="none"
+            d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
+          />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#a)">
+        <g>
+          <path
+            fill="none"
+            stroke="#f59e0b"
+            strokeLinecap="round"
+            strokeMiterlimit={10}
+            strokeWidth={2}
+            d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="45s"
+            from="0 19 24"
+            repeatCount="indefinite"
+            to="360 19 24"
+            type="rotate"
+          />
+        </g>
+      </g>
+      <path
+        fill="none"
+        stroke="#e5e7eb"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+        d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
+      />
+      <g>
+        <circle
+          cx={31}
+          cy={45}
+          r={1.25}
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit={10}
+        />
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          d="M33.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M31 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          dur="4s"
+          repeatCount="indefinite"
+          type="translate"
+          values="-1 -6; 1 12"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          dur="9s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="0 31 45; 360 31 45"
+        />
+        <animate
+          attributeName="opacity"
+          dur="4s"
+          repeatCount="indefinite"
+          values="0;1;1;1;0"
+        />
+      </g>
+      <g>
+        <circle
+          cx={24}
+          cy={45}
+          r={1.25}
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit={10}
+        />
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          d="M26.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M24 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          begin="-2s"
+          dur="4s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -6; -1 12"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          dur="9s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="0 24 45; 360 24 45"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-2s"
+          dur="4s"
+          repeatCount="indefinite"
+          values="0;1;1;1;0"
+        />
+      </g>
+      <g>
+        <circle
+          cx={38}
+          cy={45}
+          r={1.25}
+          fill="none"
+          stroke="#72b8d4"
+          strokeMiterlimit={10}
+        />
+        <path
+          fill="none"
+          stroke="#72b8d4"
+          strokeLinecap="round"
+          strokeMiterlimit={10}
+          d="M40.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M38 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          begin="-1s"
+          dur="4s"
+          repeatCount="indefinite"
+          type="translate"
+          values="1 -6; -1 12"
+        />
+        <animateTransform
+          additive="sum"
+          attributeName="transform"
+          dur="9s"
+          repeatCount="indefinite"
+          type="rotate"
+          values="0 38 45; 360 38 45"
+        />
+        <animate
+          attributeName="opacity"
+          begin="-1s"
+          dur="4s"
+          repeatCount="indefinite"
+          values="0;1;1;1;0"
+        />
+      </g>
+    </svg>
+  );
+} //musi byt static v tablu
+export const PartlyCloudyDaySnowIconStatic = (props) => {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
       <defs>
@@ -1031,14 +1628,6 @@ export const PartlyCloudyDaySnowIcon = (props) => {
           strokeWidth="2"
           d="M23.5 24a4.5 4.5 0 11-4.5-4.5 4.49 4.49 0 014.5 4.5zM19 15.67V12.5m0 23v-3.17m5.89-14.22l2.24-2.24M10.87 32.13l2.24-2.24m0-11.78l-2.24-2.24m16.26 16.26l-2.24-2.24M7.5 24h3.17m19.83 0h-3.17"
         ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="45s"
-          from="0 19 24"
-          repeatCount="indefinite"
-          to="360 19 24"
-          type="rotate"
-        ></animateTransform>
       </g>
       <path
         fill="none"
@@ -1064,28 +1653,6 @@ export const PartlyCloudyDaySnowIcon = (props) => {
           strokeMiterlimit="10"
           d="M33.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M31 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
         ></path>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          dur="4s"
-          repeatCount="indefinite"
-          type="translate"
-          values="-1 -6; 1 12"
-        ></animateTransform>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          dur="9s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="0 31 45; 360 31 45"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          dur="4s"
-          repeatCount="indefinite"
-          values="0;1;1;1;0"
-        ></animate>
       </g>
       <g>
         <circle
@@ -1103,30 +1670,6 @@ export const PartlyCloudyDaySnowIcon = (props) => {
           strokeMiterlimit="10"
           d="M26.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M24 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
         ></path>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          begin="-2s"
-          dur="4s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -6; -1 12"
-        ></animateTransform>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          dur="9s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="0 24 45; 360 24 45"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-2s"
-          dur="4s"
-          repeatCount="indefinite"
-          values="0;1;1;1;0"
-        ></animate>
       </g>
       <g>
         <circle
@@ -1144,102 +1687,80 @@ export const PartlyCloudyDaySnowIcon = (props) => {
           strokeMiterlimit="10"
           d="M40.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M38 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
         ></path>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          begin="-1s"
-          dur="4s"
-          repeatCount="indefinite"
-          type="translate"
-          values="1 -6; -1 12"
-        ></animateTransform>
-        <animateTransform
-          additive="sum"
-          attributeName="transform"
-          dur="9s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="0 38 45; 360 38 45"
-        ></animateTransform>
-        <animate
-          attributeName="opacity"
-          begin="-1s"
-          dur="4s"
-          repeatCount="indefinite"
-          values="0;1;1;1;0"
-        ></animate>
       </g>
     </svg>
   );
-}
+} //spatna
 export const PartlyCloudyNightDrizzleIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
       <defs>
         <clipPath id="a">
           <path
             fill="none"
             d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
-          ></path>
+          />
         </clipPath>
       </defs>
       <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
-        ></animateTransform>
+        <g>
+          <path
+            fill="none"
+            stroke="#72b9d5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="10s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
+          />
+        </g>
       </g>
       <path
         fill="none"
         stroke="#e5e7eb"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="3"
+        strokeWidth={3}
         d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
-      ></path>
+      />
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M24.08 45.01l-.16.98"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           dur="1.5s"
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           dur="1.5s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M31.08 45.01l-.16.98"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           begin="-0.5s"
@@ -1247,24 +1768,24 @@ export const PartlyCloudyNightDrizzleIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-0.5s"
           dur="1.5s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M38.08 45.01l-.16.98"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           begin="-1s"
@@ -1272,124 +1793,128 @@ export const PartlyCloudyNightDrizzleIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-1s"
           dur="1.5s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
     </svg>
   );
 }
 export const PartlyCloudyNightIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
       <defs>
         <clipPath id="a">
           <path
             fill="none"
             d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
-          ></path>
+          />
         </clipPath>
       </defs>
       <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
-        ></animateTransform>
+        <g>
+          <path
+            fill="none"
+            stroke="#72b9d5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="10s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
+          />
+        </g>
       </g>
       <path
         fill="none"
         stroke="#e5e7eb"
         strokeLinejoin="round"
-        strokeWidth="3"
+        strokeWidth={3}
         d="M46.5 31.5h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0h28a7 7 0 000-14z"
-      ></path>
+      />
     </svg>
   );
 }
 export const PartlyCloudyNightRainIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
       <defs>
         <clipPath id="a">
           <path
             fill="none"
             d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
-          ></path>
+          />
         </clipPath>
       </defs>
       <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
-        ></animateTransform>
+        <g>
+          <path
+            fill="none"
+            stroke="#72b9d5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="10s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
+          />
+        </g>
       </g>
       <path
         fill="none"
         stroke="#e5e7eb"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="3"
+        strokeWidth={3}
         d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
-      ></path>
+      />
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M24.39 43.03l-.78 4.94"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           dur="0.7s"
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           dur="0.7s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M31.39 43.03l-.78 4.94"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           begin="-0.4s"
@@ -1397,24 +1922,24 @@ export const PartlyCloudyNightRainIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-0.4s"
           dur="0.7s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <path
           fill="none"
           stroke="#2885c7"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="2"
+          strokeMiterlimit={10}
+          strokeWidth={2}
           d="M38.39 43.03l-.78 4.94"
-        ></path>
+        />
         <animateTransform
           attributeName="transform"
           begin="-0.2s"
@@ -1422,70 +1947,72 @@ export const PartlyCloudyNightRainIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -5; -2 10"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-0.2s"
           dur="0.7s"
           repeatCount="indefinite"
           values="0;1;1;0"
-        ></animate>
+        />
       </g>
     </svg>
   );
 }
 export const PartlyCloudyNightSnowIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
       <defs>
         <clipPath id="a">
           <path
             fill="none"
             d="M12 35l-5.28-4.21-2-6 1-7 4-5 5-3h6l5 1 3 3L33 20l-6 4h-6l-3 3v4l-4 2-2 2z"
-          ></path>
+          />
         </clipPath>
       </defs>
       <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
-        ></path>
-        <animateTransform
-          attributeName="transform"
-          dur="10s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
-        ></animateTransform>
+        <g>
+          <path
+            fill="none"
+            stroke="#72b9d5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M29.33 26.68a10.61 10.61 0 01-10.68-10.54A10.5 10.5 0 0119 13.5a10.54 10.54 0 1011.5 13.11 11.48 11.48 0 01-1.17.07z"
+          />
+          <animateTransform
+            attributeName="transform"
+            dur="10s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="-10 19.22 24.293;10 19.22 24.293;-10 19.22 24.293"
+          />
+        </g>
       </g>
       <path
         fill="none"
         stroke="#e5e7eb"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="3"
+        strokeWidth={3}
         d="M43.67 45.5h2.83a7 7 0 000-14h-.32a10.49 10.49 0 00-19.11-8 7 7 0 00-10.57 6 7.21 7.21 0 00.1 1.14A7.5 7.5 0 0018 45.5a4.19 4.19 0 00.5 0v0"
-      ></path>
+      />
       <g>
         <circle
-          cx="31"
-          cy="45"
-          r="1.25"
+          cx={31}
+          cy={45}
+          r={1.25}
           fill="none"
           stroke="#72b8d4"
-          strokeMiterlimit="10"
-        ></circle>
+          strokeMiterlimit={10}
+        />
         <path
           fill="none"
           stroke="#72b8d4"
           strokeLinecap="round"
-          strokeMiterlimit="10"
+          strokeMiterlimit={10}
           d="M33.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M31 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
-        ></path>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1493,7 +2020,7 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="-1 -6; 1 12"
-        ></animateTransform>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1501,30 +2028,30 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="rotate"
           values="0 31 45; 360 31 45"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           dur="4s"
           repeatCount="indefinite"
           values="0;1;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <circle
-          cx="24"
-          cy="45"
-          r="1.25"
+          cx={24}
+          cy={45}
+          r={1.25}
           fill="none"
           stroke="#72b8d4"
-          strokeMiterlimit="10"
-        ></circle>
+          strokeMiterlimit={10}
+        />
         <path
           fill="none"
           stroke="#72b8d4"
           strokeLinecap="round"
-          strokeMiterlimit="10"
+          strokeMiterlimit={10}
           d="M26.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M24 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
-        ></path>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1533,7 +2060,7 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -6; -1 12"
-        ></animateTransform>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1541,31 +2068,31 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="rotate"
           values="0 24 45; 360 24 45"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-2s"
           dur="4s"
           repeatCount="indefinite"
           values="0;1;1;1;0"
-        ></animate>
+        />
       </g>
       <g>
         <circle
-          cx="38"
-          cy="45"
-          r="1.25"
+          cx={38}
+          cy={45}
+          r={1.25}
           fill="none"
           stroke="#72b8d4"
-          strokeMiterlimit="10"
-        ></circle>
+          strokeMiterlimit={10}
+        />
         <path
           fill="none"
           stroke="#72b8d4"
           strokeLinecap="round"
-          strokeMiterlimit="10"
+          strokeMiterlimit={10}
           d="M40.17 46.25l-1.09-.63m-2.16-1.24l-1.09-.63M38 42.5v1.25m0 3.75v-1.25m-1.08-.63l-1.09.63m4.34-2.5l-1.09.63"
-        ></path>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1574,7 +2101,7 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="translate"
           values="1 -6; -1 12"
-        ></animateTransform>
+        />
         <animateTransform
           additive="sum"
           attributeName="transform"
@@ -1582,14 +2109,14 @@ export const PartlyCloudyNightSnowIcon = (props) => {
           repeatCount="indefinite"
           type="rotate"
           values="0 38 45; 360 38 45"
-        ></animateTransform>
+        />
         <animate
           attributeName="opacity"
           begin="-1s"
           dur="4s"
           repeatCount="indefinite"
           values="0;1;1;1;0"
-        ></animate>
+        />
       </g>
     </svg>
   );
@@ -1723,6 +2250,25 @@ export const LogoIcon = (props) => {
           className="cls-1"
         />
       </g>
+    </svg>
+  )
+}
+
+export const SunRiseLine = (props) => {
+  return (
+    <svg
+      width={258}
+      height={43}
+      viewBox="0 0 258 43"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1 42L7.91814 37.4196C79.9655 -10.2822 173.326 -11.1611 246.259 35.1758L257 42"
+        stroke="white"
+        strokeDasharray="2 2"
+      />
     </svg>
   )
 }

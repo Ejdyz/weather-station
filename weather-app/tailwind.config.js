@@ -17,5 +17,5 @@ module.exports = {
       },
     },
   },
-  plugins: [nextui()],
+  plugins: [nextui(), require("tailwindcss-animate")],
 }

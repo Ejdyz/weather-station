@@ -67,13 +67,14 @@ export async function POST(request) {
     //querry to mySql inserting data from last 143 records
     const RecordTable = env.DB_TABLE_RECORDS.toString()
     const DayTable = env.DB_TABLE_DAYS.toString()
-    const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperatrue, lowestTemperatrue, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, averagePressure ) SELECT NOW(), MAX(temperature) AS highestTemperatrue, MIN(temperature) AS lowestTemperatrue, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MAX(light) AS highestLight, AVG(pressure) AS averagePressure FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 143 ;"
+    const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, lowestPressure, highestPressure ) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MAX(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 143 ;"
     db.query(sql, (err) => {
       if (err) {
         console.error('Error executing the query:', err);
       }else{
         console.log("data saved succesfully to days database")
       }
+      db.releaseConnection();
     });
   }
 
@@ -94,6 +95,7 @@ export async function GET() {
         resolve(results[0]);
       }
     });
+    db.releaseConnection();
   });
 
   return NextResponse.json(lastRecord, { status: 200 })

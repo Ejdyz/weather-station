@@ -1,6 +1,7 @@
 "use client"
 import {Tab, Tabs} from "@nextui-org/tabs";
 import Charts from "@/components/charts/Charts";
+import Tables from "@/components/tables/Tables";
 
 const Selector = () => {
   return (
@@ -10,7 +11,7 @@ const Selector = () => {
           <Charts/>
         </Tab>
         <Tab key="tables" title={"Tables"}>
-          <Charts/>
+          <Tables/>
         </Tab>
       </Tabs>
     </div>

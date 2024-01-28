@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { getLastTenDays } from '@/lib/weatherData';
 import DaySwitcher from '@/components/DaySwitcher';
-import WeatherCharts from "@/components/charts/WeatherCharts";
+import MyTable from "@/components/tables/MyTable";
 
 export default function Home() {
   const [days, setDays] = useState("7");
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const result = await getLastTenDays({forCharts: true, days});
+      const result = await getLastTenDays({forCharts: false, days});
       setLoading(false);
       console.log(days)
       setData(result);
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="m-1">
       <DaySwitcher value={days} setValue={setDays} />
-      <WeatherCharts data={data} loading={loading}/>
+      <MyTable data={data} loading={loading}/>
     </div>
   );
 }

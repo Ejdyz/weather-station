@@ -3,7 +3,7 @@ import {
   CelsiusIcon,
   CleanNightIcon,
   ClearDayIcon,
-  CloudyIcon,
+  CloudyIcon, CloudyIconStatic, DrizzleIcon, DrizzleIconStatic,
   FullMoonIcon,
   HumidityIcon,
   MoonFirstQuarterIcon,
@@ -16,17 +16,17 @@ import {
   MoonWaxingGibbousIcon,
   NewMoonIcon,
   NotAvailableIcon,
-  PartlyCloudyDayDrizzleIcon,
-  PartlyCloudyDayRainIcon,
-  PartlyCloudyDaySnowIcon,
+  PartlyCloudyDayDrizzleIcon, PartlyCloudyDayDrizzleIconStatic, PartlyCloudyDayIcon, PartlyCloudyDayIconStatic,
+  PartlyCloudyDayRainIcon, PartlyCloudyDayRainIconStatic,
+  PartlyCloudyDaySnowIcon, PartlyCloudyDaySnowIconStatic,
   PartlyCloudyIcon,
   PartlyCloudyNightDrizzleIcon,
   PartlyCloudyNightIcon,
   PartlyCloudyNightRainIcon,
   PartlyCloudyNightSnowIcon,
   RaindropsIcon,
-  RainingIcon,
-  SnowingIcon,
+  RainingIcon, RainingIconStatic,
+  SnowingIcon, SnowingIconStatic,
   SunriseIcon,
   SunsetIcon,
   ThermometerIcon
@@ -35,6 +35,7 @@ import {
 const Page = () => {
   return (
     <>
+
       <div className="flex h-32 bg-white">
         <SunriseIcon/>
         <SunsetIcon/>
@@ -42,14 +43,38 @@ const Page = () => {
         <MoonsetIcon/>
       </div>
       <div className="flex h-32 bg-white">
-        <NewMoonIcon/>
-        <FullMoonIcon/>
-        <MoonFirstQuarterIcon/>
-        <MoonLastQuarterIcon/>
+        <>
+          <NewMoonIcon/>
+          new moon
+        </>
+        <>
+          <FullMoonIcon/>
+          full moon
+        </>
+        <>
+          <MoonFirstQuarterIcon/>
+          1st quarter
+        </>
+        <>
+          <MoonLastQuarterIcon/>
+          3rd quarter
+        </>
+        <>
         <MoonWaningCrescentIcon/>
+         waning crescent
+        </>
+        <>
         <MoonWaxingCrescentIcon/>
+         waxing crescent
+        </>
+        <>
         <MoonWaningGibbousIcon/>
+          waning gibbous
+        </>
+        <>
         <MoonWaxingGibbousIcon/>
+          waxing gibbous
+        </>
       </div>
       <div className="flex h-32 bg-white">
         <ClearDayIcon/>
@@ -65,11 +90,12 @@ const Page = () => {
       </div>
       <div className="flex h-32 bg-white">
         <CloudyIcon/>
+        <DrizzleIcon/>
         <RainingIcon/>
         <SnowingIcon/>
       </div>
       <div className="flex h-32 bg-white">
-        <PartlyCloudyIcon/>
+        <PartlyCloudyDayIcon/>
         <PartlyCloudyDayDrizzleIcon/>
         <PartlyCloudyDayRainIcon/>
         <PartlyCloudyDaySnowIcon/>
@@ -79,6 +105,19 @@ const Page = () => {
         <PartlyCloudyNightDrizzleIcon/>
         <PartlyCloudyNightRainIcon/>
         <PartlyCloudyNightSnowIcon/>
+      </div>
+      static icons for table
+      <div className="flex h-32 bg-white">
+        <CloudyIconStatic/>
+        <DrizzleIconStatic/>
+        <RainingIconStatic/>
+        <SnowingIconStatic/>
+      </div>
+      <div className="flex h-32 bg-white">
+        <PartlyCloudyDayIconStatic/>
+        <PartlyCloudyDayDrizzleIconStatic/>
+        <PartlyCloudyDayRainIconStatic/>
+        <PartlyCloudyDaySnowIconStatic/>
       </div>
     </>
   );

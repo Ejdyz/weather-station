@@ -2,12 +2,12 @@ import MyNavbar from "@/components/navbar/MyNavbar";
 import {
   CleanNightIcon,
   ClearDayIcon,
-  CloudyIcon, PartlyCloudyDayDrizzleIcon,
-  PartlyCloudyIcon,
+  CloudyIcon, PartlyCloudyDayDrizzleIcon, PartlyCloudyDayIcon,
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
 import Selector from "@/components/Selector";
+import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
 
 
 export default async function Home() {
@@ -23,7 +23,6 @@ export default async function Home() {
   const rainyWeather = "from-sky-800  to-gray-500"
   const snowyWeather = "from-sky-300  to-cyan-600"
 
-
   return (
     <>
 
@@ -31,11 +30,12 @@ export default async function Home() {
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
           <ClearDayIcon className={"w-64"} />
+          <MoonAndSunriseWrapper />
           <Selector/>
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >
-        <PartlyCloudyIcon className={"w-64"} />
+        <PartlyCloudyDayIcon className={"w-64"} />
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr " + clearWeatherNight} >
         <CleanNightIcon className={"w-64"}/>

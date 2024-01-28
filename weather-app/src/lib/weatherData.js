@@ -68,4 +68,37 @@ export const getLastTenDays = async ({forCharts,days}) => {
   return data
 }
 
+export const getSunriseAndSunset = async () => {
+  const apiKey = env.GEOLOCATION_API_KEY.toString();
+  return {
+    location: {
+      location: 'Ústí nad Labem, CZ',
+      country: 'Czechia',
+      state: 'Northwest',
+      city: 'Ústí nad Labem',
+      locality: '',
+      latitude: 50.6603327,
+      longitude: 14.0381357
+    },
+    date: '2024-01-28',
+    current_time: '20:05:30.098',
+    sunrise: '07:45',
+    sunset: '16:48',
+    sun_status: '-',
+    solar_noon: '12:16',
+    day_length: '09:03',
+    sun_altitude: -31.089456916038326,
+    sun_distance: 147290229.58239198,
+    sun_azimuth: 279.2736870351876,
+    moonrise: '19:41',
+    moonset: '09:14',
+    moon_status: '-',
+    moon_altitude: 3.7920620273060655,
+    moon_distance: 405553.86315247096,
+    moon_azimuth: 78.77612276609557,
+    moon_parallactic_angle: -39.13493070212058
+  }
+
+  //return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
+};
 

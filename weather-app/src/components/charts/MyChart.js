@@ -32,7 +32,7 @@ export default function App({data,forWhat, loading}) {
     <>
       <div className={"grid justify-center"}>
         {loading? (
-          <div className="w-full h-[300px] grid  justify-center ">
+          <div className="md:w-[1300px] w-screen h-[300px] grid  justify-center ">
             <Spinner size="lg"/>
           </div>
         ) :(

@@ -2,26 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+/* This styles the scrollbar track (the part the thumb slides in) */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* This styles the scrollbar thumb (the part you drag) */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1; /* Creates padding around the thumb */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* Changes the thumb color when hovering over it */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* This styles the scrollbar itself (including the track and thumb) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+
 }

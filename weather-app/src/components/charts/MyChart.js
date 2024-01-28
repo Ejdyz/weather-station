@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import {Spinner} from "@nextui-org/spinner";
 
 //fetching data from api
 
@@ -25,12 +26,17 @@ const CustomTooltip = ({ active, payload, label, forWhat }) => {
   return null;
 };
 
-export default function App({data,forWhat}) {
+export default function App({data,forWhat, loading}) {
 
   return (
     <>
-      <div style={{display:"grid", justifyContent:"center"}}>
-          <div className="md:overflow-y-hidden sm:overflow-y-scroll" style={{marginTop:"10px",width: "100%",}}>
+      <div className={"grid justify-center"}>
+        {loading? (
+          <div className="w-[1300px] h-[300px] grid  justify-center ">
+            <Spinner size="lg"/>
+          </div>
+        ) :(
+          <div className="overflow-y-hidden" style={{marginTop:"10px",width: "100%",}}>
             <LineChart
               width={1300}
               height={300}
@@ -43,7 +49,7 @@ export default function App({data,forWhat}) {
               <Legend />
               <Line type="monotone" dataKey={forWhat} stroke={forWhat==="temperature"? "#F5FF20FF" : forWhat==="humidity"?"#00FF00": forWhat==="pressure"?"#FF0000":"#006ae5"} />
             </LineChart>
-          </div>
+          </div>)}
       </div>
     </>
   );

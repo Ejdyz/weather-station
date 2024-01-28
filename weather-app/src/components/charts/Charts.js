@@ -21,15 +21,10 @@ export default function Home() {
     fetchData();
   }, [days]);
 
-  if (loading) {
-    return (
-      <div>Loading...</div>
-    )
-  }
   return (
-    <div className="m-1ě">
-      <ChartSwitcher value={days} setValue={setDays}/>
-      <WeatherCharts data={data}/>
+    <div className="m-1">
+      <ChartSwitcher value={days} setValue={setDays} />
+      <WeatherCharts data={data} loading={loading}/>
     </div>
   );
 }

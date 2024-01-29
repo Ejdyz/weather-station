@@ -11,7 +11,7 @@ export default function App({data, loading}) {
             <Spinner size="lg"/>
           </div>
         ) :(
-          <div className="overflow-y-hidden" style={{marginTop:"10px",width: "100%",}}>
+          <div className="overflow-y-hidden mt-2 ml-2 pr-2 w-full" >
             <VercelTable data={data}/>
           </div>)}
       </div>

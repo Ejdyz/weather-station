@@ -1,11 +1,12 @@
 import {
-  BarometerIcon,
+  AquariusIcon, AriesIcon,
+  BarometerIcon, CancerIcon, CapricornIcon,
   CelsiusIcon,
   CleanNightIcon,
   ClearDayIcon,
   CloudyIcon, CloudyIconStatic, DrizzleIcon, DrizzleIconStatic,
-  FullMoonIcon,
-  HumidityIcon,
+  FullMoonIcon, GeminiIcon,
+  HumidityIcon, LeoIcon, LibraIcon,
   MoonFirstQuarterIcon,
   MoonLastQuarterIcon,
   MoonriseIcon,
@@ -23,13 +24,13 @@ import {
   PartlyCloudyNightDrizzleIcon,
   PartlyCloudyNightIcon,
   PartlyCloudyNightRainIcon,
-  PartlyCloudyNightSnowIcon,
+  PartlyCloudyNightSnowIcon, PiscesIcon,
   RaindropsIcon,
-  RainingIcon, RainingIconStatic,
+  RainingIcon, RainingIconStatic, SagittariusIcon, ScorpioIcon,
   SnowingIcon, SnowingIconStatic,
   SunriseIcon,
-  SunsetIcon,
-  ThermometerIcon
+  SunsetIcon, TaurusIcon,
+  ThermometerIcon, VirgoIcon
 } from "@/components/icons/Icons";
 
 const Page = () => {
@@ -118,6 +119,23 @@ const Page = () => {
         <PartlyCloudyDayDrizzleIconStatic/>
         <PartlyCloudyDayRainIconStatic/>
         <PartlyCloudyDaySnowIconStatic/>
+      </div>
+      Zodiac signs
+      <div className="flex h-32 bg-white">
+        <AquariusIcon className={"h-32 "} color={"black"}  />
+        <AriesIcon className={"h-32 "} color={"black"} />
+        <CancerIcon className={"h-32 "} color={"black"} />
+        <CapricornIcon className={"h-32 "} color={"black"} />
+        <GeminiIcon className={"h-32 "} color={"black"} />
+        <LeoIcon className={"h-32 "} color={"black"} />
+      </div>
+      <div className="flex h-32 bg-white">
+        <LibraIcon className={"h-32 "} color={"black"} />
+        <PiscesIcon className={"h-32 "} color={"black"} />
+        <ScorpioIcon className={"h-32 "} color={"black"} />
+        <SagittariusIcon className={"h-32 "} color={"black"} />
+        <TaurusIcon className={"h-32 "} color={"black"} />
+        <VirgoIcon className={"h-32 "} color={"black"} />
       </div>
     </>
   );

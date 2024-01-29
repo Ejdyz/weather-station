@@ -1,23 +1,9 @@
-// Example for MySQL
-const mysql = require('mysql2');
+const Sequelize = require("sequelize");
 
-const pool = mysql.createPool({
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  dialect: "mysql",
+  dialectModule: require('mysql2'),
 });
 
-pool.getConnection((err, connection) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-  } else {
-    console.log('Connected to the database');
-    connection.release();
-  }
-});
-
-module.exports = pool;
+module.exports = sequelize;

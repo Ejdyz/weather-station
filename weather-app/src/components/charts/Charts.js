@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { getLastTenDays } from '@/lib/weatherData';
+import { getLastDays } from '@/lib/weatherData';
 import DaySwitcher from '@/components/DaySwitcher';
 import WeatherCharts from "@/components/charts/WeatherCharts";
 
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const result = await getLastTenDays(true, days);
+      const result = await getLastDays(true, days);
       setLoading(false);
       console.log(days)
       setData(result);

@@ -68,7 +68,7 @@ export const getLastRecords = async (numOfRecords) => {
  * @param {number} days - The number of days to retrieve data for.
  * @returns {Promise} A promise that resolves with the data for the last specified number of days.
  */
-export const getLastTenDays = async (forCharts,days) => {
+export const getLastDays = async (forCharts, days) => {
   days = parseInt(days)
   const db = require("@/database/database");
   const DaysModel = require("../../models/Days");

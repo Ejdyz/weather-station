@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import db from '@/database/database';
 import {env} from 'process'
 export async function POST(request) {
   const db = require("@/database/database");
@@ -66,7 +65,7 @@ export async function POST(request) {
       light: sunlight,
       pressure: pressure,
     })
-      .then((result) => {
+      .then(() => {
         console.log("Record created successfully!");
       })
       .catch((error) => {

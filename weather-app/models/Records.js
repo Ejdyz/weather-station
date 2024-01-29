@@ -1,7 +1,7 @@
 /**
  * Import Sequelize.
  */
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
 /**
  * Import the Sequelize instance that you have exported

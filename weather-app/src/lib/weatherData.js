@@ -1,8 +1,5 @@
 "use server"
-import db from "@/database/database";
 import {env} from "process"
-import RecordsModel from "../../models/Records";
-import {NextResponse} from "next/server";
 
 /**
  * Retrieves the last weather record from the database.

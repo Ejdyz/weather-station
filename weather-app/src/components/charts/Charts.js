@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const result = await getLastTenDays({forCharts: true, days});
+      const result = await getLastTenDays(true, days);
       setLoading(false);
       console.log(days)
       setData(result);

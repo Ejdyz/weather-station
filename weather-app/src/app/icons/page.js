@@ -122,20 +122,20 @@ const Page = () => {
       </div>
       Zodiac signs
       <div className="flex h-32 bg-white">
-        <AquariusIcon className={"h-32 "} color={"red"}  />
-        <AriesIcon className={"h-32 "} color={"red"} />
-        <CancerIcon className={"h-32 "} color={"red"} />
-        <CapricornIcon className={"h-32 "} color={"red"} />
-        <GeminiIcon className={"h-32 "} color={"red"} />
-        <LeoIcon className={"h-32 "} color={"red"} />
+        <AquariusIcon className={"h-32 "} color={"black"}  />
+        <AriesIcon className={"h-32 "} color={"black"} />
+        <CancerIcon className={"h-32 "} color={"black"} />
+        <CapricornIcon className={"h-32 "} color={"black"} />
+        <GeminiIcon className={"h-32 "} color={"black"} />
+        <LeoIcon className={"h-32 "} color={"black"} />
       </div>
       <div className="flex h-32 bg-white">
-        <LibraIcon className={"h-32 "} color={"red"} />
-        <PiscesIcon className={"h-32 "} color={"red"} />
-        <ScorpioIcon className={"h-32 "} color={"red"} />
-        <SagittariusIcon className={"h-32 "} color={"red"} />
-        <TaurusIcon className={"h-32 "} color={"red"} />
-        <VirgoIcon className={"h-32 "} color={"red"} />
+        <LibraIcon className={"h-32 "} color={"black"} />
+        <PiscesIcon className={"h-32 "} color={"black"} />
+        <ScorpioIcon className={"h-32 "} color={"black"} />
+        <SagittariusIcon className={"h-32 "} color={"black"} />
+        <TaurusIcon className={"h-32 "} color={"black"} />
+        <VirgoIcon className={"h-32 "} color={"black"} />
       </div>
     </>
   );

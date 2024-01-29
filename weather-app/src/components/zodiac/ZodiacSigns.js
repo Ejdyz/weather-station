@@ -9,71 +9,71 @@ import {
   TaurusIcon, VirgoIcon
 } from "@/components/icons/Icons";
 
-const ZodiacSigns = async () => {
+const ZodiacSigns = async ({className}) => {
   const sign = await getZodiacSign()
   console.log(sign)
   if (sign === "Aries"){
     return (
-      <AriesIcon className="w-20 h-20" color={"white"} />
+      <AriesIcon className={className} color={"white"} />
     );
   }
   if (sign === "Taurus"){
     return (
-      <TaurusIcon className="w-20 h-20" color={"white"} />
+      <TaurusIcon className={className} color={"white"} />
     );
   }
   if (sign === "Gemini"){
     return (
-      <GeminiIcon className="w-20 h-20" color={"white"} />
+      <GeminiIcon className={className} color={"white"} />
     );
   }
   if (sign === "Cancer"){
     return (
-      <CancerIcon className="w-20 h-20" color={"white"} />
+      <CancerIcon className={className} color={"white"} />
     );
   }
   if (sign === "Leo"){
     return (
-      <LeoIcon className="w-20 h-20" color={"white"} />
+      <LeoIcon className={className} color={"white"} />
     );
   }
   if (sign === "Virgo"){
     return (
-      <VirgoIcon className="w-20 h-20" color={"white"} />
+      <VirgoIcon className={className} color={"white"} />
     );
   }
   if (sign === "Libra"){
     return (
-      <LibraIcon className="w-20 h-20" color={"white"} />
+      <LibraIcon className={className} color={"white"} />
     );
   }
   if (sign === "Scorpio"){
     return (
-      <ScorpioIcon className="w-20 h-20" color={"white"} />
+      <ScorpioIcon className={className} color={"white"} />
     );
   }
   if (sign === "Sagittarius"){
     return (
-      <SagittariusIcon className="w-20 h-20" color={"white"} />
+      <SagittariusIcon className={className} color={"white"} />
     );
   }
   if (sign === "Capricorn"){
     return (
-      <CapricornIcon className="w-20 h-20" color={"white"} />
+      <CapricornIcon className={className} color={"white"} />
     );
   }
   if (sign === "Aquarius"){
     return (
-      <AquariusIcon className="w-20 h-20" color={"white"} />
+      <AquariusIcon className={className} color={"white"} />
     );
   }
   if (sign === "Pisces"){
     return (
-      <PiscesIcon className="w-20 h-20" color={"white"} />
+      <PiscesIcon className={className} color={"white"} />
     );
   }
   return (
-    <TaurusIcon className="w-20 h-20" color={"white"} />
+    <TaurusIcon className={className} color={"white"} />
   );
 };
 export default ZodiacSigns;

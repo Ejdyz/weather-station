@@ -10,50 +10,50 @@ import {
   NewMoonIcon
 } from "@/components/icons/Icons";
 
-const MoonPhase = async () => {
+const MoonPhase = async ({className}) => {
   const moonPhase = await getMoonPhase()
   if (moonPhase === "New Moon"){
     return (
-      <NewMoonIcon className="w-32 h-32" />
+      <NewMoonIcon className={className} />
     );
   }
   if (moonPhase === "Full Moon"){
     return (
-      <FullMoonIcon className="w-32 h-32" />
+      <FullMoonIcon className={className} />
     );
   }
   if (moonPhase === "Waning Gibbous"){
     return (
-      <MoonWaningGibbousIcon className="w-32 h-32" />
+      <MoonWaningGibbousIcon className={className} />
     );
   }
   if (moonPhase === "Waning Crescent"){
     return (
-      <MoonWaningCrescentIcon className="w-32 h-32" />
+      <MoonWaningCrescentIcon className={className} />
     );
   }
   if (moonPhase === "1st Quarter"){
     return (
-      <MoonFirstQuarterIcon className="w-32 h-32" />
+      <MoonFirstQuarterIcon className={className} />
     );
   }
   if (moonPhase === "3rd Quarter"){
     return (
-      <MoonLastQuarterIcon className="w-32 h-32" />
+      <MoonLastQuarterIcon className={className} />
     );
   }
   if (moonPhase === "Waxing Gibbous"){
     return (
-      <MoonWaxingGibbousIcon className="w-32 h-32" />
+      <MoonWaxingGibbousIcon className={className} />
     );
   }
   if (moonPhase === "Waxing Crescent"){
     return (
-      <MoonWaxingCrescentIcon className="w-32 h-32" />
+      <MoonWaxingCrescentIcon className={className} />
     );
   }
   return (
-    <NewMoonIcon className="w-32 h-32" />
+    <NewMoonIcon className={className} />
   );
 };
 

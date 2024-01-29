@@ -1,70 +1,115 @@
 "use server"
-import db from "@/database/database";
 import {env} from "process"
+
+/**
+ * Retrieves the last weather record from the database.
+ * @returns {Promise} A promise that resolves with the last record from the database.
+ */
 export const getLastRecord = async () => {
-  const table = env.DB_TABLE_RECORDS.toString();
-  const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT 1";
-
-  const lastRecord = await new Promise((resolve, reject) => {
-    db.query(sql, (err, results) => {
-      if (err) {
-        console.error('Error executing the query:', err);
-        reject(err);
-      } else {
-        resolve(results[0]);
-      }
-    });
-  });
-  return lastRecord;
-}
-export const getLastTenRecords = async () => {
-  const table = env.DB_TABLE_RECORDS.toString();
-  const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT 10";
-
-  const lastRecords = await new Promise((resolve, reject) => {
-    db.query(sql, (err, results) => {
-      if (err) {
-        console.error('Error executing the query:', err);
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-  return lastRecords;
-}
-
-export const getLastTenDays = async ({forCharts,days}) => {
-  const table = env.DB_TABLE_DAYS.toString();
-  const sql = "SELECT * FROM " + "`"+ table + "`"+ " ORDER BY id DESC LIMIT " + days + ";";
-
-  const lastDays = await new Promise((resolve, reject) => {
-    db.query(sql, (err, results) => {
-      if (err) {
-        console.error('Error executing the query:', err);
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-  if (!forCharts){
-    return lastDays
+  const db = require("@/database/database");
+  const RecordsModel = require("../../models/Records");
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    return await new Promise((resolve, reject) => {
+      RecordsModel.findOne({
+        order: [["id", "DESC"]],
+        raw: true,
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
   }
-  const data = lastDays.map((day) => {
-    let date = new Date(day.day)
-    return {
-      day: date.getDate() + "/" + date.getMonth()+1,
-      temperature: day.highestTemperature,
-      humidity: day.highestHumidity,
-      pressure: day.highestPressure,
-      rain: day.highestRaining
-    }
-  })
-
-  return data
 }
 
+/**
+ * Retrieves the specified number of last records from the database.
+ * @param {number} numOfRecords - The number of records to retrieve.
+ * @returns {Promise} A promise that resolves with the specified number of last records from the database.
+ */
+export const getLastRecords = async (numOfRecords) => {
+  const db = require("@/database/database");
+  const RecordsModel = require("../../models/Records");
+  if (numOfRecords === undefined || numOfRecords === null || numOfRecords === "" || numOfRecords <= 0){
+    numOfRecords = 10
+  }
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    return await new Promise((resolve, reject) => {
+      RecordsModel.findAll({
+        limit: numOfRecords,
+        raw: true,
+        order: [["id", "DESC"]],
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}
+/**
+ * Retrieves the data for the last specified number of days.
+ * @param {boolean} forCharts - Whether the data is for charts.
+ * @param {number} days - The number of days to retrieve data for.
+ * @returns {Promise} A promise that resolves with the data for the last specified number of days.
+ */
+export const getLastDays = async (forCharts, days) => {
+  days = parseInt(days)
+  const db = require("@/database/database");
+  const DaysModel = require("../../models/Days");
+  if (days === undefined || days === null || typeof days !== "number" || days <= 0){
+    days = 7
+  }
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    const lastDays = await new Promise((resolve, reject) => {
+      DaysModel.findAll({
+        limit: days,
+        order: [["id", "DESC"]],
+        raw: true,
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+    if (!forCharts){
+      return lastDays
+    }
+    return lastDays.map((day) => {
+      let date = new Date(day.day)
+      return {
+        day: date.getDate() + "/" + date.getMonth()+1,
+        temperature: day.highestTemperature,
+        humidity: day.highestHumidity,
+        pressure: day.highestPressure,
+        rain: day.highestRaining
+      }
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+    return null
+  }
+}
+/**
+ * Retrieves the sunrise and sunset times.
+ * @returns {Promise} A promise that resolves with the sunrise and sunset times.
+ */
 export const getSunriseAndSunset = async () => {
   const apiKey = env.GEOLOCATION_API_KEY.toString();
   return {
@@ -98,13 +143,19 @@ export const getSunriseAndSunset = async () => {
 
   //return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
 };
-
+/**
+ * Retrieves the current moon phase.
+ * @returns {Promise} A promise that resolves with the current moon phase.
+ */
 export const getMoonPhase = async () => {
   const currTime =  Math.floor(Date.now() / 1000)
   const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime).then(response => response.json())
   return data[0].Phase;
 }
-
+/**
+ * Retrieves the current zodiac sign.
+ * @returns {Promise} A promise that resolves with the current zodiac sign.
+ */
 export async function getZodiacSign() {
   const today = new Date();
   const day = today.getDate();

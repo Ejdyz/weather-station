@@ -1,5 +1,12 @@
+<p align="center">
+  <a href="https://github.com/dolezalll/3itcTeamGame">
+    <img src="https://github.com/Ejdyz/weather-station/assets/103042103/fb7fff09-5f3c-4d35-aaa4-a3c8753112f8" alt="Logo" width="200" height="120">
+  </a>
+</p>
+
 # Meteorological Station Project
 ## Overview
+
 - This project is dedicated to building a comprehensive meteorological station using a Raspberry Pi Pico W and Arduino nano. 
 - It aims to measure various environmental parameters and display the data on a web interface. 
 - This repository contains both the hardware schematics and software code necessary for the project.

@@ -11,7 +11,6 @@ import {
 
 const ZodiacSigns = async ({className}) => {
   const sign = await getZodiacSign()
-  console.log(sign)
   if (sign === "Aries"){
     return (
       <AriesIcon className={className} color={"white"} />

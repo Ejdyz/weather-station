@@ -8,6 +8,7 @@ import {
 } from "@/components/icons/Icons";
 import Selector from "@/components/Selector";
 import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
+import WeatherMap from "@/components/map/WeatherMap";
 
 
 export default async function Home() {
@@ -32,6 +33,7 @@ export default async function Home() {
           <ClearDayIcon className={"w-64"} />
           <MoonAndSunriseWrapper />
           <Selector/>
+          <WeatherMap />
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >

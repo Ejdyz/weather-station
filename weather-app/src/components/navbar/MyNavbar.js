@@ -5,7 +5,7 @@ import {Link} from "@nextui-org/link"
 import {LogoIcon} from "@/components/icons/Icons";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from "@nextui-org/react";
 import {Button} from "@nextui-org/button";
-import {AArrowDown, ArrowDown, ChevronDown} from "lucide-react";
+import { ChevronDown} from "lucide-react";
 
 export default function App({page}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

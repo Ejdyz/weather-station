@@ -6,18 +6,18 @@ const DaySwitcher = ({value, setValue}) => {
     setValue(e.target.value);
   };
   const days = [
-    {label: "7 Days", value: 7, },
-    {label: "10 Days", value: 10, },
-    {label: "14 Days", value: 14, },
-    {label: "30 Days", value: 30, },
-    {label: "60 Days", value: 60, },
-    {label: "100 Days", value: 100, },
+    {label: "7 Dní", value: 7, },
+    {label: "10 Dní", value: 10, },
+    {label: "14 Dní", value: 14, },
+    {label: "30 Dní", value: 30, },
+    {label: "60 Dní", value: 60, },
+    {label: "100 Dní", value: 100, },
     ];
   return (
     <div className="flex w-full md:max-w-xs flex-col  pr-4 ml-2">
       <Select
-        label="Range of days"
-        placeholder="select a range of days"
+        label="Rozmezí dní"
+        placeholder="vyberte rozmezí dní"
         defaultSelectedKeys={[value]}
         className="w-full"
         selectionMode="single"

@@ -6,11 +6,12 @@ import Tables from "@/components/tables/Tables";
 const Selector = () => {
   return (
     <div className="flex justify-center flex-col items-center">
-      <Tabs  aria-label="Options" color="primary" >
-        <Tab key="charts" title={"Charts"}>
+      <div className="border-b-1 w-full z- translate-y-5" />
+      <Tabs aria-label="Options" color="primary" className="z-10">
+        <Tab key="charts" title={"Grafy"}>
           <Charts/>
         </Tab>
-        <Tab key="tables" title={"Tables"}>
+        <Tab key="tables" title={"Tabulka"}>
           <Tables/>
         </Tab>
       </Tabs>

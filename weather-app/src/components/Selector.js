@@ -1,8 +1,8 @@
 "use client"
 import {Tab, Tabs} from "@nextui-org/tabs";
-import Charts from "@/components/charts/Charts";
+import dynamic from "next/dynamic";
 import Tables from "@/components/tables/Tables";
-
+import Charts from "@/components/charts/Charts";
 const Selector = () => {
   return (
     <div className="flex justify-center flex-col items-center">

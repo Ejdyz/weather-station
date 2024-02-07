@@ -11,10 +11,10 @@ import Divider from "@/components/Divider";
 import dynamic from "next/dynamic";
 import LoadingMap from "@/components/map/LoadingMap";
 import LoadingSelector from "@/components/charts/LoadingSelector";
-import MoonAndSunriseLoading from "@/components/MoonAndSunriseLoading";
+import MoonAndSunriseLoading from "@/components/MoonAndSun/MoonAndSunriseLoading";
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
-const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
+const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
 const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
 export default async function Home() {
 

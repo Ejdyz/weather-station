@@ -1,8 +1,8 @@
 import {getSunriseAndSunset} from "@/lib/weatherData";
-import Sunrise from "@/components/sunrise/Sunrise";
-import Moonrise from "@/components/moonrise/Moonrise";
-import MoonPhase from "@/components/moonphase/MoonPhase";
-import ZodiacSigns from "@/components/zodiac/ZodiacSigns";
+import Sunrise from "@/components/MoonAndSun/sunrise/Sunrise";
+import Moonrise from "@/components/MoonAndSun/moonrise/Moonrise";
+import MoonPhase from "@/components/MoonAndSun/moonphase/MoonPhase";
+import ZodiacSigns from "@/components/MoonAndSun/zodiac/ZodiacSigns";
 
 const MoonAndSunriseWrapper = async () => {
   const data = await getSunriseAndSunset()

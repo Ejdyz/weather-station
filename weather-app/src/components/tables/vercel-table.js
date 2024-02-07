@@ -26,15 +26,14 @@ import {
 } from "@/components/icons/Icons";
 
 export function VercelTable({data}) {
-  console.log(data)
   return (
-    (<div className=" w-full h-[500px] overflow-auto rounded-xl ">
+    (<div className=" w-full overflow-auto rounded-xl align-middle ">
       <Table>
-        <TableHeader className="w-40">
+        <TableHeader className="w-full">
           <TableRow>
-            <TableHead className="sticky left-0 bg-white text-black w-96">Data</TableHead>
+            <TableHead className="sticky left-0 bg-white text-black ">Data</TableHead>
             {data.map((item, index) => (
-              <TableHead className="text-black bg-gray-100 min-w-44" key={index}>{item?.day?.getDate() + "-" + item?.day?.getMonth() + 1 }</TableHead>
+              <TableHead className="text-black bg-gray-100 md:min-w-28 min-w-28" key={index}>{item?.day?.getDate() + "-" + item?.day?.getMonth() + 1 }</TableHead>
             ))}
           </TableRow>
         </TableHeader>
@@ -42,7 +41,7 @@ export function VercelTable({data}) {
           <TableRow>
             <TableCell className="sticky left-0 bg-white  text-black">Oblačnost</TableCell>
             {data.map((item, index) => (
-              <TableHead className="text-black bg-gray-100 " key={index}><SnowingIconStatic/></TableHead>
+              <TableHead className="text-black bg-gray-100 " key={index}><div className="max-w-20"><SnowingIconStatic /></div></TableHead>
             ))}
           </TableRow>
           <TableRow>
@@ -58,12 +57,6 @@ export function VercelTable({data}) {
             ))}
           </TableRow>
            <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Pressure</TableCell>
-            {data.map((item, index) => (
-                <TableHead className="text-black bg-gray-100 " key={index}>{item.highestPressure + " / " + item.lowestPressure }</TableHead>
-            ))}
-          </TableRow>
-          <TableRow>
             <TableCell className="sticky left-0 bg-white  text-black">Pressure</TableCell>
             {data.map((item, index) => (
                 <TableHead className="text-black bg-gray-100 " key={index}>{item.highestPressure + " / " + item.lowestPressure }</TableHead>

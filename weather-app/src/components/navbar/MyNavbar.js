@@ -6,7 +6,15 @@ import {LogoIcon} from "@/components/icons/Icons";
 
 export default function App({page}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        behavior: "smooth",
+        top: section.offsetTop
+      });
+    }
+  }
   return (
   <Navbar onMenuOpenChange={setIsMenuOpen} position="static">
     <NavbarContent>
@@ -26,8 +34,13 @@ export default function App({page}) {
         </Link>
       </NavbarItem>
       <NavbarItem>
-        <Link color="foreground" href="icons">
-          Icons
+        <Link color="foreground" onPress={()=>scrollToSection("charts")} className="cursor-pointer">
+          Charts
+        </Link>
+      </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" onPress={()=>scrollToSection("radar")} className="cursor-pointer">
+          Radar
         </Link>
       </NavbarItem>
     </NavbarContent>

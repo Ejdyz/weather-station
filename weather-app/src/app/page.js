@@ -9,6 +9,7 @@ import {
 import Selector from "@/components/Selector";
 import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
 import WeatherMap from "@/components/map/WeatherMap";
+import Divider from "@/components/Divider";
 
 
 export default async function Home() {
@@ -30,10 +31,17 @@ export default async function Home() {
       <div className={"h-full w-full bg-gradient-to-tr " + clearWeatherDay} >
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
-          <ClearDayIcon className={"w-64"} />
-          <MoonAndSunriseWrapper />
-          <Selector/>
-          <WeatherMap />
+          <section id="main" className="pt-1">
+            <ClearDayIcon className={"w-64"} />
+            <MoonAndSunriseWrapper />
+          </section >
+          <section id="charts" className="pt-1">
+            <Selector/>
+          </section>
+          <section id="radar" className="pt-1">
+            <Divider><div className="bg-primary px-4 py-1 rounded-xl text-white border-4 border-white" >Radar</div></Divider>
+            <WeatherMap />
+          </section>
         </div>
       </div>
       <div className={"h-screen w-full flex flex-row items-start justify-end bg-gradient-to-tr "+partlyCloudyDay} >

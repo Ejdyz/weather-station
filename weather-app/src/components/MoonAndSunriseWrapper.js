@@ -7,7 +7,7 @@ import ZodiacSigns from "@/components/zodiac/ZodiacSigns";
 const MoonAndSunriseWrapper = async () => {
   const data = await getSunriseAndSunset()
   return (
-    <div className="flex md:flex-row flex-col w-full justify-evenly mb-12  items-center">
+    <div className="mt-8 flex md:flex-row flex-col w-full justify-evenly mb-12  items-center">
       <ZodiacSigns className="w-28 md:block hidden"/>
       <Sunrise sunrise={data.sunrise} sunset={data.sunset}/>
       <Moonrise moonrise={data.moonrise} moonset={data.moonset}/>

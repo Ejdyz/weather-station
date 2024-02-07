@@ -32,14 +32,20 @@ export default async function Home() {
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
           <section id="main" className="pt-1">
-            <ClearDayIcon className={"w-64"} />
+            <div className="w-full flex justify-end">
+              <ClearDayIcon className={"w-64"} />
+            </div>
+
+          <section id="sunrise" className="pt-1">
+            <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>
             <MoonAndSunriseWrapper />
+          </section>
           </section >
           <section id="charts" className="pt-1">
             <Selector/>
           </section>
           <section id="radar" className="pt-1">
-            <Divider><div className="bg-primary px-4 py-1 rounded-xl text-white border-4 border-white" >Radar</div></Divider>
+            <Divider gap><div className="bg-primary px-4 py-1 rounded-xl text-white border-4 border-white" >Radar</div></Divider>
             <WeatherMap />
           </section>
         </div>

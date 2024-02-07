@@ -1,6 +1,5 @@
 "use client"
 import {Tab, Tabs} from "@nextui-org/tabs";
-import dynamic from "next/dynamic";
 import Tables from "@/components/tables/Tables";
 import Charts from "@/components/charts/Charts";
 const Selector = () => {

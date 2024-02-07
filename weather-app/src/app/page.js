@@ -9,7 +9,6 @@ import {
 } from "@/components/icons/Icons";
 import Divider from "@/components/Divider";
 import dynamic from "next/dynamic";
-import {Spinner} from "@nextui-org/spinner";
 import LoadingMap from "@/components/map/LoadingMap";
 import LoadingSelector from "@/components/charts/LoadingSelector";
 import MoonAndSunriseLoading from "@/components/MoonAndSunriseLoading";

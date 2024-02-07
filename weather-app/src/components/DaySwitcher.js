@@ -14,7 +14,7 @@ const DaySwitcher = ({value, setValue}) => {
     {label: "100 Dní", value: 100, },
     ];
   return (
-    <div className="flex w-full md:max-w-xs flex-col  pr-4 ml-2">
+    <div className="flex w-full md:max-w-xs flex-col px-2 ">
       <Select
         label="Rozmezí dní"
         placeholder="vyberte rozmezí dní"

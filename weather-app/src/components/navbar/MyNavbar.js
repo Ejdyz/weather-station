@@ -59,6 +59,13 @@ export default function App({page}) {
           Radar
         </Link>
       </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" onPress={()=>
+          scrollToSection("sunrise")
+        } className="cursor-pointer">
+          Východ slunce
+        </Link>
+      </NavbarItem>
     </NavbarContent>
     <NavbarContent justify="end">
       <NavbarMenuToggle
@@ -78,8 +85,13 @@ export default function App({page}) {
         </Link>
       </NavbarItem>
       <NavbarItem>
-        <Link color="foreground" onClick={()=> {handleLinkClick("radar")}} className="cursor-pointer">
+        <Link color="foreground" onPress={()=> {handleLinkClick("radar")}} className="cursor-pointer">
           Radar
+        </Link>
+      </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" onPress={()=> {handleLinkClick("sunrise")}} className="cursor-pointer">
+          Východ slunce
         </Link>
       </NavbarItem>
     </NavbarMenu>

@@ -1,3 +1,4 @@
+
 import MyNavbar from "@/components/navbar/MyNavbar";
 import {
   CleanNightIcon,
@@ -6,12 +7,15 @@ import {
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
-import Selector from "@/components/Selector";
-import MoonAndSunriseWrapper from "@/components/MoonAndSunriseWrapper";
-import WeatherMap from "@/components/map/WeatherMap";
 import Divider from "@/components/Divider";
+import dynamic from "next/dynamic";
+import LoadingMap from "@/components/map/LoadingMap";
+import LoadingSelector from "@/components/charts/LoadingSelector";
+import MoonAndSunriseLoading from "@/components/MoonAndSunriseLoading";
 
-
+const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
+const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
+const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
 export default async function Home() {
 
   const clearWeatherDay = "from-gray-300 via-cyan-500 to-blue-600"
@@ -27,19 +31,23 @@ export default async function Home() {
 
   return (
     <>
-
       <div className={"h-full w-full bg-gradient-to-tr " + clearWeatherDay} >
       <MyNavbar page="home"/>
         <div className="w-full h-full ">
           <section id="main" className="pt-1">
-            <ClearDayIcon className={"w-64"} />
+            <div className="w-full flex justify-end">
+              <ClearDayIcon className={"w-64"} />
+            </div>
+          <section id="sunrise" className="pt-1">
+            <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>
             <MoonAndSunriseWrapper />
+          </section>
           </section >
           <section id="charts" className="pt-1">
-            <Selector/>
+            <Selector />
           </section>
           <section id="radar" className="pt-1">
-            <Divider><div className="bg-primary px-4 py-1 rounded-xl text-white border-4 border-white" >Radar</div></Divider>
+            <Divider gap><div className="bg-primary px-4 py-1 rounded-xl text-white border-4 border-white" >Radar</div></Divider>
             <WeatherMap />
           </section>
         </div>

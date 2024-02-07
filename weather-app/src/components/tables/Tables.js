@@ -22,7 +22,7 @@ export default function Home() {
   }, [days]);
 
   return (
-    <div className="m-1">
+    <div>
       <DaySwitcher value={days} setValue={setDays} />
       <MyTable data={data} loading={loading}/>
     </div>

@@ -7,15 +7,17 @@ import MoonAndSunriseLoading from "@/components/MoonAndSun/MoonAndSunriseLoading
 import {
   getHowCloudyCurrentlyIs,
   getHowMuchIsCurrentlyRaining,
-  getLastRecord,
+  getLastRecord, getLastRecords,
   isNight,
 } from "@/lib/weatherData";
 import MyIcon from "@/components/main/MyIcon";
-import MainData from "@/components/main/MainData";
+
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
 const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
+const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <LoadingMap /> }) //TODO create loading component
+const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MoonAndSunriseLoading /> }) //TODO create loading component
 
 //function for getting current background
 const getWeatherBackground = async (cloudiness,rain,night) => {
@@ -53,10 +55,14 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
 
 export default async function Home() {
   const data = await getLastRecord()
+  let lastData = await getLastRecords(10)
+  Object.keys(lastData).forEach(key => {
+    const time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
+    lastData[key].time = time
+  })
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)
   const night = await isNight()
-
   return (
     <>
       <div className={await getWeatherBackground(cloudiness,rain,night)} >
@@ -66,9 +72,12 @@ export default async function Home() {
             <div className="w-full flex justify-end">
                 <MyIcon cloudiness={cloudiness} rain={rain} night={night}/>
             </div>
-
-            <MainData data={data}/>
-
+            <div>
+              <MainData data={data}/>
+            </div>
+            <div className="mt-6">
+              <MainChart data={lastData}/>
+            </div>
           </section>
           <section id="sunrise" className="pt-1">
             <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>

@@ -1,19 +1,5 @@
 "use server"
 import {env} from "process"
-import {
-  CleanNightIcon,
-  ClearDayIcon,
-  CloudyIcon,
-  DrizzleIcon,
-  PartlyCloudyDayDrizzleIcon,
-  PartlyCloudyDayIcon,
-  PartlyCloudyDayRainIcon,
-  PartlyCloudyDaySnowIcon,
-  PartlyCloudyNightDrizzleIcon,
-  PartlyCloudyNightIcon, PartlyCloudyNightRainIcon, PartlyCloudyNightSnowIcon,
-  RainingIcon,
-  SnowingIcon
-} from "@/components/icons/Icons";
 
 /**
  * Retrieves the last weather record from the database.

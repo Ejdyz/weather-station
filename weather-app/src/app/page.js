@@ -35,6 +35,11 @@ export default async function Home() {
                 <MyIcon cloudyness={cloudiness} rain={rain} night={night}/>
               </div>
             </div>
+            <div>
+              <h2>{}</h2>
+            </div>
+
+
           </section>
           <section id="sunrise" className="pt-1">
             <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>

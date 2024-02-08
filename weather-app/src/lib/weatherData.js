@@ -182,10 +182,10 @@ export async function getZodiacSign() {
  * @returns {Promise<"rain"| "drizzle" | "snow" | null>} A promise that resolves with the current weather.
  */
 export async function getHowMuchIsCurrentlyRaining(data) {
-  if (data.rain === env.DRIZZLE_AND_DRY_BORDER || data.rain === -1) return null
-  if (data.rain > env.RAIN_AND_DRIZZLE_BORDER) return "rain"
-  if (data.rain < env.RAIN_AND_DRIZZLE_BORDER) return "drizzle"
+  if (data.rain === -1 || data.rain < env.DRIZZLE_AND_DRY_BORDER) return null
   if (data.temperature < 0 && data.rain > 0) return "snow"
+  if (data.rain > env.RAIN_AND_DRIZZLE_BORDER) return "rain"
+  if (data.rain < env.RAIN_AND_DRIZZLE_BORDER && data.rain > env.DRIZZLE_AND_DRY_BORDER  ) return "drizzle"
   return null
 }
 

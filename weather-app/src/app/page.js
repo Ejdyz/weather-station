@@ -5,7 +5,6 @@ import LoadingMap from "@/components/map/LoadingMap";
 import LoadingSelector from "@/components/charts/LoadingSelector";
 import MoonAndSunriseLoading from "@/components/MoonAndSun/MoonAndSunriseLoading";
 import {
-  getCurrentBackground,
   getHowCloudyCurrentlyIs,
   getHowMuchIsCurrentlyRaining,
   getLastRecord,

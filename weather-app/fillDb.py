@@ -1,19 +1,22 @@
+import os
 import requests
 import random
 from datetime import datetime
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Function to generate random weather data
 def generate_random_weather_data(req_number):
+    api_key = os.environ['API_PASSWORD']
     weather_data = {
         "temperature": round(random.uniform(-20, 40), 1),
         "humidity": round(random.uniform(0, 100), 1),
         "pressure": random.randint(950, 1050),
-        "windSpeed": random.randint(0, 100),
         "sunlight": random.randint(0, 100),
         "isRaining": random.choice([True, False]),
         "rain": round(random.uniform(0, 100), 1),
-        "password": "api-password",
+        "password": api_key,
         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "reqNumber": req_number
     }

@@ -3,6 +3,9 @@ import React, {useEffect, useRef} from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuToggle} from "@nextui-org/navbar";
 import {Link} from "@nextui-org/link"
 import {LogoIcon} from "@/components/icons/Icons";
+import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from "@nextui-org/react";
+import {Button} from "@nextui-org/button";
+import { ChevronDown} from "lucide-react";
 
 export default function App({page}) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -44,28 +47,49 @@ export default function App({page}) {
       </NavbarItem>
       <NavbarItem isActive={page==="home"}>
         <Link color="foreground"  href="/" >
-          Home
+          Počasí
         </Link>
       </NavbarItem>
-      <NavbarItem>
-        <Link color="foreground" onPress={()=>scrollToSection("charts")} className="cursor-pointer">
-          Grafy
-        </Link>
-      </NavbarItem>
-      <NavbarItem>
-        <Link color="foreground" onPress={()=>
-          scrollToSection("radar")
-        } className="cursor-pointer">
-          Radar
-        </Link>
-      </NavbarItem>
-      <NavbarItem>
-        <Link color="foreground" onPress={()=>
-          scrollToSection("sunrise")
-        } className="cursor-pointer">
-          Východ slunce
-        </Link>
-      </NavbarItem>
+      <Dropdown>
+        <NavbarItem>
+          <DropdownTrigger>
+            <Button
+              disableRipple
+              className="p-0 bg-transparent data-[hover=true]:bg-transparent "
+              radius="sm"
+              variant="light"
+              endContent={<ChevronDown size={16} />}
+            >
+              Funkce
+            </Button>
+          </DropdownTrigger>
+        </NavbarItem>
+        <DropdownMenu
+          aria-label="Možnosti zobrazení"
+          itemClasses={{
+            base: "gap-4",
+          }}
+        >
+          <DropdownItem
+            key="Východ slunce"
+             color="primary" onPress={()=>scrollToSection("sunrise")}
+            >
+              Východ slunce
+          </DropdownItem>
+          <DropdownItem
+            key="Východ slunce"
+             color="primary" onPress={()=>scrollToSection("charts")}
+            >
+              Grafy a tabulky
+          </DropdownItem>
+          <DropdownItem
+            key="Východ slunce"
+             color="primary" onPress={()=>scrollToSection("radar")}
+            >
+              Radar
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </NavbarContent>
     <NavbarContent justify="end">
       <NavbarMenuToggle
@@ -74,24 +98,28 @@ export default function App({page}) {
       />
     </NavbarContent>
     <NavbarMenu>
-      <NavbarItem isActive={page==="home"}>
+      <NavbarItem isActive={page==="about"}>
+        <Link color="foreground"  href="/about" >
+          O projektu
+        </Link>
+      </NavbarItem><NavbarItem isActive={page==="home"}>
         <Link color="foreground"  href="/" >
-          Home
-        </Link>
-      </NavbarItem>
-      <NavbarItem>
-        <Link color="foreground" onPress={()=>handleLinkClick("charts")} className="cursor-pointer">
-          Grafy
-        </Link>
-      </NavbarItem>
-      <NavbarItem>
-        <Link color="foreground" onPress={()=> {handleLinkClick("radar")}} className="cursor-pointer">
-          Radar
+          Počasí
         </Link>
       </NavbarItem>
       <NavbarItem>
         <Link color="foreground" onPress={()=> {handleLinkClick("sunrise")}} className="cursor-pointer">
-          Východ slunce
+          - Východ slunce
+        </Link>
+      </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" onPress={()=>handleLinkClick("charts")} className="cursor-pointer">
+          - Grafy
+        </Link>
+      </NavbarItem>
+      <NavbarItem>
+        <Link color="foreground" onPress={()=> {handleLinkClick("radar")}} className="cursor-pointer">
+          - Radar
         </Link>
       </NavbarItem>
     </NavbarMenu>

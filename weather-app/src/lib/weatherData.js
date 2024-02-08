@@ -177,3 +177,38 @@ export async function getZodiacSign() {
   return "Unknown Zodiac Sign";
 }
 
+/**
+ * Retrieves string how much is currently raining.
+ * @returns {Promise<"rain"| "drizzle" | "snow" | null>} A promise that resolves with the current weather.
+ */
+export async function getHowMuchIsCurrentlyRaining(data) {
+  if (data.rain === -1 || data.rain < env.DRIZZLE_AND_DRY_BORDER) return null
+  if (data.temperature < 0 && data.rain > 0) return "snow"
+  if (data.rain > env.RAIN_AND_DRIZZLE_BORDER) return "rain"
+  if (data.rain < env.RAIN_AND_DRIZZLE_BORDER && data.rain > env.DRIZZLE_AND_DRY_BORDER  ) return "drizzle"
+  return null
+}
+
+/**
+ * Retrieves what cloud cover is currently.
+ * @returns {Promise<"cloudy"| "partly cloudy" | "clear" | null>} A promise that resolves with the current weather.
+ */
+export async function getHowCloudyCurrentlyIs(data) {
+  if (data.light === -1) return null
+  //if the light is greater than the bottom border of cloudiness it is cloudy
+  if (data.light >= env.CLOUDY_BORDER) return "cloudy"
+  //if the light is lower than the bottom border of cloudiness and greater than the bottom border of partly cloudiness it is partly cloudy
+  if (data.light < env.CLOUDY_BORDER && data.light >= env.PARTLY_CLOUDY_BORDER) return "partly cloudy"
+  //if the light is lower than the bottom border of partly cloudiness it is clear weather
+  if (data.light < env.PARTLY_CLOUDY_BORDER) return "clear"
+  return null
+}
+/**
+ * Checks if the current time is night.
+ * Night is defined as hours less than 6 or greater than 19.
+ * @returns {boolean} Returns true if it's nighttime, false otherwise.
+ */
+export async function isNight(){
+  const currentTime = new Date().getHours()
+  return currentTime < env.NIGHT_END || currentTime > env.NIGHT_START
+}

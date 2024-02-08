@@ -1,5 +1,19 @@
 "use server"
 import {env} from "process"
+import {
+  CleanNightIcon,
+  ClearDayIcon,
+  CloudyIcon,
+  DrizzleIcon,
+  PartlyCloudyDayDrizzleIcon,
+  PartlyCloudyDayIcon,
+  PartlyCloudyDayRainIcon,
+  PartlyCloudyDaySnowIcon,
+  PartlyCloudyNightDrizzleIcon,
+  PartlyCloudyNightIcon, PartlyCloudyNightRainIcon, PartlyCloudyNightSnowIcon,
+  RainingIcon,
+  SnowingIcon
+} from "@/components/icons/Icons";
 
 /**
  * Retrieves the last weather record from the database.
@@ -177,3 +191,74 @@ export async function getZodiacSign() {
   return "Unknown Zodiac Sign";
 }
 
+/**
+ * Retrieves string how much is currently raining.
+ * @returns {Promise<"rain"| "drizzle" | "snow" | null>} A promise that resolves with the current weather.
+ */
+export async function getHowMuchIsCurrentlyRaining(data) {
+  if (data.rain === env.DRIZZLE_AND_DRY_BORDER || data.rain === -1) return null
+  if (data.rain > env.RAIN_AND_DRIZZLE_BORDER) return "rain"
+  if (data.rain < env.RAIN_AND_DRIZZLE_BORDER) return "drizzle"
+  if (data.temperature < 0 && data.rain > 0) return "snow"
+  return null
+}
+
+/**
+ * Retrieves what cloud cover is currently.
+ * @returns {Promise<"cloudy"| "partly cloudy" | "clear" | null>} A promise that resolves with the current weather.
+ */
+export async function getHowCloudyCurrentlyIs(data) {
+  if (data.light === -1) return null
+  //if the light is greater than the bottom border of cloudiness it is cloudy
+  if (data.light >= env.CLOUDY_BORDER) return "cloudy"
+  //if the light is lower than the bottom border of cloudiness and greater than the bottom border of partly cloudiness it is partly cloudy
+  if (data.light < env.CLOUDY_BORDER && data.light >= env.PARTLY_CLOUDY_BORDER) return "partly cloudy"
+  //if the light is lower than the bottom border of partly cloudiness it is clear weather
+  if (data.light < env.PARTLY_CLOUDY_BORDER) return "clear"
+  return null
+}
+/**
+ * Checks if the current time is night.
+ * Night is defined as hours less than 6 or greater than 19.
+ * @returns {boolean} Returns true if it's nighttime, false otherwise.
+ */
+export async function isNight(){
+  const currentTime = new Date().getHours()
+  return currentTime < 6 || currentTime > 20
+}
+
+export async function getCurrentBackground(data) {
+  const currentCloudiness = await getHowCloudyCurrentlyIs(data)
+  const currentRaininess = await getHowMuchIsCurrentlyRaining(data)
+  const isCurrentlyNight = await isNight()
+
+  //define background colors for different weather
+  const clearWeatherNight = "h-full w-full bg-gradient-to-tr from-gray-700 via-gray-800 to-gray-900"
+
+  const clearWeatherDay = "h-full w-full bg-gradient-to-tr from-gray-300 via-cyan-500 to-blue-600"
+
+  const partlyCloudyDay = "h-full w-full bg-gradient-to-tr from-sky-400 to-gray-400"
+  const cloudyWeather = "h-full w-full bg-gradient-to-tr from-sky-300 to-gray-500"
+
+  const drizzleWeather = "h-full w-full bg-gradient-to-tr from-sky-700 to-gray-400"
+  const rainyWeather = "h-full w-full bg-gradient-to-tr from-sky-800  to-gray-500"
+  const snowyWeather = "h-full w-full bg-gradient-to-tr from-sky-300  to-cyan-600"
+
+  if (data === null) return clearWeatherNight
+  //if its night
+  if (isCurrentlyNight) return clearWeatherNight
+
+  //if its clear weather and it is not raining
+  if (currentCloudiness === "clear" && currentRaininess == null) return clearWeatherDay
+
+  if (currentCloudiness === "partly cloudy") return partlyCloudyDay
+
+  if (currentCloudiness === "cloudy") return cloudyWeather
+
+  if (currentRaininess === "drizzle") return drizzleWeather
+
+  if (currentRaininess === "rain") return rainyWeather
+
+  if (currentRaininess === "snow") return snowyWeather
+  return clearWeatherDay
+}

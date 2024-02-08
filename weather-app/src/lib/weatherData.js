@@ -210,41 +210,5 @@ export async function getHowCloudyCurrentlyIs(data) {
  */
 export async function isNight(){
   const currentTime = new Date().getHours()
-  return currentTime < 6 || currentTime > 20
-}
-
-export async function getCurrentBackground(data) {
-  const currentCloudiness = await getHowCloudyCurrentlyIs(data)
-  const currentRaininess = await getHowMuchIsCurrentlyRaining(data)
-  const isCurrentlyNight = await isNight()
-
-  //define background colors for different weather
-  const clearWeatherNight = "h-full w-full bg-gradient-to-tr from-gray-700 via-gray-800 to-gray-900"
-
-  const clearWeatherDay = "h-full w-full bg-gradient-to-tr from-gray-300 via-cyan-500 to-blue-600"
-
-  const partlyCloudyDay = "h-full w-full bg-gradient-to-tr from-sky-400 to-gray-400"
-  const cloudyWeather = "h-full w-full bg-gradient-to-tr from-sky-300 to-gray-500"
-
-  const drizzleWeather = "h-full w-full bg-gradient-to-tr from-sky-700 to-gray-400"
-  const rainyWeather = "h-full w-full bg-gradient-to-tr from-sky-800  to-gray-500"
-  const snowyWeather = "h-full w-full bg-gradient-to-tr from-sky-300  to-cyan-600"
-
-  if (data === null) return clearWeatherNight
-  //if its night
-  if (isCurrentlyNight) return clearWeatherNight
-
-  //if its clear weather and it is not raining
-  if (currentCloudiness === "clear" && currentRaininess == null) return clearWeatherDay
-
-  if (currentCloudiness === "partly cloudy") return partlyCloudyDay
-
-  if (currentCloudiness === "cloudy") return cloudyWeather
-
-  if (currentRaininess === "drizzle") return drizzleWeather
-
-  if (currentRaininess === "rain") return rainyWeather
-
-  if (currentRaininess === "snow") return snowyWeather
-  return clearWeatherDay
+  return currentTime < env.NIGHT_END || currentTime > env.NIGHT_START
 }

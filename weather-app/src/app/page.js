@@ -11,6 +11,7 @@ import {
   isNight,
 } from "@/lib/weatherData";
 import MyIcon from "@/components/main/MyIcon";
+import MainData from "@/components/main/MainData";
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
@@ -63,13 +64,11 @@ export default async function Home() {
         <div className="w-full h-full ">
           <section id="main" className="pt-1">
             <div className="w-full flex justify-end">
-              <div className="flex justify-center items-center">
                 <MyIcon cloudiness={cloudiness} rain={rain} night={night}/>
-              </div>
             </div>
-            <div>
-              <h2>{}</h2>
-            </div>
+
+            <MainData data={data}/>
+
           </section>
           <section id="sunrise" className="pt-1">
             <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>

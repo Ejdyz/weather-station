@@ -2,13 +2,19 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Providers from "@/app/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const inter = Inter({ subsets: ['latin'] })
 
+export const viewport = {
+  themeColor: 'white',
+}
 export const metadata = {
   title: 'Weather App',
   description: 'Weather App built with Next.js and Tailwind CSS',
+  themeColor: "#FFF",
   manifest: "/manifest.json",
 }
+
 
 export default function RootLayout({ children }) {
   return (

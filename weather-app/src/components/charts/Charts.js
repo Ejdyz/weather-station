@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import { getLastDays } from '@/lib/weatherData';
 import DaySwitcher from '@/components/DaySwitcher';
-import WeatherCharts from "@/components/charts/WeatherCharts";
+import MainChart from "@/components/main/MainChart";
+import MainChartLoading from "@/components/main/MainChartLoading";
 
 export default function Home() {
   const [days, setDays] = useState("7");
@@ -24,7 +25,8 @@ export default function Home() {
   return (
     <div className="m-1">
       <DaySwitcher value={days} setValue={setDays} />
-      <WeatherCharts data={data} loading={loading}/>
+      <br/>
+      {loading?<MainChartLoading /> :<MainChart data={data}/>}
     </div>
   );
 }

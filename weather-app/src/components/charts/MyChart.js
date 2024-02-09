@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label, forWhat }) => {
       <div className="custom-tooltip"
            style={{backdropFilter: "blur(5px)", padding: "15px", borderRadius: "5px", border: "1px white solid"}}>
         <p className="label text-white">{label}</p>
-        <p style={{color: `${payload[0].stroke}`}}>{`${payload[0].dataKey} : ${payload[0].value} ` + attribute}</p>
+        <p style={{color: `${payload[0].stroke}`}}>{`${payload[0].name} : ${payload[0].value} ` + attribute}</p>
       </div>
     );
   }

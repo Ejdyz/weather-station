@@ -11,6 +11,7 @@ import {
   isNight,
 } from "@/lib/weatherData";
 import MyIcon from "@/components/main/MyIcon";
+import Footer from "@/components/Footer";
 
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
@@ -20,6 +21,7 @@ const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: fals
 const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MoonAndSunriseLoading /> }) //TODO create loading component
 
 //function for getting current background
+
 const getWeatherBackground = async (cloudiness,rain,night) => {
   //define background colors for different weather
   const clearWeatherNight = "h-full w-full bg-gradient-to-tr from-gray-700 via-gray-800 to-gray-900"
@@ -91,7 +93,8 @@ export default async function Home() {
             <WeatherMap />
           </section>
         </div>
-        </div>
+        <Footer data={data} />
+      </div>
 
     </>
   )

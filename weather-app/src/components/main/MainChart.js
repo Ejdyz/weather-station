@@ -1,5 +1,4 @@
 "use client"
-import {Spinner} from "@nextui-org/spinner";
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 const MainChart = ({data}) => {

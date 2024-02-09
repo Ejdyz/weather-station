@@ -5,6 +5,7 @@ import MoonPhase from "@/components/MoonAndSun/moonphase/MoonPhase";
 import ZodiacSigns from "@/components/MoonAndSun/zodiac/ZodiacSigns";
 
 const MoonAndSunriseWrapper = async () => {
+  //TODO fix icons
   const data = await getSunriseAndSunset()
   return (
     <div className="mt-8 flex md:flex-row flex-col w-full justify-evenly mb-12  items-center">

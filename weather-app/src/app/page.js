@@ -19,8 +19,8 @@ import MainChartLoading from "@/components/main/MainChartLoading";
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
 const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
-const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <MainDataLoading /> }) //TODO create loading component
-const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MainChartLoading /> }) //TODO create loading component
+const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <MainDataLoading /> })
+const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MainChartLoading /> })
 
 //function for getting current background
 const getWeatherBackground = async (cloudiness,rain,night) => {

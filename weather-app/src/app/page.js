@@ -12,16 +12,17 @@ import {
 } from "@/lib/weatherData";
 import MyIcon from "@/components/main/MyIcon";
 import Footer from "@/components/Footer";
+import MainDataLoading from "@/components/main/MainDataLoading";
+import MainChartLoading from "@/components/main/MainChartLoading";
 
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
 const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
-const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <LoadingMap /> }) //TODO create loading component
-const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MoonAndSunriseLoading /> }) //TODO create loading component
+const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <MainDataLoading /> }) //TODO create loading component
+const MainChart = dynamic(() => import('@/components/main/MainChart'), { ssr: false, loading: () => <MainChartLoading /> }) //TODO create loading component
 
 //function for getting current background
-
 const getWeatherBackground = async (cloudiness,rain,night) => {
   //define background colors for different weather
   const clearWeatherNight = "h-full w-full bg-gradient-to-tr from-gray-700 via-gray-800 to-gray-900"
@@ -54,7 +55,6 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
   return weatherBackground;
 }
 
-
 export default async function Home() {
   const data = await getLastRecord()
   let lastData = await getLastRecords(10)
@@ -77,6 +77,7 @@ export default async function Home() {
             <div>
               <MainData data={data}/>
             </div>
+
             <div className="mt-6">
               <MainChart data={lastData}/>
             </div>

@@ -17,5 +17,30 @@ module.exports = {
       },
     },
   },
-  plugins: [nextui(), require("tailwindcss-animate")],
+  plugins: [nextui({
+    themes: {
+      light: {
+        colors: {
+
+          secondary: { //temp
+            DEFAULT: "#ffcd25",
+            foreground: "#fff",
+          },
+          danger: { //humidity
+            DEFAULT: "#99e513",
+            foreground: "#fff",
+          },
+          warning: { //pressure
+            DEFAULT: "#ff5757",
+            foreground: "#fff",
+          },
+          success: { //rain
+            DEFAULT: "#87d5ff",
+            foreground: "#fff",
+          }
+        ,
+        },
+      },
+    },
+  }), require("tailwindcss-animate")],
 }

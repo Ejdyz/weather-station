@@ -74,7 +74,7 @@ export default async function Home() {
             <div className="w-full flex justify-end">
                 <MyIcon cloudiness={cloudiness} rain={rain} night={night}/>
             </div>
-            <div>
+            <div className="md:translate-y-[-60px]">
               <MainData data={data}/>
             </div>
 

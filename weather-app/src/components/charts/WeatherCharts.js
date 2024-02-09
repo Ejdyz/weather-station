@@ -1,13 +1,14 @@
 "use client"
 import MyChart from "@/components/charts/MyChart";
+import MainChart from "@/components/main/MainChart";
 const WeatherCharts = ( {data, loading}) => {
 
   return (
     <>
-      <MyChart data={data} forWhat="temperature" loading={loading}/>
-      <MyChart data={data} forWhat="humidity" loading={loading}/>
-      <MyChart data={data} forWhat="pressure" loading={loading}/>
-      <MyChart data={data} forWhat="rain" loading={loading}/>
+      <MainChart data={data} forWhat="temperature" loading={loading}/>
+      <MainChart data={data} forWhat="humidity" loading={loading}/>
+      <MainChart data={data} forWhat="pressure" loading={loading}/>
+      <MainChart data={data} forWhat="rain" loading={loading}/>
     </>
   );
 };

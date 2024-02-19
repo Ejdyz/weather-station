@@ -11,7 +11,6 @@ export const viewport = {
 export const metadata = {
   title: 'Weather App',
   description: 'Weather App built with Next.js and Tailwind CSS',
-  themeColor: "#FFF",
   manifest: "/manifest.json",
 }
 

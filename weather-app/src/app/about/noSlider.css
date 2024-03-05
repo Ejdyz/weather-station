@@ -1,0 +1,5 @@
+/* This styles the scrollbar itself (including the track and thumb) */
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

@@ -33,7 +33,7 @@ export default function App({page}) {
   }
 
   return (
-  <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} position={page==="about"?"fixed":"static"} className="z-10">
+  <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} position="static" className="z-10">
     <NavbarContent>
       <NavbarBrand>
         <LogoIcon className="w-11"/>

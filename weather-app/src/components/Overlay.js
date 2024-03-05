@@ -2,6 +2,7 @@
 import { Scroll, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useState } from "react";
+import Image from "next/image";
 
 const Section = (props) => {
   return (
@@ -79,8 +80,10 @@ export const Overlay = () => {
               <p className=" p-3  h-full w-full">
                 Jan Adam. 18 let. Student.
               </p>
-              <img
-                className="w-48 h-48 rounded-r-lg"
+              <Image
+                className="rounded-r-lg"
+                width={192}
+                height={192}
                 src={"/images/profile.jpg"}
                 alt="profile"/>
             </div>

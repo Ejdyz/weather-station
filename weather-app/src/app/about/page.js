@@ -1,10 +1,20 @@
-import MyNavbar from "@/components/navbar/MyNavbar";
-const Page = () => {
+"use client"
+import {Canvas} from "@react-three/fiber";
+import Experience from "@/components/Experience";
+import MyNavBar from "@/components/navbar/MyNavbar"
+import "./noSlider.css"
+export default function App() {
+
   return (
     <>
-      <MyNavbar page={"about"}/>
+      <div className="bg-gradient-to-br from-gray-900 to-gray-800">
+        <MyNavBar page="about" />
+      </div>
+      <div className="w-scren h-[calc(100vh-4rem)] bg-gradient-to-br from-gray-900 to-gray-800">
+        <Canvas >
+          <Experience />
+        </Canvas>
+      </div>
     </>
   );
-};
-
-export default Page;
+}

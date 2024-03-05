@@ -1,0 +1,17 @@
+
+body {
+  background: #474747;
+  height: 600vh;
+  z-index: -2;
+}
+
+canvas {
+  position: fixed;
+  z-index:1;
+  left: 50%;
+  top: 50%;
+  max-height: 100vh;
+  max-width: 100vw;
+  transform: translate(-50%, -50%);
+}
+

@@ -2,7 +2,6 @@
 import { Scroll, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useState } from "react";
-import MyNavBar from "@/components/navbar/MyNavbar";
 
 const Section = (props) => {
   return (

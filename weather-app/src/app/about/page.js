@@ -1,7 +1,7 @@
 "use client"
 import {Canvas} from "@react-three/fiber";
 import Experience from "@/components/Experience";
-import MyNavBar from "@/components/navbar/MyNavBar"
+import MyNavBar from "@/components/navbar/MyNavbar"
 import "./noSlider.css"
 export default function App() {
 

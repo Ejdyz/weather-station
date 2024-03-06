@@ -141,7 +141,9 @@ export const getSunriseAndSunset = async () => {
     moon_parallactic_angle: -39.13493070212058
   }
 
-  //return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
+  // return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ",{
+  //     cache:"no-cache"
+  //   }).then(response => response.json())
 };
 /**
  * Retrieves the current moon phase.
@@ -149,7 +151,9 @@ export const getSunriseAndSunset = async () => {
  */
 export const getMoonPhase = async () => {
   const currTime =  Math.floor(Date.now() / 1000)
-  const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime).then(response => response.json())
+  const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime,{
+    cache:"no-cache"
+  }).then(response => response.json())
   return data[0].Phase;
 }
 /**

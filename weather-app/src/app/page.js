@@ -17,6 +17,7 @@ import MainChartLoading from "@/components/main/MainChartLoading";
 
 
 
+export const fetchCache = 'force-no-store';
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })

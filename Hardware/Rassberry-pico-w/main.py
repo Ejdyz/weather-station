@@ -16,13 +16,13 @@ led.on()
 timer = Timer()
 
 # WiFi setup
-ssid = "Petr"
-password = "janajana"
+ssid = "SSID"
+password = "WIFI-Password"
 api_url = "https://weather.ejdy.cz/api/weather"
-api_password = "vzRJ8siEW2teDgwRU9vlvH6GYPk4vjYezTCz1ScbzPShwwFulD"
+api_password = "api_password"
 
 # delay between posts in miliseconds (now set to 1 min)
-delay = 1000*60*10
+delay = 1000*2
 
 reqNumber = 0;
 
@@ -39,11 +39,11 @@ uart = UART(0,9600)
 
 def getTemperatureAndHumidity():
     global dht_sensor
-    dht_sensor.measure()
-    temperature_celsius = dht_sensor.temperature()
-    humidity_percent = dht_sensor.humidity()
-    
     try:
+        dht_sensor.measure()
+    
+        temperature_celsius = dht_sensor.temperature()
+        humidity_percent = dht_sensor.humidity()
         return [temperature_celsius,humidity_percent]
     except:
         return [-1,-1]
@@ -78,8 +78,8 @@ def getTimestamp():
 def incrementReqNumber():
     global reqNumber
     
-    if reqNumber >= 144:
-      reqNumber = 1
+    if reqNumber >= 143:
+      reqNumber = 0
     else:
       reqNumber += 1
       
@@ -120,7 +120,7 @@ def SendData(timer):
     global reqNumber
         
     tempData = getTemperatureAndHumidity()
-    incrementReqNumber()
+    
     # Define API endpoint and data
     post_data = {
       "temperature": tempData[0],
@@ -140,7 +140,7 @@ def SendData(timer):
     print(post_data)
     # indicate sended data
     ledBlink()
-    
+    incrementReqNumber()
     #printing response
     print(req.text)
 
@@ -153,7 +153,9 @@ def timeUntilMidnight():
 def startSendingDataAtMidnight():
     # Wait until midnight
     time.sleep(timeUntilMidnight())
+    
     # Start periodic sending of data
+    SendData(Timer())
     sendDataPeriodically()
     
 # Function to start periodic data sending

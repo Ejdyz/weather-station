@@ -74,10 +74,10 @@ export async function POST(request) {
       });
 
     //checking if reqNumber is the latest number in day
-    if (reqNumber === 143 && success) {
+    if (reqNumber === 287 && success) {
       const RecordTable = env.DB_TABLE_RECORDS.toString()
       const DayTable = env.DB_TABLE_DAYS.toString()
-      const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, lowestPressure, highestPressure ) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MAX(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 143 ;"
+      const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, lowestPressure, highestPressure ) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MAX(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 288 ;"
       db.query(sql).then((result)=>{
         console.log("Executing query was succesfull: "  + result)
       })

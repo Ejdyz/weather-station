@@ -14,17 +14,16 @@ storedData = []
 
 led.on()
 
-# define timer
-timer = Timer()
 
 # WiFi setup
 ssid = "Petr"
 password = "janajana"
 api_url = "https://weather.ejdy.cz/api/weather"
+status_url = "https://weather.ejdy.cz/api/status"
 api_password = "adG1E4Mg6rFArJG4EKRx2sO3vT34gGs2Na8kJPJrhLlFh5PBYi"
 
-# delay between posts in miliseconds (now set to 1 min)
-delay = 1000 * 10 * 60
+# delay between posts in miliseconds (now set to 5 min)
+delay = 5 * 60 * 1000
 reqNumber = 0
 
 # port setup
@@ -96,7 +95,7 @@ def getTimestamp():
 def incrementReqNumber():
     global reqNumber
 
-    if reqNumber >= 143:
+    if reqNumber >= 287:
         reqNumber = 0
     else:
         reqNumber += 1
@@ -127,20 +126,26 @@ if wlan.active():
     else:
         print("Cant connect to Wi-Fi")
 
-# Synchronize time
-ntptime.host = "pool.ntp.org"
-ntptime.settime()
 
+# Synchronize time
+while True:
+    try:
+        ntptime.host = "pool.ntp.org"
+        ntptime.settime()
+        print("time set successfuly")
+        break
+    except :
+        print("cant set time")
+        
+ 
 # garbage collector
 gc.collect()
 
 
 def parse_json(json_string):
     import json
-
     parsed_data = json.loads(json.dumps(json_string))
     req_number = parsed_data["reqNumber"]
-
     return req_number
 
 
@@ -181,7 +186,7 @@ def SendData(timer):
             print(storedData)
             break
 
-    # indicate sended data
+    # indicate sended data 
     ledBlink()
     incrementReqNumber()
 
@@ -195,7 +200,14 @@ def timeUntilMidnight():
 # Function to start sending data at midnight
 def startSendingDataAtMidnight():
     # Wait until midnight
-    time.sleep(timeUntilMidnight())
+    secUntilMidnight = timeUntilMidnight()
+    print("seconds until midnight", secUntilMidnight)
+    
+    # Start periodic sending of request to another API
+    sendRequestToStatusAPIPeriodically()
+    
+    #start sending status data 
+    time.sleep(secUntilMidnight)
 
     # Start periodic sending of data
     SendData(Timer())
@@ -204,11 +216,54 @@ def startSendingDataAtMidnight():
 
 # Function to start periodic data sending
 def sendDataPeriodically():
-    global timer
     global delay
+    # define timer
+    timer = Timer()
     timer.init(period=delay, mode=Timer.PERIODIC, callback=SendData)
+
+
+
+# Function to send request to another API every minute
+def sendRequestToStatusAPIPeriodically():
+    # Define your function to send request to another API
+    def sendStatusRequest():
+        print("Sending request to additional API")
+        # Perform your request to the additional API here
+        global storedData
+        global api_password
+        global status_url
+
+        tempData = getTemperatureAndHumidity()
+
+        # Define API endpoint and data
+        post_data = {
+            "temperature": tempData[0],
+            "humidity": tempData[1],
+            "pressure": getPressure(),
+            "sunlight": getLumens(),
+            "isRaining": isRaining(),
+            "rain": getRain(),
+            "time": getTimestamp(),
+            "password": api_password,
+        }
+
+        try:
+            req = requests.post(status_url, json=post_data)
+            print("sended status log")
+            print(req.text)
+        except Exception as e:
+            print("cant send data")
+            print(e)
+
+
+        # indicate sended data 
+        ledBlink()
+        
+
+    # Start timer to send request every minute
+    timer = Timer()
+    timer.init(period=60000, mode=Timer.PERIODIC, callback=lambda t: sendStatusRequest())
 
 
 # Start sending data at midnight
 startSendingDataAtMidnight()
-

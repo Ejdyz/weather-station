@@ -1,5 +1,6 @@
 import {env} from "process";
 import {NextResponse} from "next/server";
+import {getWeatherStationStatus} from "@/lib/weatherData";
 
 export async function POST(request) {
   const db = require("@/database/database");
@@ -79,5 +80,14 @@ export async function POST(request) {
   }
 
   //sending response
-  return NextResponse.json({message:"data saved succesfully"}, { status: 200 })
+  return NextResponse.json({message:"data updated succesfully"}, { status: 200 })
+}
+
+export async function GET() {
+  try {
+    return NextResponse.json(await getWeatherStationStatus(), { status: 200 })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+    return NextResponse.json({error:"server error"}, { status: 500 })
+  }
 }

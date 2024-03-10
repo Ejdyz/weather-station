@@ -3,6 +3,15 @@
 const nextConfig = {
   headers: () => [
     {
+      source: '/source',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    },
+    {
       source: '/',
       headers: [
         {

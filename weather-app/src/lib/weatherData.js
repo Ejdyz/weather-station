@@ -1,8 +1,5 @@
 "use server"
 import {env} from "process"
-import db from "@/database/database";
-import RecordsModel from "../../models/Records";
-
 /**
  * Retrieves the last weather record from the database.
  * @returns {Promise} A promise that resolves with the last record from the database.

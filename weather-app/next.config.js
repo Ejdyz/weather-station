@@ -3,7 +3,7 @@
 const nextConfig = {
   headers: () => [
     {
-      source: '/',
+      source: '/source',
       headers: [
         {
           key: 'Cache-Control',
@@ -12,7 +12,7 @@ const nextConfig = {
       ],
     },
     {
-      source: '/status',
+      source: '/',
       headers: [
         {
           key: 'Cache-Control',

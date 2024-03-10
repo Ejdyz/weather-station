@@ -1,7 +1,5 @@
 import {env} from "process";
 import {NextResponse} from "next/server";
-import db from "@/database/database";
-import RecordsModel from "../../../../models/Records";
 import {getWeatherStationStatus} from "@/lib/weatherData";
 
 export async function POST(request) {

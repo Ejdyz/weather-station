@@ -241,7 +241,6 @@ export async function  getWeatherStationStatus(){
     console.error("Unable to connect to the database:", error.original);
   }
 
-
   return {
     isActive:isActive,
     data:data};

@@ -1,5 +1,7 @@
 "use server"
 import {env} from "process"
+import db from "@/database/database";
+import RecordsModel from "../../models/Records";
 
 /**
  * Retrieves the last weather record from the database.
@@ -215,4 +217,36 @@ export async function getHowCloudyCurrentlyIs(data) {
 export async function isNight(){
   const currentTime = new Date().getHours()
   return currentTime < env.NIGHT_END || currentTime > env.NIGHT_START
+}
+
+export async function  getWeatherStationStatus(){
+  const db = require("@/database/database");
+  const StatusModel = require("../../models/Status");
+  let data = null
+  let isActive = false
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+
+    data = await StatusModel.findOne({
+      where: {
+        id: 1
+      },
+      raw: true,
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+
+    isActive = (new Date() - new Date(data.updatedAt)) / (1000*60) < 1
+
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+
+
+  return {
+    isActive:isActive,
+    data:data};
+
 }

@@ -79,5 +79,5 @@ export async function POST(request) {
   }
 
   //sending response
-  return NextResponse.json({message:"data saved succesfully"}, { status: 200 })
+  return NextResponse.json({message:"data updated succesfully"}, { status: 200 })
 }

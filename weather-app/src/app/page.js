@@ -38,10 +38,7 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
   const snowyWeather = "h-full w-full bg-gradient-to-tr from-sky-300  to-cyan-600"
 
   let weatherBackground = snowyWeather//await getCurrentBackground(cloudiness, rain, night)
-  // //if its night
-  if (night) weatherBackground = clearWeatherNight
 
-  //if its clear weather and it is not raining
   if (cloudiness === "clear" && rain == null) weatherBackground = clearWeatherDay
 
   if (cloudiness === "partly cloudy") weatherBackground = partlyCloudyDay
@@ -53,6 +50,8 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
   if (rain === "rain") weatherBackground = rainyWeather
 
   if (rain === "snow") weatherBackground = snowyWeather
+
+  if (night) weatherBackground = clearWeatherNight
   return weatherBackground;
 }
 

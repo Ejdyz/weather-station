@@ -1,6 +1,6 @@
 "use client"
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Checkbox, extendVariants} from "@nextui-org/react";
+import {Checkbox} from "@nextui-org/react";
 import {useState} from "react";
 
 const MainChart = ({data}) => {
@@ -42,7 +42,7 @@ const MainChart = ({data}) => {
           >
             <CartesianGrid strokeDasharray="3 3"/>
             <XAxis  stroke="#FFF" dataKey="time"/>
-            <YAxis stroke="#FFF"></YAxis>
+            <YAxis stroke="#FFF" domain={['auto', 'auto']}></YAxis>
             <Tooltip content={<CustomTooltip/>}/>
             <Legend/>
             {isTempActive?(<Line type="monotone" name={"Teplota"} dataKey={"temperature"} stroke={"#ffcd25"}/>):(<> </>)}

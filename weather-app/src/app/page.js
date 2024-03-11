@@ -38,10 +38,7 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
   const snowyWeather = "h-full w-full bg-gradient-to-tr from-sky-300  to-cyan-600"
 
   let weatherBackground = snowyWeather//await getCurrentBackground(cloudiness, rain, night)
-  // //if its night
-  if (night) weatherBackground = clearWeatherNight
 
-  //if its clear weather and it is not raining
   if (cloudiness === "clear" && rain == null) weatherBackground = clearWeatherDay
 
   if (cloudiness === "partly cloudy") weatherBackground = partlyCloudyDay
@@ -53,6 +50,8 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
   if (rain === "rain") weatherBackground = rainyWeather
 
   if (rain === "snow") weatherBackground = snowyWeather
+
+  if (night) weatherBackground = clearWeatherNight
   return weatherBackground;
 }
 
@@ -60,8 +59,11 @@ export default async function Home() {
   const data = await getLastRecord()
   let lastData = await getLastRecords(10)
   Object.keys(lastData).forEach(key => {
-    const time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
-    lastData[key].time = time
+    if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){
+      lastData[key].time = new Date(lastData[key].time).getHours() + ":0" + new Date(lastData[key].time).getMinutes()
+    }else{
+      lastData[key].time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
+    }
   })
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)

@@ -48,7 +48,7 @@ export const getLastRecords = async (numOfRecords) => {
         order: [["id", "DESC"]],
       })
         .then( (result) => {
-          resolve(result);
+          resolve(result.reverse());
         })
         .catch((error) => {
           reject(error);

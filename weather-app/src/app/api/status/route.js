@@ -1,6 +1,7 @@
 import {env} from "process";
 import {NextResponse} from "next/server";
 import {getWeatherStationStatus} from "@/lib/weatherData";
+import crypto from 'crypto';
 
 export async function POST(request) {
   const db = require("@/database/database");
@@ -22,8 +23,14 @@ export async function POST(request) {
     ...otherData
   } = res;
 
+  const buf1 = Buffer.from(password);
+  const buf2 = Buffer.from(env.API_PASSWORD);
+
+  if (buf1.length !== buf2.length) {
+    return NextResponse.json({error:"wrong password"},{ status: 400 });
+  }
   //checking password to api
-  if(password !== env.API_PASSWORD){
+  if(!crypto.timingSafeEqual(buf1, buf2)){
     return NextResponse.json({error:"wrong password"},{ status: 400 })
   }
   //check every value in req if it is correct

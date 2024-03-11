@@ -1,6 +1,6 @@
 "use client"
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Checkbox, extendVariants} from "@nextui-org/react";
+import {Checkbox} from "@nextui-org/react";
 import {useState} from "react";
 
 const MainChart = ({data}) => {

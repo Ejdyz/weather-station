@@ -59,8 +59,11 @@ export default async function Home() {
   const data = await getLastRecord()
   let lastData = await getLastRecords(10)
   Object.keys(lastData).forEach(key => {
-    const time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
-    lastData[key].time = time
+    if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){
+      lastData[key].time = new Date(lastData[key].time).getHours() + ":0" + new Date(lastData[key].time).getMinutes()
+    }else{
+      lastData[key].time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
+    }
   })
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)

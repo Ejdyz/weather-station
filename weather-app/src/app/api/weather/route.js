@@ -63,7 +63,7 @@ export async function POST(request) {
       rain: rain,
       isRaining: isRaining,
       light: sunlight,
-      pressure: pressure,
+      pressure: pressure >10000? pressure-10000 : pressure,
     })
       .then(() => {
         console.log("Record created successfully!");

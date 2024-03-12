@@ -111,38 +111,10 @@ export const getLastDays = async (forCharts, days) => {
  */
 export const getSunriseAndSunset = async () => {
   const apiKey = env.GEOLOCATION_API_KEY.toString();
-  return {
-    location: {
-      location: 'Ústí nad Labem, CZ',
-      country: 'Czechia',
-      state: 'Northwest',
-      city: 'Ústí nad Labem',
-      locality: '',
-      latitude: 50.6603327,
-      longitude: 14.0381357
-    },
-    date: '2024-01-28',
-    current_time: '20:05:30.098',
-    sunrise: '07:45',
-    sunset: '16:48',
-    sun_status: '-',
-    solar_noon: '12:16',
-    day_length: '09:03',
-    sun_altitude: -31.089456916038326,
-    sun_distance: 147290229.58239198,
-    sun_azimuth: 279.2736870351876,
-    moonrise: '19:41',
-    moonset: '09:14',
-    moon_status: '-',
-    moon_altitude: 3.7920620273060655,
-    moon_distance: 405553.86315247096,
-    moon_azimuth: 78.77612276609557,
-    moon_parallactic_angle: -39.13493070212058
-  }
 
-  // return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ",{
-  //     cache:"no-cache"
-  //   }).then(response => response.json())
+  return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ",{
+      cache:"no-cache"
+    }).then(response => response.json())
 };
 /**
  * Retrieves the current moon phase.
@@ -211,9 +183,18 @@ export async function getHowCloudyCurrentlyIs(data) {
  * Night is defined as hours less than 6 or greater than 19.
  * @returns {boolean} Returns true if it's nighttime, false otherwise.
  */
-export async function isNight(){
-  const currentTime = new Date().getHours()
-  return currentTime < env.NIGHT_END || currentTime > env.NIGHT_START
+export async function isNight(sunset, sunrise){
+  const currentTime = new Date()
+
+  let sunsetTime = new Date();
+  sunsetTime.setHours(parseInt(sunset.split(':')[0], 10));
+  sunsetTime.setMinutes(parseInt(sunset.split(':')[1], 10));
+
+  let sunriseTime = new Date();
+  sunriseTime.setHours(parseInt(sunrise.split(':')[0], 10));
+  sunriseTime.setMinutes(parseInt(sunrise.split(':')[1], 10));
+
+  return currentTime > sunsetTime || currentTime < sunriseTime
 }
 
 export async function  getWeatherStationStatus(){

@@ -12,7 +12,7 @@ const Page = async () => {
       const res = await fetch('https://uptime.betterstack.com/api/v2/incidents?monitor_id=1799772&per_page=50',{
         cache: 'no-store',
         headers: {
-          "authorization": "Bearer Uetq8qJyEvWHKcRQfS3RuERH",
+          "authorization": process.env.BETTER_STACK_API_KEY,
         },
       })
       return await res.json()

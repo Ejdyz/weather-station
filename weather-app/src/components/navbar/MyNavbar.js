@@ -42,7 +42,7 @@ export default function App({page}) {
     <NavbarContent className="hidden sm:flex gap-4" justify="center">
       <NavbarItem isActive={page==="about"}>
         <Link color="foreground" href="about">
-          About
+          O projektu
         </Link>
       </NavbarItem>
       <NavbarItem isActive={page==="home"}>

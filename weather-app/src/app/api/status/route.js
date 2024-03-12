@@ -92,7 +92,12 @@ export async function POST(request) {
 
 export async function GET() {
   try {
-    return NextResponse.json(await getWeatherStationStatus(), { status: 200 })
+    const status = await getWeatherStationStatus();
+    if(status.isActive){
+      return NextResponse.json({success:"active"}, { status: 200 })
+    }else{
+      return NextResponse.json({error:"not active"}, { status: 500 })
+    }
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);
     return NextResponse.json({error:"server error"}, { status: 500 })

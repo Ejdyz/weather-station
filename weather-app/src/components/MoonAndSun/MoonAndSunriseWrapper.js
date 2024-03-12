@@ -1,4 +1,3 @@
-import {getSunriseAndSunset} from "@/lib/weatherData";
 import Sunrise from "@/components/MoonAndSun/sunrise/Sunrise";
 import Moonrise from "@/components/MoonAndSun/moonrise/Moonrise";
 import MoonPhase from "@/components/MoonAndSun/moonphase/MoonPhase";

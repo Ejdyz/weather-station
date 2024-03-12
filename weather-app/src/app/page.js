@@ -60,7 +60,6 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
 }
 
 export default async function Home() {
-
   const sunriseData = await getSunriseAndSunset()
   const data = await getLastRecord()
   let lastData = await getLastRecords(10)
@@ -74,7 +73,6 @@ export default async function Home() {
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)
   const night = await isNight(sunriseData.sunset, sunriseData.sunrise)
-  console.log()
   return (
     <>
       <div className={await getWeatherBackground(cloudiness,rain,night)} >

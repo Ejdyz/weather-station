@@ -1,50 +1,30 @@
-"use client"
-import {useEffect, useState} from "react";
+import {getWeatherStationStatus} from "@/lib/weatherData";
+import StatusPage from "@/app/status/StatusPage";
 
 export const fetchCache = 'force-no-store';
 
-const Page = () => {
-  let [data,setData] = useState({
-    isActive: false,
-    data: {
-      temperature: 0,
-      humidity: 0,
-      pressure: 0,
-      sunlight: 0,
-      rain: 0,
-      isRaining: false,
-      time: ""
-    }
-  });
+export const metadata = {
+  title: 'Status',
+  description: 'Status page of the weather station',
+};
+const Page = async () => {
+  const fetchIncidentData = async () => {
+      const res = await fetch('https://uptime.betterstack.com/api/v2/incidents?monitor_id=1799772&per_page=50',{
+        cache: 'no-store',
+        headers: {
+          "authorization": process.env.BETTER_STACK_API_KEY,
+        },
+      })
+      return await res.json()
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/status',{ cache: 'no-store' });
-        setData(await response.json());
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const incidents = await fetchIncidentData()
 
-    fetchData();
-  }, []); // Empty dependency array to run effect only once during component mount
+  const data = await getWeatherStationStatus()
 
-  console.log(data)
-  return (
-    <>
-      <h1>Status</h1>
-      <p>Temperature: {data.data.temperature}</p>
-      <p>Humidity: {data.data.humidity}</p>
-      <p>Pressure: {data.data.pressure}</p>
-      <p>Sunlight: {data.data.sunlight}</p>
-      <p>Rain: {data.data.rain}</p>
-      <p>Is raining: {data.data.isRaining ? "Yes" : "No"}</p>
-      <p>Time: {data.data.time}</p>
-      <p>Is active: {data.isActive ? "Yes" : "No"}</p>
-
-    </>
-  );
+  return(
+    <StatusPage data={data} statusData={incidents} />
+  )
 };
 
 export default Page;

@@ -90,6 +90,11 @@ export default function App({page}) {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
+      <NavbarItem isActive={page==="status"}>
+        <Link color="foreground" href="status">
+          Status
+        </Link>
+      </NavbarItem>
     </NavbarContent>
     <NavbarContent justify="end">
       <NavbarMenuToggle

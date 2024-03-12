@@ -3,6 +3,10 @@ import StatusPage from "@/app/status/StatusPage";
 
 export const fetchCache = 'force-no-store';
 
+export const metadata = {
+  title: 'Status',
+  description: 'Status page of the weather station',
+};
 const Page = async () => {
   const fetchIncidentData = async () => {
       const res = await fetch('https://uptime.betterstack.com/api/v2/incidents?monitor_id=1799772&per_page=50',{

@@ -15,6 +15,10 @@ import Footer from "@/components/Footer";
 import MainDataLoading from "@/components/main/MainDataLoading";
 import MainChartLoading from "@/components/main/MainChartLoading";
 
+export const metadata = {
+  title: 'Počasí',
+  description: 'Hlavní stránka aplikace',
+};
 export const fetchCache = 'force-no-store';
 
 const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})

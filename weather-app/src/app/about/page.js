@@ -3,6 +3,10 @@ import {Canvas} from "@react-three/fiber";
 import Experience from "@/components/Experience";
 import MyNavBar from "@/components/navbar/MyNavbar"
 import "./noSlider.css"
+export const metadata = {
+  title: 'About',
+  description: 'Page that tells you everything about the weather station',
+};
 export default function App() {
 
   return (

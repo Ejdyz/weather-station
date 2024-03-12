@@ -8,9 +8,9 @@ const StatusPage = ({data, statusData}) => {
   let time;
   const date = new Date(data.data.time)
   if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getMinutes())) {
-    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":0" + date.getMinutes()
+    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":0" + date.getMinutes() + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
   } else {
-    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":" + date.getMinutes()
+    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":" + date.getMinutes()+ ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
   }
   return (
     <div className={" w-full min-h-screen h-full bg-gradient-to-br from-slate-900 to-slate-700 text-white pb-4"}>

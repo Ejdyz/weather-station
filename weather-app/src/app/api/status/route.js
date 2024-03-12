@@ -33,6 +33,7 @@ export async function POST(request) {
   if(!crypto.timingSafeEqual(buf1, buf2)){
     return NextResponse.json({error:"wrong password"},{ status: 400 })
   }
+
   //check every value in req if it is correct
   if (typeof temperature !== "number") {
     return NextResponse.json({error:"wrong temperature value"}, { status: 400 })

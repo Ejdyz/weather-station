@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import {env} from 'process'
+import crypto from "crypto";
 export async function POST(request) {
   const db = require("@/database/database");
   const RecordsModel = require("../../../../models/Records");
@@ -20,10 +21,17 @@ export async function POST(request) {
     reqNumber, ...otherData
   } = res;
 
+  const buf1 = Buffer.from(password);
+  const buf2 = Buffer.from(env.API_PASSWORD);
+
+  if (buf1.length !== buf2.length) {
+    return NextResponse.json({error:"wrong password"},{ status: 400 });
+  }
   //checking password to api
-  if(password !== env.API_PASSWORD){
+  if(!crypto.timingSafeEqual(buf1, buf2)){
     return NextResponse.json({error:"wrong password"},{ status: 400 })
   }
+
   //check every value in req if it is correct
   if (typeof temperature !== "number") {
     return NextResponse.json({error:"wrong temperature value"}, { status: 400 })

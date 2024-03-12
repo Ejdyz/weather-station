@@ -10,7 +10,7 @@ export default function App() {
       <div className="bg-gradient-to-br from-gray-900 to-gray-800">
         <MyNavBar page="about" />
       </div>
-      <div className="w-scren h-[calc(100vh-4rem)] bg-gradient-to-br from-gray-900 to-gray-800">
+      <div className="w-scren h-[calc(100vh-4rem)] bg-gradient-to-br from-sky-800 to-gray-600">
         <Canvas >
           <Experience />
         </Canvas>

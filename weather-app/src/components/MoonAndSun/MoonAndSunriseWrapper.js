@@ -1,11 +1,9 @@
-import {getSunriseAndSunset} from "@/lib/weatherData";
 import Sunrise from "@/components/MoonAndSun/sunrise/Sunrise";
 import Moonrise from "@/components/MoonAndSun/moonrise/Moonrise";
 import MoonPhase from "@/components/MoonAndSun/moonphase/MoonPhase";
 import ZodiacSigns from "@/components/MoonAndSun/zodiac/ZodiacSigns";
 
-const MoonAndSunriseWrapper = async () => {
-  const data = await getSunriseAndSunset()
+const MoonAndSunriseWrapper = async ({data}) => {
   return (
     <div className="mt-8 flex md:flex-row flex-col w-full justify-evenly mb-12  items-center">
       <ZodiacSigns className="w-28 md:block hidden"/>

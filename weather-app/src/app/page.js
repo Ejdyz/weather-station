@@ -7,7 +7,7 @@ import MoonAndSunriseLoading from "@/components/MoonAndSun/MoonAndSunriseLoading
 import {
   getHowCloudyCurrentlyIs,
   getHowMuchIsCurrentlyRaining,
-  getLastRecord, getLastRecords,
+  getLastRecord, getLastRecords, getSunriseAndSunset,
   isNight,
 } from "@/lib/weatherData";
 import MyIcon from "@/components/main/MyIcon";
@@ -60,6 +60,7 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
 }
 
 export default async function Home() {
+  const sunriseData = await getSunriseAndSunset()
   const data = await getLastRecord()
   let lastData = await getLastRecords(10)
   Object.keys(lastData).forEach(key => {
@@ -71,7 +72,7 @@ export default async function Home() {
   })
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)
-  const night = await isNight()
+  const night = await isNight(sunriseData.sunset, sunriseData.sunrise)
   return (
     <>
       <div className={await getWeatherBackground(cloudiness,rain,night)} >
@@ -91,7 +92,7 @@ export default async function Home() {
           </section>
           <section id="sunrise" className="pt-1">
             <Divider gap><div className=" bg-primary px-4 py-1 rounded-xl text-white border-4 border-white min-w-fit " >Východ a západ</div></Divider>
-            <MoonAndSunriseWrapper />
+            <MoonAndSunriseWrapper data={sunriseData}/>
           </section>
           <section id="charts" className="pt-1">
             <Selector />

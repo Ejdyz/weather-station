@@ -3,6 +3,7 @@ import {Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} f
 import IncidentBox from "@/app/status/IncidentBox";
 import {CheckBadgeIcon} from "@/components/icons/Icons";
 import BackButton from "@/components/BackButton";
+import "../about/noSlider.css"
 
 const StatusPage = ({data, statusData}) => {
 

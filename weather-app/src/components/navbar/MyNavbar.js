@@ -137,6 +137,11 @@ export default function App({page}) {
           - Radar
         </Link>
       </NavbarItem>
+      <NavbarItem isActive={page==="status"}>
+        <Link color="foreground"  href="/status" >
+          Status
+        </Link>
+      </NavbarItem>
     </NavbarMenu>
   </Navbar>
   );

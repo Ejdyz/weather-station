@@ -6,7 +6,7 @@ const BackButton = ({className}) => {
   const router = useRouter();
   return (
     <>
-      <Button className={className? className : "absolute m-16"} variant="light" isIconOnly onClick={()=>{router.back()}}>
+      <Button className={className? className : "absolute md:m-16 m-5 mt-14"} variant="light" isIconOnly onClick={()=>{router.back()}}>
         <ArrowLeft size={24} color={"white"}/>
       </Button>
     </>

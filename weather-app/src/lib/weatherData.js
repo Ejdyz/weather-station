@@ -112,9 +112,7 @@ export const getLastDays = async (forCharts, days) => {
 export const getSunriseAndSunset = async () => {
   const apiKey = env.GEOLOCATION_API_KEY.toString();
 
-  return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ",{
-      cache:"no-cache"
-    }).then(response => response.json())
+  return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
 };
 /**
  * Retrieves the current moon phase.

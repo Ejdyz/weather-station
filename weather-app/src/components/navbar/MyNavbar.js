@@ -6,11 +6,16 @@ import {LogoIcon} from "@/components/icons/Icons";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from "@nextui-org/react";
 import {Button} from "@nextui-org/button";
 import { ChevronDown} from "lucide-react";
+import {useRouter} from "next/navigation";
 
 export default function App({page}) {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const scrollToRef = useRef(null);
   const handleLinkClick = (sectionId) => {
+    if (page !== "home") {
+      router.replace("/#" + sectionId ); // Redirect to the home page
+    }
     setIsMenuOpen(false);
     scrollToRef.current = sectionId;
   };
@@ -23,6 +28,9 @@ export default function App({page}) {
   }, [isMenuOpen]); // Run this effect whenever isOpen changes
 
   function scrollToSection(sectionId) {
+    if (page !== "home") {
+      router.replace("/#" + sectionId ); // Redirect to the home page
+    }
     const section = document.getElementById(sectionId);
     if (section) {
       window.scrollTo({
@@ -72,7 +80,8 @@ export default function App({page}) {
         >
           <DropdownItem
             key="Východ slunce"
-             color="primary" onPress={()=>scrollToSection("sunrise")}
+            color="primary"
+            onPress={()=>scrollToSection("sunrise")}
             >
               Východ slunce
           </DropdownItem>
@@ -107,7 +116,8 @@ export default function App({page}) {
         <Link color="foreground"  href="/about" >
           O projektu
         </Link>
-      </NavbarItem><NavbarItem isActive={page==="home"}>
+      </NavbarItem>
+      <NavbarItem isActive={page==="home"}>
         <Link color="foreground"  href="/" >
           Počasí
         </Link>

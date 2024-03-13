@@ -33,7 +33,7 @@ export function VercelTable({data}) {
           <TableRow>
             <TableHead className="sticky left-0 bg-white text-black ">Data</TableHead>
             {data.map((item, index) => (
-              <TableHead className={"text-black bg-gray-100 " + (data.length <=7? data.length === index+1?"md:min-w-32 min-w-28":"md:min-w-48 min-w-28" : data.length <=10?"min-w-32":"min-w-28")} key={index}>{item?.day?.getDate() + "-" + item?.day?.getMonth() + 1 }</TableHead>
+              <TableHead className={"text-black bg-gray-100 " + (data.length <=7? data.length === index+1?"md:min-w-32 min-w-28":"md:min-w-48 min-w-28" : data.length <=10?"min-w-32":"min-w-28")} key={index}>{item?.day?.getDate() + "-" + (item?.day?.getMonth() + 1) }</TableHead>
             ))}
           </TableRow>
         </TableHeader>

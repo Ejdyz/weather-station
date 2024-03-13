@@ -10,8 +10,6 @@ import {
 } from "recharts";
 import {Spinner} from "@nextui-org/spinner";
 
-//TODO add responsive contianer
-
 const CustomTooltip = ({ active, payload, label, forWhat }) => {
   if (active && payload && payload.length) {
   const attribute = forWhat==="temperature"? "°C" : forWhat==="humidity"?"%": forWhat==="pressure"?"hPa":"%"

@@ -1,6 +1,22 @@
 import { NextResponse } from 'next/server'
 import {env} from 'process'
 import crypto from "crypto";
+
+const verifyPressure = (pressure) => {
+  const pres = Math.trunc(pressure)
+  const stringPres = pres.toString()
+
+  if(stringPres.length >= 5 && pres > 80000){ //remove first 2 numbers
+    return pressure.toString().slice(2)
+  }
+  if(stringPres.length >= 5 && pres > 10000){ //remove first number
+    return pressure.toString().slice(1)
+  }
+  if(stringPres.length > 4 || pres > 2000){ //remove first number
+    return pressure.toString().slice(1)
+  }
+  return pressure
+}
 export async function POST(request) {
   const db = require("@/database/database");
   const RecordsModel = require("../../../../models/Records");
@@ -71,7 +87,7 @@ export async function POST(request) {
       rain: rain,
       isRaining: isRaining,
       light: sunlight,
-      pressure: pressure >10000? pressure-10000 : pressure,
+      pressure: verifyPressure(pressure),
     })
       .then(() => {
         console.log("Record created successfully!");

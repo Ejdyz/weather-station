@@ -14,7 +14,7 @@ INSERT INTO `ejdy_cz`.`weather-last-days` (
     wasRaining,
     highestRaining,
     highestLight,
-    lowestPressure
+    lowestPressure,
     highestPressure
 )
 SELECT
@@ -25,10 +25,10 @@ SELECT
     MIN(humidity) AS lowestHumidity,
     CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining,
     MAX(rain) AS highestRaining,
-    MAX(light) AS highestLight,
+    MIN(light) AS highestLight,
     MAX(pressure) AS highestPressure,
-    MIN(pressure) AS lowestPressure,
+    MIN(pressure) AS lowestPressure
 FROM
     `ejdy_cz`.`weather-records`
-ORDER BY id DESC LIMIT 143;
+ORDER BY id DESC LIMIT 281;
 

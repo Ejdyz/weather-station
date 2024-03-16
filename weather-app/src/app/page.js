@@ -62,7 +62,7 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
 export default async function Home() {
   const sunriseData = await getSunriseAndSunset()
   const data = await getLastRecord()
-  let lastData = await getLastRecords(10)
+  let lastData = await getLastRecords(24)
   Object.keys(lastData).forEach(key => {
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){
       lastData[key].time = new Date(lastData[key].time).getHours() + ":0" + new Date(lastData[key].time).getMinutes()

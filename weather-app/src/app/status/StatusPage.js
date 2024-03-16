@@ -4,8 +4,28 @@ import IncidentBox from "@/app/status/IncidentBox";
 import {CheckBadgeIcon} from "@/components/icons/Icons";
 import BackButton from "@/components/BackButton";
 import "../about/noSlider.css"
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
 
 const StatusPage = ({data, statusData}) => {
+  const router = useRouter();
+  const [timeUntilRefresh, setTimeUntilRefresh] = useState(60); // Initial time in seconds
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeUntilRefresh(prevTime => {
+        if (prevTime === 1) {
+          router.refresh(); // Reload the page when timer reaches 0
+          return 60; // Reset the timer
+        } else {
+          return prevTime - 1; // Decrease time by 1 second
+        }
+      });
+    }, 1000); // Run every second
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []); // Run this effect only once on component mount
 
   let time;
   const date = new Date(data.data.time)
@@ -67,9 +87,11 @@ const StatusPage = ({data, statusData}) => {
             <IncidentBox key={index} data={data} index={data} />
           )
         }
+        <div className="mt-4 w-full text-center ">
+          <p className="opacity-50">Refreshing in {timeUntilRefresh} seconds</p>
+        </div>
       </div>
     </>
-
   )
 };
 

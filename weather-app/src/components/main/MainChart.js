@@ -4,7 +4,7 @@ import {RadioGroup, Radio} from "@nextui-org/radio";
 import {useState} from "react";
 
 
-const MainChart = ({data,isForHistory}) => {
+const MainChart = ({data,isForHistory }) => {
   const [selected, setSelected] = useState("Temperature");
 
   function formatDate(date) {
@@ -21,7 +21,7 @@ const MainChart = ({data,isForHistory}) => {
       return (
         <div className="custom-tooltip" style={{ backdropFilter:"blur(5px)", padding:"15px", borderRadius:"5px", border: "1px white solid"}} >
           <p>{formatDate(payload[0].payload.createdAt)}</p>
-          <p style={{color: `${payload[0].stroke}`}}>{`${payload[0].name} : ${payload[0].value}`}</p>
+          <p style={{color: `${payload[0].stroke}`}}>{`${payload[0].name} : ${payload[0].value} ${payload[0].unit}`}</p>
         </div>
       );
     }
@@ -30,7 +30,7 @@ const MainChart = ({data,isForHistory}) => {
 
   return (
     <>
-      <div className={`${!isForHistory && "md:ml-[5vw]"} md:w-[90vw] w-[94vw] text-white`}>
+      <div className={`${!isForHistory && "md:ml-[5vw]"} mb-4 md:w-[90vw] w-[94vw] text-white`}>
         <RadioGroup
           orientation="horizontal"
           onValueChange={setSelected}
@@ -42,15 +42,14 @@ const MainChart = ({data,isForHistory}) => {
           <Radio value="Pressure" color={"warning"}><h4 className="text-white">Tlak</h4></Radio>
           <Radio value="Rain" color={"success"}><h4 className="text-white">Déšť</h4></Radio>
         </RadioGroup>
-        <ResponsiveContainer width="100%" height={300} >
+        <ResponsiveContainer width="100%" height={320} >
           <LineChart
             data={data}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={!isForHistory}/>
-            {!isForHistory && <XAxis stroke="#FFF" dataKey="time"/>}
+            {!isForHistory && <XAxis stroke="#FFF" dataKey="time" angle={-45}  tickSize={14}  />}
             <YAxis stroke="#FFF" domain={['auto', 'auto']}></YAxis>
             <Tooltip content={<CustomTooltip/>}/>
-            <Legend/>
             <Line
               type="monotone"
               name={
@@ -64,6 +63,11 @@ const MainChart = ({data,isForHistory}) => {
                 selected==="Temperature"? "#ffcd25":
                   selected==="Humidity"?"#99e513":
                     selected==="Pressure"?"#ff5757":"#87d5ff"
+              }
+              unit={
+                selected==="Temperature"? "°C":
+                  selected==="Humidity"?"%":
+                    selected==="Pressure"?"hPa":"%"
               }
             />
           </LineChart>

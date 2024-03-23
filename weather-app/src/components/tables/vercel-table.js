@@ -1,29 +1,7 @@
+"use client"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import {
-  CleanNightIcon,
-  ClearDayIcon,
-  ClearDayIconStatic,
-  CloudyIcon,
-  DrizzleIcon,
-  DrizzleIconStatic,
-  MoonriseIcon,
-  MoonsetIcon,
-  NewMoonIcon,
-  PartlyCloudyDayDrizzleIcon,
-  PartlyCloudyDayIcon,
-  PartlyCloudyDayIconStatic,
-  PartlyCloudyNightDrizzleIcon,
-  PartlyCloudyNightIcon,
-  PartlyCloudyNightRainIcon,
-  RaindropsIcon,
-  RaindropsIconStatic,
-  RainingIcon,
-  RainingIconStatic,
-  SnowingIcon,
-  SnowingIconStatic,
-  SunriseIcon,
-  SunsetIcon,
-} from "@/components/icons/Icons";
+import {ArrowUpIcon, ArrowDown} from "lucide-react";
+import TableIcon from "@/components/tables/TableIcon";
 
 export function VercelTable({data}) {
   return (
@@ -31,9 +9,13 @@ export function VercelTable({data}) {
       <Table>
         <TableHeader className="w-full">
           <TableRow>
-            <TableHead className="sticky left-0 bg-white text-black ">Data</TableHead>
+            <TableHead className="sticky left-0 bg-white text-black ">Datum</TableHead>
             {data.map((item, index) => (
-              <TableHead className={"text-black bg-gray-100 " + (data.length <=7? data.length === index+1?"md:min-w-32 min-w-28":"md:min-w-48 min-w-28" : data.length <=10?"min-w-32":"min-w-28")} key={index}>{item?.day?.getDate() + "-" + (item?.day?.getMonth() + 1) }</TableHead>
+              <TableHead
+                className={"text-black bg-gray-100 text-center " + (data.length <=7? data.length === index+1?"md:min-w-32 min-w-28":"md:min-w-48 min-w-28" : data.length <=10?"min-w-32":"min-w-28")}
+                key={index}>
+                {item?.day?.getDate() + "/" + (item?.day?.getMonth() + 1) + "/" + item?.day?.getFullYear()}
+              </TableHead>
             ))}
           </TableRow>
         </TableHeader>
@@ -41,25 +23,47 @@ export function VercelTable({data}) {
           <TableRow>
             <TableCell className="sticky left-0 bg-white  text-black">Oblačnost</TableCell>
             {data.map((item, index) => (
-              <TableHead className="text-black bg-gray-100 " key={index}><div className="max-w-20"><SnowingIconStatic /></div></TableHead>
+              <TableHead className="text-black bg-gray-100 " key={index}>
+                <div className="flex flex-row justify-center align-middle ">
+                  <TableIcon light={item.highestLight} raining={item.highestRaining} lowestTemp={item.lowestTemperature} />
+                </div>
+              </TableHead>
+            ))}
+          </TableRow>
+           <TableRow>
+            <TableCell className="sticky left-0 bg-white  text-black">Temperature <span className="text-gray-300">°C</span></TableCell>
+             {data.map((item, index) => (
+               <TableHead className="text-black bg-gray-100 " key={index}>
+                  <span className="flex flex-row justify-center align-middle">
+                    <ArrowUpIcon size={20} stroke="Crimson"/>
+                    { item.highestTemperature}/{item.lowestTemperature}
+                    <ArrowDown size={20} stroke="DeepSkyBlue"/>
+                  </span>
+           </TableHead>
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Humidty</TableCell>
+            <TableCell className="sticky left-0 bg-white  text-black">Humidty <span className="text-gray-300">%</span></TableCell>
             {data.map((item, index) => (
-              <TableHead className="text-black bg-gray-100 " key={index}>{item.highestHumidity + " / " + item.lowestHumidity }</TableHead>
+              <TableHead className="text-black bg-gray-100 " key={index}>
+                <span className="flex flex-row justify-center align-middle">
+                  <ArrowUpIcon size={20} stroke="Crimson"/>
+                   {item.highestHumidity}/{item.lowestHumidity}
+                  <ArrowDown size={20} stroke="DeepSkyBlue"/>
+                </span>
+              </TableHead>
             ))}
           </TableRow>
            <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Temperature</TableCell>
+            <TableCell className="sticky left-0 bg-white  text-black">Pressure <span className="text-gray-300">hPa</span></TableCell>
             {data.map((item, index) => (
-                <TableHead className="text-black bg-gray-100 " key={index}>{item.highestTemperature + " / " + item.lowestTemperature }</TableHead>
-            ))}
-          </TableRow>
-           <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Pressure</TableCell>
-            {data.map((item, index) => (
-                <TableHead className="text-black bg-gray-100 " key={index}>{item.highestPressure + " / " + item.lowestPressure }</TableHead>
+              <TableHead className="text-black bg-gray-100 " key={index}>
+                <span className="flex flex-row justify-center align-middle">
+                  <ArrowUpIcon size={20} stroke="Crimson"/>
+                  { item.lowestPressure}/{item.highestPressure}
+                  <ArrowDown size={20} stroke="DeepSkyBlue"/>
+                </span>
+              </TableHead>
             ))}
           </TableRow>
         </TableBody>

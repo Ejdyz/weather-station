@@ -7,7 +7,7 @@ export default function App({data, loading}) {
     <>
       <div className={"grid justify-center"}>
         {loading? (
-          <div className="md:ml-[5vw] md:w-[90vw] w-[94vw] h-[300px] px-2 h-[300px] grid  justify-center ">
+          <div className="md:ml-[5vw] md:w-[90vw] w-[94vw] px-2 h-[300px] grid  justify-center ">
             <Spinner size="lg"/>
           </div>
         ) :(

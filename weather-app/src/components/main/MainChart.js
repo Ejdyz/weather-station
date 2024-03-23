@@ -4,20 +4,9 @@ import {RadioGroup, Radio} from "@nextui-org/radio";
 import {useState} from "react";
 
 
-const MainChart = ({data,days,isForHistory}) => {
+const MainChart = ({data,isForHistory}) => {
   const [selected, setSelected] = useState("Temperature");
 
-  function distributeObjects(totalLength, numObjects) {
-    const step = Math.floor(totalLength / numObjects);
-    const positions = [];
-
-    for (let i = 0; i < numObjects; i++) {
-      positions.push(i * step);
-    }
-
-    positions.push(totalLength); // Add the last position
-    return positions;
-  }
   function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based

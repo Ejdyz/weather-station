@@ -26,7 +26,7 @@ export default function Home() {
     <div className="m-1">
       <DaySwitcher value={days} setValue={setDays} />
       <br/>
-      {loading?<MainChartLoading /> :<MainChart data={data} days={days} isForHistory/>}
+      {loading?<MainChartLoading /> :<MainChart data={data} isForHistory/>}
     </div>
   );
 }

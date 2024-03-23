@@ -88,7 +88,7 @@ export const getLastDays = async (forCharts, days) => {
         });
     })
     if (!forCharts){
-      return lastDays
+      return lastDays.reverse()
     }
     return lastDays.map((day) => {
       let date = new Date(day.day)

@@ -25,7 +25,7 @@ export function WeatherTable({data}) {
             {data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <div className="flex flex-row justify-center align-middle ">
-                  <TableIcon light={item.highestLight} raining={item.highestRaining} lowestTemp={item.highestTemperature} />
+                  <TableIcon data={item}/>
                 </div>
               </TableHead>
             ))}

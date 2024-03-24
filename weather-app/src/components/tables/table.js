@@ -3,7 +3,7 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@
 import {ArrowUpIcon, ArrowDown} from "lucide-react";
 import TableIcon from "@/components/tables/TableIcon";
 
-export function VercelTable({data}) {
+export function Table({data}) {
   return (
     (<div className=" w-full overflow-auto rounded-xl align-middle ">
       <Table>

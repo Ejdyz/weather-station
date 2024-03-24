@@ -2257,7 +2257,7 @@ export const LogoIcon = (props) => {
 export const SunRiseLine = (props) => {
   return (
     <svg
-      width={258}
+      width={200}
       height={43}
       viewBox="0 0 258 43"
       fill="none"

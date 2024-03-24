@@ -4,8 +4,7 @@ import { getLastDays } from '@/lib/weatherData';
 import DaySwitcher from '@/components/DaySwitcher';
 import MyTable from "@/components/tables/MyTable";
 
-export default function Home() {
-  const [days, setDays] = useState("7");
+export default function Home({days,setDays}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -9,70 +9,126 @@ import {
   TaurusIcon, VirgoIcon
 } from "@/components/icons/Icons";
 
+function translate(sign) {
+  if (sign === "Aries") return "Beran"
+  if (sign === "Taurus") return "Býk"
+  if (sign === "Gemini") return "Blíženci"
+  if (sign === "Cancer") return "Rak"
+  if (sign === "Leo") return "Lev"
+  if (sign === "Virgo") return "Panna"
+  if (sign === "Libra") return "Váhy"
+  if (sign === "Scorpio") return "Štír"
+  if (sign === "Sagittarius") return "Střelec"
+  if (sign === "Capricorn") return "Kozoroh"
+  if (sign === "Aquarius") return "Vodnář"
+  if (sign === "Pisces") return "Ryby"
+  return "Býk"
+}
+
+
 const ZodiacSigns = async ({className}) => {
   const sign = await getZodiacSign()
   if (sign === "Aries"){
     return (
-      <AriesIcon className={className} color={"white"} />
+      <div>
+        <AriesIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Taurus"){
     return (
-      <TaurusIcon className={className} color={"white"} />
+      <div>
+        <TaurusIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Gemini"){
     return (
-      <GeminiIcon className={className} color={"white"} />
+      <div>
+        <GeminiIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Cancer"){
     return (
-      <CancerIcon className={className} color={"white"} />
+      <div>
+        <CancerIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Leo"){
     return (
-      <LeoIcon className={className} color={"white"} />
+      <div>
+        <LeoIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Virgo"){
     return (
-      <VirgoIcon className={className} color={"white"} />
+      <div>
+        <VirgoIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Libra"){
     return (
-      <LibraIcon className={className} color={"white"} />
+      <div>
+        <LibraIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Scorpio"){
     return (
-      <ScorpioIcon className={className} color={"white"} />
+      <div>
+        <ScorpioIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Sagittarius"){
     return (
-      <SagittariusIcon className={className} color={"white"} />
+      <div>
+        <SagittariusIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Capricorn"){
     return (
-      <CapricornIcon className={className} color={"white"} />
+      <div>
+        <CapricornIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Aquarius"){
     return (
-      <AquariusIcon className={className} color={"white"} />
+      <div>
+        <AquariusIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   if (sign === "Pisces"){
     return (
-      <PiscesIcon className={className} color={"white"} />
+      <div>
+        <PiscesIcon className={className} color={"white"} />
+        <h3 className="text-white text-center">{translate(sign)}</h3>
+      </div>
     );
   }
   return (
-    <TaurusIcon className={className} color={"white"} />
+    <div>
+      <TaurusIcon className={className} color={"white"} />
+      <h3 className="text-white text-center">{translate(sign)}</h3>
+    </div>
   );
 };
 export default ZodiacSigns;

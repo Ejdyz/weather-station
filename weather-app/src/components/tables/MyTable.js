@@ -1,6 +1,6 @@
 "use client"
 import {Spinner} from "@nextui-org/spinner";
-import {VercelTable} from "@/components/tables/vercel-table";
+import {WeatherTable} from "@/components/tables/WeatherTable";
 
 export default function App({data, loading}) {
   return (
@@ -12,7 +12,7 @@ export default function App({data, loading}) {
           </div>
         ) :(
           <div className="overflow-y-hidden mt-2 px-2 w-full" >
-            <VercelTable data={data}/>
+            <WeatherTable data={data}/>
           </div>)}
       </div>
     </>

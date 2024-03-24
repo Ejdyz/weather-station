@@ -5,8 +5,7 @@ import DaySwitcher from '@/components/DaySwitcher';
 import MainChart from "@/components/main/MainChart";
 import MainChartLoading from "@/components/main/MainChartLoading";
 
-export default function Home() {
-  const [days, setDays] = useState("7");
+export default function Home({days,setDays}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 

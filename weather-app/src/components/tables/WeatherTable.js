@@ -3,7 +3,7 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@
 import {ArrowUpIcon, ArrowDown} from "lucide-react";
 import TableIcon from "@/components/tables/TableIcon";
 
-export function Table({data}) {
+export function WeatherTable({data}) {
   return (
     (<div className=" w-full overflow-auto rounded-xl align-middle ">
       <Table>
@@ -25,7 +25,7 @@ export function Table({data}) {
             {data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <div className="flex flex-row justify-center align-middle ">
-                  <TableIcon light={item.highestLight} raining={item.highestRaining} lowestTemp={item.lowestTemperature} />
+                  <TableIcon light={item.highestLight} raining={item.highestRaining} lowestTemp={item.highestTemperature} />
                 </div>
               </TableHead>
             ))}

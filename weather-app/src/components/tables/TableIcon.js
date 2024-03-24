@@ -35,10 +35,10 @@ const Icon = (data) => {
     if (rain === "snow") return (<SnowingIcon className={"max-w-20"}/>)
     return (<CloudyIcon className={"max-w-20"}/>)
   } else {
-    if (cloudiness === "partly cloudy") return (<PartlyCloudyDayIcon className={"max-w-20"}/>)
     if (rain === "drizzle") return (<PartlyCloudyDayDrizzleIcon className={"max-w-20"}/>)
     if (rain === "rain") return (<PartlyCloudyDayRainIcon className={"max-w-20"}/>)
     if (rain === "snow") return (<PartlyCloudyDaySnowIcon className={"max-w-20"}/>)
+    if (cloudiness === "partly cloudy") return (<PartlyCloudyDayIcon className={"max-w-20"}/>)
     return (<ClearDayIcon className={"max-w-20"}/>)
   }
 }

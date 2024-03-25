@@ -19,7 +19,7 @@ const IncidentBox = ({data, index}) => {
   const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
   return (
-    <div key={index} className="bg-slate-700 w-[calc(100%-4rem)] h-full ml-8 rounded-2xl p-6 mt-5">
+    <div key={index} onClick={()=>setOpen(!open)} className="bg-slate-700 w-[calc(100%-4rem)] h-full ml-8 rounded-2xl p-6 mt-5">
       <div className="flex justify-between">
         <div className={"flex gap-2"}>
           <ExclamationTriangle color={"#ec635d"} className={"w-8 h-8"}/>

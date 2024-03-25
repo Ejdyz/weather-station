@@ -21,7 +21,7 @@ export function WeatherTable({data}) {
         </TableHeader>
         <TableBody>
           <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Oblačnost</TableCell>
+            <TableCell className="sticky left-0 bg-white text-center text-black">Oblačnost</TableCell>
             {data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <div className="flex flex-row justify-center align-middle ">
@@ -31,7 +31,7 @@ export function WeatherTable({data}) {
             ))}
           </TableRow>
            <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Teplota <span className="text-gray-300">°C</span></TableCell>
+            <TableCell className="sticky left-0 bg-white text-center text-black ">Teplota <br/><span className="text-gray-300">(°C)</span></TableCell>
              {data.map((item, index) => (
                <TableHead className="text-black bg-gray-100 " key={index}>
                   <span className="flex flex-row justify-center align-middle">
@@ -43,7 +43,7 @@ export function WeatherTable({data}) {
             ))}
           </TableRow>
           <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Vlhkost <span className="text-gray-300">%</span></TableCell>
+            <TableCell className="sticky left-0 bg-white text-center text-black">Vlhkost <br/><span className="text-gray-300">(%)</span></TableCell>
             {data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <span className="flex flex-row justify-center align-middle">
@@ -55,7 +55,7 @@ export function WeatherTable({data}) {
             ))}
           </TableRow>
            <TableRow>
-            <TableCell className="sticky left-0 bg-white  text-black">Tlak <span className="text-gray-300">hPa</span></TableCell>
+            <TableCell className="sticky left-0 bg-white text-center text-black">Tlak <br/><span className="text-gray-300">(hPa)</span></TableCell>
             {data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <span className="flex flex-row justify-center align-middle">

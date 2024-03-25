@@ -1,5 +1,5 @@
 "use client"
-import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {RadioGroup, Radio} from "@nextui-org/radio";
 import {useState} from "react";
 
@@ -16,7 +16,7 @@ const MainChart = ({data,isForHistory }) => {
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   }
-  const CustomTooltip =({ active, payload, label }) => {
+  const CustomTooltip =({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip" style={{ backdropFilter:"blur(5px)", padding:"15px", borderRadius:"5px", border: "1px white solid"}} >

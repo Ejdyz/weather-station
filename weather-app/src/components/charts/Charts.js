@@ -14,7 +14,6 @@ export default function Home({days,setDays}) {
       setLoading(true);
       const result = await getLastRecords( days*288);
       setLoading(false);
-      console.log(days)
       setData(result);
     };
 
@@ -22,7 +21,7 @@ export default function Home({days,setDays}) {
   }, [days]);
 
   return (
-    <div className="m-1">
+    <div>
       <DaySwitcher value={days} setValue={setDays} />
       <br/>
       {loading?<MainChartLoading isForHistory/> :<MainChart data={data} isForHistory/>}

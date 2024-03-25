@@ -86,7 +86,7 @@ export default async function Home() {
               <MainData data={data}/>
             </div>
 
-            <div className="mt-6">
+            <div className=" flex flex-col justify-center items-center">
               <MainChart data={lastData}/>
             </div>
           </section>

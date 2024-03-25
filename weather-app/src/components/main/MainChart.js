@@ -30,11 +30,12 @@ const MainChart = ({data,isForHistory }) => {
 
   return (
     <>
-      <div className={`${!isForHistory && "md:ml-[5vw]"} mb-4 md:w-[90vw] w-[94vw] text-white`}>
+      <div className={` pb-4 md:w-[94vw] w-[calc(97vw)] text-white`}>
         <RadioGroup
           orientation="horizontal"
           onValueChange={setSelected}
           defaultValue={"Temperature"}
+          className="ml-[5vw]"
 
         >
           <Radio value="Temperature" color="secondary"><h4 className="text-white">Teplota</h4></Radio>
@@ -42,13 +43,14 @@ const MainChart = ({data,isForHistory }) => {
           <Radio value="Pressure" color={"warning"}><h4 className="text-white">Tlak</h4></Radio>
           <Radio value="Rain" color={"success"}><h4 className="text-white">Déšť</h4></Radio>
         </RadioGroup>
-        <ResponsiveContainer width="100%" height={320} >
+        <ResponsiveContainer width="100%" height={320} className={`md:translate-x-0 ${isForHistory && "-translate-x-3"}`} >
           <LineChart
+            margin={!isForHistory?{bottom:7,right: 20, top:4,left: 10, }:{}}
             data={data}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={!isForHistory}/>
-            {!isForHistory && <XAxis stroke="#FFF" dataKey="time" angle={-45}  tickSize={14}  />}
-            <YAxis stroke="#FFF" domain={['auto', 'auto']}></YAxis>
+            {!isForHistory && <XAxis stroke="#FFF" dataKey="time" angle={-45} orientation={"bottom"}  tickSize={14}  />}
+            <YAxis stroke="#FFF" domain={!isForHistory?[ "dataMin", "dataMax"]:["auto","auto"]} ></YAxis>
             <Tooltip content={<CustomTooltip/>}/>
             <Line
               type="monotone"

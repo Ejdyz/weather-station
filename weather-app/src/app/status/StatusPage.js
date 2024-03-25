@@ -52,7 +52,7 @@ const StatusPage = ({data, statusData}) => {
         </div>
         <br/>
         <div className={"md:p-8 p-4"}>
-          <Table className="bg-slate-700 p-4 rounded-2xl text-white md:overflow-x-hidden overflow-x-scroll" removeWrapper aria-label="table of data">
+          <Table className="bg-slate-700 p-4 rounded-2xl text-white md:overflow-x-hidden overflow-x-scroll md:block hidden" removeWrapper aria-label="table of data">
             <TableHeader >
               <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Temperature</TableColumn>
               <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Humidity</TableColumn>
@@ -75,6 +75,39 @@ const StatusPage = ({data, statusData}) => {
               </TableRow>
             </TableBody>
           </Table>
+          <div className="flex flex-col gap-3 items-center md:hidden">
+            <Table className="bg-slate-700 p-4 rounded-2xl text-white md:overflow-x-hidden overflow-x-scroll" removeWrapper aria-label="table of data">
+              <TableHeader >
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Temperature</TableColumn>
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Humidity</TableColumn>
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Pressure</TableColumn>
+              </TableHeader>
+              <TableBody>
+                <TableRow key="1">
+                  <TableCell>{data.data.temperature} C°</TableCell>
+                  <TableCell>{data.data.humidity} %</TableCell>
+                  <TableCell>{data.data.pressure} hPa</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            <Table className="bg-slate-700 p-4 rounded-2xl text-white md:overflow-x-hidden overflow-x-scroll" removeWrapper aria-label="table of data">
+              <TableHeader >
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Light</TableColumn>
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Rain</TableColumn>
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Is Raining</TableColumn>
+                <TableColumn className={" bg-slate-600 text-white font-bold text-medium"} align={"center"}>Time</TableColumn>
+              </TableHeader>
+              <TableBody>
+                <TableRow key="1">
+                  <TableCell>{data.data.light}</TableCell>
+                  <TableCell>{data.data.rain} %</TableCell>
+                  <TableCell><Chip
+                    color={data.data.isRaining ? "primary" : "danger"}>{data.data.isRaining ? "Yes" : "No"}</Chip></TableCell>
+                  <TableCell>{time}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         </div>
         {statusData.data.length === 0 && (
           <div className="flex w-full justify-center align-middle items-center gap-4">

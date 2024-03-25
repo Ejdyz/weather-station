@@ -30,9 +30,9 @@ const StatusPage = ({data, statusData}) => {
   let time;
   const date = new Date(data.data.time)
   if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getMinutes())) {
-    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":0" + date.getMinutes() + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
+    time = date.getDate() + "." + (date.getMonth() + 1) + " " + (date.getHours()-1) + ":0" + date.getMinutes() + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
   } else {
-    time = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":" + date.getMinutes()+ ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
+    time = date.getDate() + "." + (date.getMonth() + 1) + " " + (date.getHours()-1) + ":" + date.getMinutes()+ ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
   }
   return (
     <>

@@ -51,7 +51,7 @@ export const getLastRecords = async (numOfRecords) => {
           const result = results.map((record) => {
             return {
               ...record,
-              time: new Date(record.time).setHours(new Date(record.time).getHours() -1),
+              time: new Date(record.time).setHours(new Date(record.time).getHours() +1),
             };
           });
           resolve(result.reverse());

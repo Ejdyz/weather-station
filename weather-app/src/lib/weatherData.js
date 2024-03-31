@@ -47,7 +47,13 @@ export const getLastRecords = async (numOfRecords) => {
         raw: true,
         order: [["id", "DESC"]],
       })
-        .then( (result) => {
+        .then( (results) => {
+          const result = results.map((record) => {
+            return {
+              ...record,
+              time: new Date(record.time).setHours(new Date(record.time).getHours() -1),
+            };
+          });
           resolve(result.reverse());
         })
         .catch((error) => {

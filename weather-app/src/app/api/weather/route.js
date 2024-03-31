@@ -25,7 +25,7 @@ export async function POST(request) {
   const res = await request.json()
 
   //converting req to vars
-  const {
+  let {
     temperature,
     humidity,
     pressure,
@@ -75,6 +75,12 @@ export async function POST(request) {
   }
 
   try {
+    if(!isValidDateTime(time)){
+      time = new Date()
+    }else{
+      time = new Date(time);
+    }
+    time = time.setHours(time.getHours() + 1)
     await db.authenticate();
     console.log("Connection has been established successfully.");
     let success = true;
@@ -101,7 +107,7 @@ export async function POST(request) {
     if (reqNumber === 287 && success) {
       const RecordTable = env.DB_TABLE_RECORDS.toString()
       const DayTable = env.DB_TABLE_DAYS.toString()
-      const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM (SELECT * FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 288) AS last_records;"
+      const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure,createdAt,updatedAt) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure,NOW(),NOW() FROM (SELECT * FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 288) AS last_records;"
       db.query(sql).then((result)=>{
         console.log("Executing query was succesfull: "  + result)
       })
@@ -145,4 +151,46 @@ export async function GET() {
     console.error("Unable to connect to the database:", error.original);
     return NextResponse.json({error:"server error"}, { status: 500 })
   }
+}
+
+
+function isValidDateTime(dateTimeStr) {
+  // Regular expression to match date and time in YYYY-MM-DD HH:MM:SS format
+  var dateTimeRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+
+  if (!dateTimeRegex.test(dateTimeStr)) {
+    // If the date-time string doesn't match the format, it's invalid
+    return false;
+  }
+
+  // Split the date-time string into date and time components
+  var dateTimeComponents = dateTimeStr.split(' ');
+  var datePart = dateTimeComponents[0];
+  var timePart = dateTimeComponents[1];
+
+  // Check date validity
+  var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(datePart)) {
+    return false;
+  }
+
+  // Check time validity
+  var timeRegex = /^\d{2}:\d{2}:\d{2}$/;
+  if (!timeRegex.test(timePart)) {
+    return false;
+  }
+
+  // Split the time part into hours, minutes, and seconds
+  var timeComponents = timePart.split(':');
+  var hours = parseInt(timeComponents[0], 10);
+  var minutes = parseInt(timeComponents[1], 10);
+  var seconds = parseInt(timeComponents[2], 10);
+
+  // Check if hours, minutes, and seconds fall within valid ranges
+  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+    return false;
+  }
+
+  // If all checks pass, the date-time is considered valid
+  return true;
 }

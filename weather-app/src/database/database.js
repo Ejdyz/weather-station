@@ -5,7 +5,10 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialect: "mysql",
   dialectModule: require('mysql2'),
   logging: false,
-  timezone: '+00:00',
+  timezone: '+02:00',
+  dialectOptions: {
+    timezone: "+00:00"
+  },
 });
 
 module.exports = sequelize;

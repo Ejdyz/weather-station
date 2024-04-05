@@ -1,5 +1,6 @@
 from machine import ADC, Pin, I2C, UART, Timer
 import utime as time
+from datetime import datetime
 import dht
 import network
 import ntptime
@@ -36,6 +37,35 @@ uart = UART(0, 9600)
 
 
 # functions for getting weather details
+
+def setCurrentTime():
+    # Make the HTTP GET request to fetch JSON data
+    response = requests.get("http://worldtimeapi.org/api/timezone/Europe/Prague")
+    
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the JSON response
+        data = json.loads(response.text)
+        # Extract datetime components from ISO 8601 datetime string
+        year = int(data['datetime'][:4])
+        month = int(data['datetime'][5:7])
+        day = int(data['datetime'][8:10])
+        hour = int(data['datetime'][11:13])
+        minute = int(data['datetime'][14:16])
+        second = int(data['datetime'][17:19])
+        # Convert to RTC format (year, month, day, weekday, hour, minute, second, subsecond)
+        rtc_time = (year, month, day, 0, hour, minute, second, 0)
+
+        # Initialize RTC
+        rtc = machine.RTC()
+
+        # Set the time
+        rtc.datetime(rtc_time)
+
+        print("Time set successfully!")
+    else:
+        print("Failed to fetch data from the API")
+
 
 def getTemperatureAndHumidity():
     global dht_sensor
@@ -84,7 +114,7 @@ def getTimestamp():
         + "-"
         + str(currTime[2])
         + " "
-        + str(currTime[3] + 1)
+        + str(currTime[3])
         + ":"
         + str(currTime[4])
         + ":"
@@ -130,13 +160,10 @@ if wlan.active():
 # Synchronize time
 while True:
     try:
-        ntptime.host = "pool.ntp.org"
-        ntptime.settime()
-        print("time set successfuly")
+        setCurrentTime()
         break
-    except :
-        print("cant set time")
-        
+    except Exception as e:
+        print("Error:", e)
  
 # garbage collector
 gc.collect()
@@ -175,6 +202,10 @@ def SendData(timer):
     # Iterate over a copy of storedData
     for data in storedData[:]:  
         try:
+            # try to connect to wifi if the power is down
+            wlan.connect(ssid, password)
+            #set time every time when it should send data
+            setCurrentTime()
             req = requests.post(api_url, json=data)
             print("odeslan zaznam", parse_json(data))
             print(req.text)
@@ -194,8 +225,7 @@ def SendData(timer):
 # Calculate time until midnight
 def timeUntilMidnight():
     now = time.localtime()
-    return time.mktime((now[0], now[1], now[2], 23, 59, 59, 0, 0)) - (time.time() + 3600)
-
+    return time.mktime((now[0], now[1], now[2], 23, 59, 59, 0, 0)) - time.time()
 
 # Function to start sending data at midnight
 def startSendingDataAtMidnight():
@@ -206,8 +236,9 @@ def startSendingDataAtMidnight():
     # Start periodic sending of request to another API
     sendRequestToStatusAPIPeriodically()
     
-    #start sending status data 
+    #start sending status
     time.sleep(secUntilMidnight)
+
 
     # Start periodic sending of data
     SendData(Timer())
@@ -248,8 +279,11 @@ def sendRequestToStatusAPIPeriodically():
         }
 
         try:
+            # try to connect to wifi if the power is down
+            wlan.connect(ssid, password)
+            #set time every time when it should send data
+            setCurrentTime()
             req = requests.post(status_url, json=post_data)
-            print("sended status log")
             print(req.text)
         except Exception as e:
             print("cant send data")
@@ -262,6 +296,7 @@ def sendRequestToStatusAPIPeriodically():
 
     # Start timer to send request every minute
     timer = Timer()
+    sendStatusRequest()
     timer.init(period=60000, mode=Timer.PERIODIC, callback=lambda t: sendStatusRequest())
 
 

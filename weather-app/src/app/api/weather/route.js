@@ -23,7 +23,7 @@ export async function POST(request) {
 
   //appcepting req
   const res = await request.json()
-
+  console.log(res)
   //converting req to vars
   const {
     temperature,

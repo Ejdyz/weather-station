@@ -74,12 +74,12 @@ export async function POST(request) {
         id: 1
       }
     })
-    .then(() => {
-      console.log("Record updated successfully!");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then(() => {
+        console.log("Record updated successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
 
   } catch (error) {

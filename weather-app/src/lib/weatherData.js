@@ -51,7 +51,7 @@ export const getLastRecords = async (numOfRecords) => {
           const result = results.map((record) => {
             return {
               ...record,
-              time: new Date(record.time).setHours(new Date(record.time).getHours() +1),
+              time: new Date(record.time).setHours(new Date(record.time).getHours()),
             };
           });
           resolve(result.reverse());
@@ -190,7 +190,8 @@ export async function getHowCloudyCurrentlyIs(data) {
  */
 export async function isNight(sunset, sunrise){
   const currentTime = new Date()
-
+  currentTime.setHours(currentTime.getHours() + 2)
+  console.log(currentTime)
   let sunsetTime = new Date();
   sunsetTime.setHours(parseInt(sunset.split(':')[0], 10));
   sunsetTime.setMinutes(parseInt(sunset.split(':')[1], 10));

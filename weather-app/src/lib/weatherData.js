@@ -190,6 +190,8 @@ export async function getHowCloudyCurrentlyIs(data) {
  */
 export async function isNight(sunset, sunrise){
   const currentTime = new Date()
+  console.log(currentTime)
+  console.log(currentTime.getTimezoneOffset())
   currentTime.setHours(currentTime.getHours() - (currentTime.getTimezoneOffset()/60))
   console.log(currentTime)
   let sunsetTime = new Date();

@@ -10,7 +10,6 @@ import {useEffect, useState} from "react";
 const StatusPage = ({data, statusData}) => {
   const router = useRouter();
   const [timeUntilRefresh, setTimeUntilRefresh] = useState(60); // Initial time in seconds
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeUntilRefresh(prevTime => {

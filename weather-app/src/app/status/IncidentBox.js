@@ -1,3 +1,4 @@
+"use client"
 import {ExclamationTriangle} from "@/components/icons/Icons";
 import React, {useState} from "react";
 import {ChevronDown, ChevronUp} from "lucide-react";
@@ -6,7 +7,7 @@ import {Button} from "@nextui-org/button";
 const IncidentBox = ({data, index}) => {
   const [open, setOpen] = useState(false);
   const start = new Date(data.attributes.started_at);
-  const end = new Date(data.attributes.resolved_at);
+  const end = !data.attributes.resolved_at ? new Date():new Date(data.attributes.resolved_at);
 
   const startTime = start.getDate() + "." + (start.getMonth() + 1) + "  " + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(start.getHours()) ? "0" + start.getHours() : "" + start.getHours()) + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(start.getMinutes()) ? ":0" + start.getMinutes() : ":" + start.getMinutes()) + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(start.getSeconds()) ? ":0" + start.getSeconds() : ":" + start.getSeconds())
   const endTime = end.getDate() + "." + (end.getMonth() + 1) + "  " + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(start.getHours()) ? "0" + start.getHours() : "" + start.getHours()) + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(end.getMinutes()) ? ":0" + end.getMinutes() : ":" + end.getMinutes()) + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(end.getSeconds()) ? ":0" + end.getSeconds() : ":" + end.getSeconds())
@@ -23,7 +24,10 @@ const IncidentBox = ({data, index}) => {
       <div className="flex justify-between">
         <div className={"flex gap-2"}>
           <ExclamationTriangle color={"#ec635d"} className={"w-8 h-8"}/>
-          <h3 className={"text-xl font-bold"}>Down for {(days !== 0 ? days + "days " : "") + (hours !== 0 ? hours + "h " : "") + (minutes !== 0 ? minutes + "min " : "") + seconds + "s"}</h3>
+          {!data.attributes.resolved_at?
+            (<h3 className={"text-xl font-bold"}>Down for {(days !== 0 ? days + " days " : "") + (hours !== 0 ? hours + "h " : "") + (minutes !== 0 ? minutes + "min " : "") + seconds + "s"}</h3>)
+            :
+            (<h3 className={"text-xl font-bold"}>Down for {(days !== 0 ? days + " days " : "") + (hours !== 0 ? hours + "h " : "") + (minutes !== 0 ? minutes + "min " : "") + seconds + "s"}</h3>)}
         </div>
         <Button variant="light" className={"bg-slate-600 text-white"} onPress={() =>setOpen(!open)} isIconOnly>
           {
@@ -33,7 +37,7 @@ const IncidentBox = ({data, index}) => {
       </div>
       <div className={"pl-10 mt-2 " + (open?"visible":"hidden")}>
         <p>Start: <span className="font-bold">{startTime}</span></p>
-        <p>End: <span className="font-bold">{endTime}</span></p>
+        <p>End: <span className="font-bold">{!data.attributes.resolved_at?"Pořád probíhá" :endTime}</span></p>
       </div>
     </div>
   )

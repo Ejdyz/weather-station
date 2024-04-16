@@ -117,19 +117,63 @@ export const getLastDays = async (forCharts, days) => {
  */
 export const getSunriseAndSunset = async () => {
   const apiKey = env.GEOLOCATION_API_KEY.toString();
-
-  return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
+  return {
+    "location": {
+      "location": "Ústí nad Labem, CZ",
+      "country": "Czechia",
+      "state": "Northwest",
+      "city": "Ústí nad Labem",
+      "locality": "",
+      "latitude": 50.6603327,
+      "longitude": 14.0381357
+    },
+    "date": "2024-04-16",
+    "current_time": "22:05:54.284",
+    "sunrise": "06:07",
+    "sunset": "20:01",
+    "sun_status": "-",
+    "solar_noon": "13:03",
+    "day_length": "13:54",
+    "sun_altitude": -17.705051561519447,
+    "sun_distance": 150055146.19730252,
+    "sun_azimuth": 313.77581186563384,
+    "moonrise": "11:40",
+    "moonset": "03:56",
+    "moon_status": "-",
+    "moon_altitude": 54.491004898370804,
+    "moon_distance": 400291.59697319684,
+    "moon_azimuth": 228.5404454957521,
+    "moon_parallactic_angle": 30.990438534999527
+  }
+  //return await fetch("https://api.ipgeolocation.io/astronomy?apiKey=" + apiKey +"&location=%C3%9Ast%C3%AD%20nad%20Labem,%20CZ").then(response => response.json())
 };
 /**
  * Retrieves the current moon phase.
  * @returns {Promise} A promise that resolves with the current moon phase.
  */
 export const getMoonPhase = async () => {
-  const currTime =  Math.floor(Date.now() / 1000)
-  const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime,{
-    cache:"no-cache"
-  }).then(response => response.json())
-  return data[0].Phase;
+  // const currTime =  Math.floor(Date.now() / 1000)
+  // const data = await fetch("https://api.farmsense.net/v1/moonphases/?d="+currTime,{
+  //   cache:"no-cache"
+  // }).then(response => response.json())
+  // return data[0].Phase;
+  return {
+      "Error": 0,
+      "ErrorMsg": "success",
+      "TargetDate": "1713298081",
+      "Moon": [
+        "Grass Moon"
+      ],
+      "Index": 8,
+      "Age": 8.3290903521252861452239812933839857578277587890625,
+      "Phase": "Waxing Gibbous",
+      "Distance": 399329.03000000002793967723846435546875,
+      "Illumination": 0.59999999999999997779553950749686919152736663818359375,
+      "AngularDiameter": 0.498731975139300620636362282311893068253993988037109375,
+      "DistanceToSun": 150194937.5093982517719268798828125,
+      "SunAngularDiameter": 0.5310109011031709513872556271962821483612060546875
+    }
+
 }
 /**
  * Retrieves the current zodiac sign.

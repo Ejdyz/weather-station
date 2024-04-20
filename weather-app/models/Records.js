@@ -21,11 +21,6 @@ const Records = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    numberInDay: {
-      type: DataTypes.TINYINT,
-      unsigned: true,
-      allowNull: false,
-    },
     time: {
       type: DataTypes.DATE,
       allowNull: false,

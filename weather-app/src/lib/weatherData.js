@@ -298,6 +298,14 @@ export async function isYesterday(currentDate, secondDate) {
   // Check if the second date was exactly 1 day (24 hours) ago
   return daysDiff >= 1;
 }
+/**
+ * Returns a string of the date in the format "YYYY-MM-DD".
+ * @param {Date} Date The date that need date extraction.
+ * @returns {Promise<string>} A string of the date in the format "YYYY-MM-DD".
+ */
+export async function getDateString(Date) {
+  return Date.getFullYear() + "-" + (Date.getMonth() + 1) + "-" + Date.getDate()
+}
 
 export async function getLastDate(){
   const db = require("@/database/database");

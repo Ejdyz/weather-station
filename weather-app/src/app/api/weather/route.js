@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import {env} from 'process'
 import crypto from "crypto";
+import Status from "../../../../models/Status";
+import {getLastDate, isYesterday} from "@/lib/weatherData";
 
 const verifyPressure = (pressure) => {
   const pres = Math.trunc(pressure)
@@ -34,6 +36,7 @@ export async function POST(request) {
     isRaining,
     password,
     time,
+    shouldSave,
     reqNumber, ...otherData
   } = res;
 
@@ -70,44 +73,74 @@ export async function POST(request) {
   if (typeof time !== "string") {
     return NextResponse.json({error:"wrong time value"}, { status: 400 })
   }
-  if (typeof reqNumber !== "number") {
-    return NextResponse.json({error:"wrong reqNumber value"}, { status: 400 })
+  if (typeof shouldSave !== "boolean") {
+    return NextResponse.json({error:"wrong shouldSave value"}, { status: 400 })
   }
+
+  const timeDate = new Date(time);
+  const correctedTimeDate = new Date(new Date(time).setHours(timeDate.getHours() - (timeDate.getTimezoneOffset()/60)));
+
+  console.log(correctedTimeDate);
+  console.log(await getLastDate());
+  const wasItYesterday = await isYesterday(correctedTimeDate, await getLastDate());
+  console.log("Was it yesterday: " + wasItYesterday);
+
 
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
-    let success = true;
-    //writing to database
-    RecordsModel.create({
-      numberInDay: reqNumber,
+    //Updating a status
+    Status.update({
       time: time,
       temperature: temperature,
       humidity: humidity,
       rain: rain,
       isRaining: isRaining,
       light: sunlight,
-      pressure: verifyPressure(pressure),
+      pressure: pressure,
+    },{
+      where: {
+        id: 1
+      }
     })
       .then(() => {
-        console.log("Record created successfully!");
+        console.log("Record updated successfully!");
       })
       .catch((error) => {
         console.log(error);
-        success = false;
       });
 
-    //checking if reqNumber is the latest number in day
-    if (reqNumber === 287 && success) {
-      const RecordTable = env.DB_TABLE_RECORDS.toString()
-      const DayTable = env.DB_TABLE_DAYS.toString()
-      const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM (SELECT * FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 288) AS last_records;"
-      db.query(sql).then((result)=>{
-        console.log("Executing query was succesfull: "  + result)
+    if(shouldSave){
+      let success = true;
+      //writing to database
+      RecordsModel.create({
+        time: time,
+        temperature: temperature,
+        humidity: humidity,
+        rain: rain,
+        isRaining: isRaining,
+        light: sunlight,
+        pressure: verifyPressure(pressure),
       })
-        .catch((err) => {
-          console.error('Error executing the query:', err);
+        .then(() => {
+          console.log("Record created successfully!");
         })
+        .catch((error) => {
+          console.log(error);
+          success = false;
+        });
+
+        if (wasItYesterday) {
+          const RecordTable = env.DB_TABLE_RECORDS.toString()
+          const DayTable = env.DB_TABLE_DAYS.toString()
+          const sql = "INSERT INTO " + "`"+ DayTable + "`"+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM (SELECT * FROM " + "`"+ RecordTable + "`"+ " ORDER BY id DESC LIMIT 288) AS last_records;"
+          db.query(sql).then((result)=>{
+            console.log("Executing query was succesfull: "  + result)
+          })
+            .catch((err) => {
+              console.error('Error executing the query:', err);
+            })
+        }
     }
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);

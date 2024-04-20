@@ -105,41 +105,42 @@ export async function POST(request) {
       }
     })
       .then(() => {
-        console.log("Record updated successfully!");
+        console.log("Status Record updated successfully!");
+        if(shouldSave){
+          let success = true;
+          //writing to database
+          RecordsModel.create({
+            time: time,
+            temperature: temperature,
+            humidity: humidity,
+            rain: rain,
+            isRaining: isRaining,
+            light: sunlight,
+            pressure: verifyPressure(pressure),
+          })
+            .then(() => {
+              console.log("Record created successfully!");
+              if (wasItYesterday) {
+                const sql = "INSERT INTO `weather-last-days` "+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM (SELECT * FROM `weather-records` WHERE DATE(time) = ( SELECT DATE(time) FROM `weather-records` ORDER BY time DESC LIMIT 1 OFFSET 1 )) AS last_records;"
+                db.query(sql).then((result)=>{
+                  console.log("Executing query was succesfull: "  + result)
+                })
+                  .catch((err) => {
+                    console.error('Error executing the query:', err);
+                  })
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              success = false;
+            });
+            console.log("Was it successfull? " + success);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
 
-    if(shouldSave){
-      let success = true;
-      //writing to database
-      RecordsModel.create({
-        time: time,
-        temperature: temperature,
-        humidity: humidity,
-        rain: rain,
-        isRaining: isRaining,
-        light: sunlight,
-        pressure: verifyPressure(pressure),
-      })
-        .then(() => {
-          console.log("Record created successfully!");
-        })
-        .catch((error) => {
-          console.log(error);
-          success = false;
-        });
-        if (wasItYesterday) {
-          const sql = "INSERT INTO `weather-last-days` "+ " ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM (SELECT * FROM `weather-records` WHERE DATE(time) = ( SELECT DATE(time) FROM `weather-records` ORDER BY time DESC LIMIT 1 OFFSET 1 )) AS last_records;"
-          db.query(sql).then((result)=>{
-            console.log("Executing query was succesfull: "  + result)
-          })
-            .catch((err) => {
-              console.error('Error executing the query:', err);
-            })
-        }
-    }
   } catch (error) {
     console.error("Unable to connect to the database:", error);
     return NextResponse.json({error:"server error"}, { status: 500 })

@@ -276,3 +276,48 @@ export async function  getWeatherStationStatus(){
     data:data};
 
 }
+/**
+ * Checks if the second date was yesterday relative to the current date.
+ * @param {Date} currentDate The current date and time.
+ * @param {Date} secondDate The date to compare against.
+ * @returns {Promise<boolean>} True if the second date was yesterday from the current date, false otherwise.
+ */
+export async function isYesterday(currentDate, secondDate) {
+  // Set time portion of currentDate to 0
+  currentDate.setHours(0, 0, 0, 0);
+
+  // Set time portion of secondDate to 0
+  secondDate.setHours(0, 0, 0, 0);
+
+  // Get the time difference between the two dates in milliseconds
+  const timeDiff = currentDate.getTime() - secondDate.getTime();
+
+  // Convert milliseconds to days
+  const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+  // Check if the second date was exactly 1 day (24 hours) ago
+  return daysDiff >= 1;
+}
+
+export async function getLastDate(){
+  const db = require("@/database/database");
+  const RecordsModel = require("../../models/Records");
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    return await new Promise((resolve, reject) => {
+      RecordsModel.findOne({
+        order: [["id", "DESC"]],
+        raw: true,
+      })
+        .then( (result) => {
+          resolve(result.time);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}

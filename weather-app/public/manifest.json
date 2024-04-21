@@ -33,7 +33,7 @@
       "purpose": "any"
     },
     {
-      "src":"/icons/icon512_maskable.png",
+      "src":"/icons/icon512_maskable1.png",
       "purpose":"maskable",
       "sizes":"512x512",
       "type":"image/png"

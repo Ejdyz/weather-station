@@ -53,6 +53,6 @@
   "name":"Weather Website",
   "short_name":"Weather Web",
   "start_url":"/",
-  "scope":"localhost:3000",
+  "scope":"/",
   "description":"Web interface for weather data"
 }

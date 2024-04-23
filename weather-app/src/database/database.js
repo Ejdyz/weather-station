@@ -6,6 +6,9 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialectModule: require('mysql2'),
   logging: false,
   timezone: '+02:00',
+  dialectOptions: {
+    useUTC: false //for reading from database
+  },
 });
 
 module.exports = sequelize;

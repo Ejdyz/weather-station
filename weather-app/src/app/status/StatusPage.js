@@ -28,7 +28,6 @@ const StatusPage = ({data, statusData}) => {
 
   let time;
   let date = new Date(data.data.time);
-  date.setHours(date.getHours() + date.getTimezoneOffset()/60);
   if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getMinutes())) {
     time = date.getDate() + "." + (date.getMonth() + 1) + " " + (date.getHours()) + ":0" + date.getMinutes() + ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(date.getSeconds()) ? ":0" + date.getSeconds() : ":" + date.getSeconds())
   } else {

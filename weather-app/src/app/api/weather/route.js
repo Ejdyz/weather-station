@@ -91,11 +91,12 @@ export async function POST(request) {
     await db.authenticate();
     console.log("Connection has been established successfully.");
     let Time = new Date(time);
+
     if (isNaN(Time)) {
       console.log("Invalid date" + time);
       Time = new Date();
     }else{
-      Time = new Date(Time.setHours(Time.getHours() - (Time.getTimezoneOffset()/60)));
+      Time = new Date(Time.setHours(Time.getHours() - 2));
     }
 
     //Updating a status

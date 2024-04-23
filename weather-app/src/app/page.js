@@ -64,6 +64,9 @@ export default async function Home() {
   const data = await getLastRecord()
   let lastData = await getLastRecords(49)
   Object.keys(lastData).forEach(key => {
+    let time = new Date(lastData[key].time)
+    time = new Date(time.setHours(time.getHours() - (time.getTimezoneOffset()/60)))
+    lastData[key].time = time;
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){
       lastData[key].time = new Date(lastData[key].time).getHours() + ":0" + new Date(lastData[key].time).getMinutes()
     }else{

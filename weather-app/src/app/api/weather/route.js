@@ -95,9 +95,8 @@ export async function POST(request) {
     if (isNaN(Time)) {
       console.log("Invalid date" + time);
       Time = new Date();
-    }else{
-      Time = new Date(Time.setHours(Time.getHours() - 2));
     }
+    Time = new Date(Time.setHours(Time.getHours() - 2));
 
     //Updating a status
     Status.update({

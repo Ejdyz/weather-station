@@ -65,10 +65,6 @@ export default async function Home() {
   let lastData = await getLastRecords(49)
   Object.keys(lastData).forEach(key => {
     let time = new Date(lastData[key].time)
-    console.log("zaznam: " +time);
-    console.log("zaznam offset: " +time.getTimezoneOffset());
-    console.log("server: " + new Date())
-    console.log("server offset: " + new Date().getTimezoneOffset())
     time = new Date(time.setHours(time.getHours() - (time.getTimezoneOffset()/60)))
     lastData[key].time = time;
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){

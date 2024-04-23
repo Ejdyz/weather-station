@@ -65,7 +65,7 @@ export default async function Home() {
   let lastData = await getLastRecords(49)
   Object.keys(lastData).forEach(key => {
     const date = new Date(lastData[key].time)
-    lastData[key].time = new Date(date.setHours(date.getHours() - 2));
+    lastData[key].time = new Date(date.setHours(date.getHours() + 2));
   })
   Object.keys(lastData).forEach(key => {
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){

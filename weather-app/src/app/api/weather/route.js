@@ -118,7 +118,7 @@ export async function POST(request) {
           let success = true;
           //writing to database
           RecordsModel.create({
-            time: time,
+            time: Time,
             temperature: temperature,
             humidity: humidity,
             rain: rain,

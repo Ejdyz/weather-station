@@ -79,7 +79,7 @@ export async function POST(request) {
 
   const timeDate = new Date(time);
   const correctedTimeDate = new Date(new Date(time).setHours(timeDate.getHours() - (timeDate.getTimezoneOffset()/60)));
-
+  console.log("time from station:" + time)
   console.log(correctedTimeDate);
   const lastRecordDate = await getLastDate();
   console.log(lastRecordDate);
@@ -90,9 +90,15 @@ export async function POST(request) {
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
+    let Time = new Date(time);
+    if (isNaN(Time)) {
+      console.log("Invalid date" + time);
+      Time = new Date();
+    }
+
     //Updating a status
     Status.update({
-      time: time,
+      time: Time,
       temperature: temperature,
       humidity: humidity,
       rain: rain,

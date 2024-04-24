@@ -95,7 +95,7 @@ def getTimestamp():
         + "-"
         + str(currTime[2])
         + " "
-        + str(currTime[3] + 1)
+        + str(0 if currTime[3] + 1 >= 24 else currTime[3] + 1)
         + ":"
         + str(currTime[4])
         + ":"

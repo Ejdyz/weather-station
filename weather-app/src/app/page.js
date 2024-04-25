@@ -65,7 +65,7 @@ export default async function Home() {
   let lastRecords = await getLastRecords(49)
   const lastData = lastRecords.map(item => {
     let newDate = new Date(item.time)
-    newDate.setHours(newDate.getHours() - newDate.getTimezoneOffset())
+    newDate.setHours(newDate.getHours() + 2)
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(item.time).getMinutes())){
       newDate = (newDate.getHours() + ":0" + newDate.getMinutes()).toString()
     }else{

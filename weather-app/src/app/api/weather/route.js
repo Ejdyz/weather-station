@@ -3,6 +3,10 @@ import {env} from 'process'
 import crypto from "crypto";
 import Status from "../../../../models/Status";
 import { getLastDate, isYesterday} from "@/lib/weatherData";
+import { Sequelize, Op } from 'sequelize';
+import db from "@/database/database";
+import RecordsModel from "../../../../models/Records";
+import DaysModel from "../../../../models/Days";
 
 const verifyPressure = (pressure) => {
   const pres = Math.trunc(pressure)
@@ -20,9 +24,7 @@ const verifyPressure = (pressure) => {
   return pressure
 }
 export async function POST(request) {
-  const db = require("@/database/database");
-  const RecordsModel = require("../../../../models/Records");
-
+  
   //appcepting req
   const res = await request.json()
   console.log(res)
@@ -86,68 +88,23 @@ export async function POST(request) {
   const wasItYesterday = await isYesterday(correctedTimeDate, await getLastDate());
   console.log("Was it yesterday: " + wasItYesterday);
 
-
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
     let Time = new Date(time);
 
-    if (isNaN(Time)) {
-      console.log("Invalid date" + time);
-      Time = new Date();
-    }
-    Time = new Date(Time.setHours(Time.getHours() - 2));
-
-    //Updating a status
-    Status.update({
-      time: Time,
+    // Usage
+    updateStatusAndRecord({
+      Time: Time, // Example data
       temperature: temperature,
       humidity: humidity,
       rain: rain,
       isRaining: isRaining,
-      light: sunlight,
+      sunlight: sunlight,
       pressure: pressure,
-    },{
-      where: {
-        id: 1
-      }
-    })
-      .then(() => {
-        console.log("Status Record updated successfully!");
-        if(shouldSave){
-          let success = true;
-          //writing to database
-          RecordsModel.create({
-            time: Time,
-            temperature: temperature,
-            humidity: humidity,
-            rain: rain,
-            isRaining: isRaining,
-            light: sunlight,
-            pressure: verifyPressure(pressure),
-          })
-            .then(() => {
-              console.log("Record created successfully!");
-              if (wasItYesterday) {
-                const sql = "INSERT INTO `weather-last-days` ( day, highestTemperature, lowestTemperature, highestHumidity, lowestHumidity, wasRaining, highestRaining, highestLight, highestPressure,lowestPressure) SELECT NOW(), MAX(temperature) AS highestTemperature, MIN(temperature) AS lowestTemperature, MAX(humidity) AS highestHumidity, MIN(humidity) AS lowestHumidity, CASE WHEN SUM( CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END ) > 0 THEN TRUE ELSE FALSE END AS wasRaining, MAX(rain) AS highestRaining, MIN(light) AS highestLight, MAX(pressure) AS highestPressure, MIN(pressure) AS lowestPressure FROM ( SELECT * FROM `weather-records` WHERE DATE(createdAt) =( SELECT DATE(createdAt) FROM `weather-records` ORDER BY createdAt DESC LIMIT 1 OFFSET 1 ) ) AS subquery;"
-                db.query(sql).then((result)=>{
-                  console.log("Executing query was succesfull: "  + result)
-                })
-                  .catch((err) => {
-                    console.error('Error executing the query:', err);
-                  })
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              success = false;
-            });
-            console.log("Was it successfull? " + success);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      shouldSave: shouldSave,
+      wasItYesterday: wasItYesterday
+    }).catch(console.error);
 
   } catch (error) {
     console.error("Unable to connect to the database:", error);
@@ -184,5 +141,101 @@ export async function GET() {
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);
     return NextResponse.json({error:"server error"}, { status: 500 })
+  }
+}
+
+
+async function insertWeatherSummary(){
+
+  // First, find the date of the second to last record
+  const lastDate = await RecordsModel.findOne({
+    attributes: [
+      [Sequelize.fn('DATE', Sequelize.col('time')), 'date']
+    ],
+    order: [[ 'time', 'DESC' ]],
+    offset: 1,
+    limit: 1,
+    raw: true,
+  });
+
+  if (!lastDate) {
+    console.log('No records found.');
+    return;
+  }
+
+  // Now, perform the aggregation on this date
+  const aggregation = await RecordsModel.findOne({
+    where: {
+      [Op.and]: [
+        Sequelize.where(Sequelize.fn('DATE', Sequelize.col('time')), '=', lastDate.date)
+      ]
+    },
+    attributes: [
+      [Sequelize.fn('NOW'), 'day'],
+      [Sequelize.fn('MAX', Sequelize.col('temperature')), 'highestTemperature'],
+      [Sequelize.fn('MIN', Sequelize.col('temperature')), 'lowestTemperature'],
+      [Sequelize.fn('MAX', Sequelize.col('humidity')), 'highestHumidity'],
+      [Sequelize.fn('MIN', Sequelize.col('humidity')), 'lowestHumidity'],
+      [Sequelize.literal(`CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END`), 'wasRaining'],
+      [Sequelize.fn('MAX', Sequelize.col('rain')), 'highestRaining'],
+      [Sequelize.fn('MAX', Sequelize.col('light')), 'highestLight'],
+      [Sequelize.fn('MAX', Sequelize.col('pressure')), 'highestPressure'],
+      [Sequelize.fn('MIN', Sequelize.col('pressure')), 'lowestPressure']
+    ],
+    raw: true,
+  });
+
+  // Insert the aggregated data into weather-last-days
+  await DaysModel.create(aggregation);
+  console.log('Data inserted successfully.');
+}
+
+
+async function createRecord({ Time, temperature, humidity, rain, isRaining, sunlight, pressure }) {
+  try {
+    await RecordsModel.create({
+      time: Time,
+      temperature: temperature,
+      humidity: humidity,
+      rain: rain,
+      isRaining: isRaining,
+      light: sunlight,
+      pressure: verifyPressure(pressure)
+    });
+    console.log("Record created successfully!");
+  } catch (error) {
+    console.error("Error creating record:", error);
+    throw error; // Re-throw to handle it in the calling function
+  }
+}
+
+async function updateStatusAndRecord({Time, temperature, humidity, rain, isRaining, sunlight, pressure, shouldSave, wasItYesterday}) {
+  try {
+    // Update status
+    await Status.update({
+      time: Time,
+      temperature: temperature,
+      humidity: humidity,
+      rain: rain,
+      isRaining: isRaining,
+      light: sunlight,
+      pressure: pressure
+    }, {
+      where: { id: 1 }
+    });
+    console.log("Status Record updated successfully!");
+
+    // Conditionally create a record
+    if (shouldSave) {
+      await createRecord({ Time, temperature, humidity, rain, isRaining, sunlight, pressure });
+      console.log("Was it successful? Yes");
+
+      // Further conditional operation
+      if (wasItYesterday) {
+        await insertWeatherSummary();
+      }
+    }
+  } catch (error) {
+    console.error("Error updating status or creating record:", error);
   }
 }

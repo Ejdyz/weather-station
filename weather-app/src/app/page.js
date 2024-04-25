@@ -62,17 +62,20 @@ const getWeatherBackground = async (cloudiness,rain,night) => {
 export default async function Home() {
   const sunriseData = await getSunriseAndSunset()
   const data = await getLastRecord()
-  let lastData = await getLastRecords(49)
-  Object.keys(lastData).forEach(key => {
-    let time = new Date(lastData[key].time)
-    time = new Date(time.setHours(time.getHours() - (time.getTimezoneOffset()/60)))
-    lastData[key].time = time;
-    if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(lastData[key].time).getMinutes())){
-      lastData[key].time = new Date(lastData[key].time).getHours() + ":0" + new Date(lastData[key].time).getMinutes()
+  let lastRecords = await getLastRecords(49)
+  const lastData = lastRecords.map(item => {
+    let newDate;
+    if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(item.time).getMinutes())){
+      newDate = new Date(item.time).getHours() + ":0" + new Date(item.time).getMinutes()
     }else{
-      lastData[key].time = new Date(lastData[key].time).getHours() + ":" + new Date(lastData[key].time).getMinutes()
+      newDate = new Date(item.time).getHours() + ":" + new Date(item.time).getMinutes()
+    }
+    return{
+      ...item,
+      formatedTime : newDate
     }
   })
+
   const cloudiness = await getHowCloudyCurrentlyIs(data)
   const rain = await getHowMuchIsCurrentlyRaining(data)
   const night = await isNight(sunriseData.sunset, sunriseData.sunrise)

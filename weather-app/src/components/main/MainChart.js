@@ -49,7 +49,7 @@ const MainChart = ({data,isForHistory }) => {
             data={data}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={!isForHistory}/>
-            {!isForHistory && <XAxis stroke="#FFF" dataKey="time" angle={-45} orientation={"bottom"}  tickSize={14}  />}
+            {!isForHistory && <XAxis stroke="#FFF" dataKey="formatedTime" angle={-45} orientation={"bottom"}  tickSize={14}  />}
             <YAxis stroke="#FFF" domain={!isForHistory?[ "dataMin", "dataMax"]:["auto","auto"]} ></YAxis>
             <Tooltip content={<CustomTooltip/>}/>
             <Line

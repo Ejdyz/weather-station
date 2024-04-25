@@ -93,6 +93,11 @@ export async function POST(request) {
     console.log("Connection has been established successfully.");
     let Time = new Date(time);
 
+    if (isNaN(Time)) {
+      console.log("Invalid date" + time);
+      Time = new Date();
+    }
+    Time = new Date(Time.setHours(Time.getHours() - 2))
     // Usage
     updateStatusAndRecord({
       Time: Time, // Example data

@@ -60,7 +60,7 @@ export function WeatherTable({data}) {
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <span className="flex flex-row justify-center align-middle">
                   <ArrowUpIcon size={20} stroke="Crimson"/>
-                  { item.lowestPressure}/{item.highestPressure}
+                  {item.highestPressure}/{item.lowestPressure}
                   <ArrowDown size={20} stroke="DeepSkyBlue"/>
                 </span>
               </TableHead>

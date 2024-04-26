@@ -5,8 +5,10 @@ CREATE TABLE `ejdy_cz`.`weather-records` (`id` INT NOT NULL AUTO_INCREMENT , `nu
 INSERT INTO `weather-records` (`id`, `numberInDay`, `time`, `temperature`, `humidity`, `rain`, `isRaining`, `light`, `pressure`) VALUES (NULL, '1', '2024-01-25 16:30:57', '19.7', '56.2', '67.1', '1', '22090', '1018.7');
 
 
-INSERT INTO `ejdy_cz`.`weather-last-days` (
-    day,
+
+# manual creation of new day record
+INSERT INTO `weather-last-days`(
+    DAY,
     highestTemperature,
     lowestTemperature,
     highestHumidity,
@@ -14,20 +16,29 @@ INSERT INTO `ejdy_cz`.`weather-last-days` (
     wasRaining,
     highestRaining,
     highestLight,
-    lowestPressure,
-    highestPressure
+    highestPressure,
+    lowestPressure
 )
 SELECT
-    NOW(),
-    MAX(temperature) AS highestTemperature,
+    NOW(), MAX(temperature) AS highestTemperature,
     MIN(temperature) AS lowestTemperature,
     MAX(humidity) AS highestHumidity,
     MIN(humidity) AS lowestHumidity,
-    CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END AS wasRaining,
-    MAX(rain) AS highestRaining,
-    MIN(light) AS highestLight,
-    MIN(pressure) AS lowestPressure,
-    MAX(pressure) AS highestPressure
+    CASE WHEN SUM(
+        CASE WHEN isRaining = TRUE THEN 1 ELSE 0
+    END
+    ) > 0 THEN TRUE ELSE FALSE
+END AS wasRaining,
+MAX(rain) AS highestRaining,
+MIN(light) AS highestLight,
+MAX(pressure) AS highestPressure,
+MIN(pressure) AS lowestPressure
 FROM
-    (SELECT * FROM `ejdy_cz`.`weather-records` ORDER BY id DESC LIMIT 288) AS last_records;
-
+    (
+    SELECT
+        *
+    FROM
+        `weather-records`
+    WHERE
+        DATE(createdAt) = "2024-4-23"
+) AS subquery;

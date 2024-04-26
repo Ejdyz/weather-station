@@ -82,10 +82,13 @@ export async function POST(request) {
   const timeDate = new Date(time);
   const correctedTimeDate = new Date(new Date(time).setHours(timeDate.getHours() - (timeDate.getTimezoneOffset()/60)));
   console.log("time from station:" + time)
-  console.log(correctedTimeDate);
+  console.log("time from station:"  + correctedTimeDate);
   const lastRecordDate = await getLastDate();
   console.log(lastRecordDate);
-  const wasItYesterday = await isYesterday(correctedTimeDate, await getLastDate());
+  const yesterdayTime = await getLastDate();
+  yesterdayTime.setHours(yesterdayTime.getHours() + 2);
+  console.log("time in db:"  + yesterdayTime);
+  const wasItYesterday = await isYesterday(correctedTimeDate, yesterdayTime);
   console.log("Was it yesterday: " + wasItYesterday);
 
   try {

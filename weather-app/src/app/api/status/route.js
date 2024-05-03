@@ -1,6 +1,8 @@
 import {NextResponse} from "next/server";
 import {getWeatherStationStatus} from "@/lib/weatherData";
 
+export const fetchCache = 'force-no-store';
+
 export async function GET() {
   try {
     const status = await getWeatherStationStatus();

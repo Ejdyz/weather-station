@@ -270,7 +270,8 @@ export async function  getWeatherStationStatus(){
     .catch((error) => {
       console.log(error)
     });
-    isActive = (new Date() - new Date(data.updatedAt)) / (1000*60) < 2
+    const recordDate=new Date(data.updatedAt)
+    isActive = (new Date() - recordDate) / (1000*60) < 2
 
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);
@@ -278,8 +279,8 @@ export async function  getWeatherStationStatus(){
 
   return {
     isActive:isActive,
-    data:data};
-
+    data:data
+  };
 }
 /**
  * Checks if the second date was yesterday relative to the current date.

@@ -20,6 +20,15 @@ const nextConfig = {
         },
       ],
     },
+    {
+      source: '/api/status',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    }
   ],
 }
 

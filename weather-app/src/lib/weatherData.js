@@ -271,9 +271,7 @@ export async function  getWeatherStationStatus(){
       console.log(error)
     });
     const recordDate=new Date(data.updatedAt)
-    const lastDate=new Date(recordDate.setHours(recordDate.getHours() - 2))
-
-    isActive = (new Date() - lastDate) / (1000*60) < 2
+    isActive = (new Date() - recordDate) / (1000*60) < 2
 
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);

@@ -192,7 +192,7 @@ async function insertWeatherSummary(){
     attributes: [
       [Sequelize.fn('DATE', Sequelize.col('time')), 'date']
     ],
-    order: [[ 'time', 'DESC' ]],
+    order: [[ 'id', 'DESC' ]],
     offset: 1,
     limit: 1,
     raw: true,
@@ -204,14 +204,13 @@ async function insertWeatherSummary(){
   }
 
   // Now, perform the aggregation on this date
-  const aggregation = await RecordsModel.findOne({
+  let aggregation = await RecordsModel.findOne({
     where: {
       [Op.and]: [
         Sequelize.where(Sequelize.fn('DATE', Sequelize.col('time')), '=', lastDate.date)
       ]
     },
     attributes: [
-      [Sequelize.fn('NOW'), 'day'],
       [Sequelize.fn('MAX', Sequelize.col('temperature')), 'highestTemperature'],
       [Sequelize.fn('MIN', Sequelize.col('temperature')), 'lowestTemperature'],
       [Sequelize.fn('MAX', Sequelize.col('humidity')), 'highestHumidity'],
@@ -224,6 +223,9 @@ async function insertWeatherSummary(){
     ],
     raw: true,
   });
+
+  // Set the 'day' property of the aggregation result object
+  aggregation.day = lastDate.date;
 
   // Insert the aggregated data into weather-last-days
   await DaysModel.create(aggregation);

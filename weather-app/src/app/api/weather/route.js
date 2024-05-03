@@ -15,13 +15,45 @@ const verifyPressure = (pressure) => {
   if(stringPres.length >= 5 && pres > 80000){ //remove first 2 numbers
     return pressure.toString().slice(2)
   }
+
   if(stringPres.length >= 5 && pres > 10000){ //remove first number
     return pressure.toString().slice(1)
   }
-  if(stringPres.length > 4 || pres > 2000){ //remove first number
+
+  if(stringPres.length > 4 || pres > 1800){ //remove first number
     return pressure.toString().slice(1)
   }
+
+  if(pressure <= 0){
+    return calculatePressureFromDB();
+  }
   return pressure
+}
+
+export function calculatePressureFromDB(){
+  RecordsModel.findAll({
+    attributes: ['pressure'], // Select only the 'pressure' column
+    order: [['time', 'DESC']], // Order by time in descending order to get the latest records first
+    limit: 2, // Limit the result to 2 records
+  })
+    .then(records => {
+
+      //`records` will contain an array of objects with 'pressure' property
+      const pressureParts = records.map(record => {
+        const pressure = record.pressure.toFixed(2); // Round to 2 decimal places and convert to string
+        const [main, decimal] = pressure.split('.').map(Number); // Split into main and decimal parts
+        return { main, decimal };
+      }).reverse();
+
+      //calculate the diff of the two records
+      const diff = pressureParts[0].main - pressureParts[1].main;
+
+      //calculate the diff of the two records
+      const decimalDiff = pressureParts[0].decimal - pressureParts[1].decimal;
+
+      //Return the calculated pressure from the last records
+      console.log((pressureParts[1].main - diff) + ((pressureParts[1].decimal - decimalDiff)/100))
+    })
 }
 export async function POST(request) {
   
@@ -109,7 +141,7 @@ export async function POST(request) {
       rain: rain,
       isRaining: isRaining,
       sunlight: sunlight,
-      pressure: pressure,
+      pressure: verifyPressure(pressure),
       shouldSave: shouldSave,
       wasItYesterday: wasItYesterday
     }).catch(console.error);

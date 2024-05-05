@@ -11,7 +11,9 @@ import DaysModel from "../../../../models/Days";
 const verifyPressure = (pressure) => {
   const pres = Math.trunc(pressure)
   const stringPres = pres.toString()
-
+  if(pres > 100000 || pressure <= 0) { //remove first 3 numbers
+    return calculatePressureFromDB();
+  }
   if(stringPres.length >= 5 && pres > 80000){ //remove first 2 numbers
     return pressure.toString().slice(2)
   }
@@ -24,9 +26,6 @@ const verifyPressure = (pressure) => {
     return pressure.toString().slice(1)
   }
 
-  if(pressure <= 0){
-    return calculatePressureFromDB();
-  }
   return pressure
 }
 

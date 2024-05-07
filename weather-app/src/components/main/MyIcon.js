@@ -27,10 +27,10 @@ const MyIcon = async ({cloudiness ,rain,night}) => {
     if (rain === "snow") return (<SnowingIcon className={"w-64 md:mr-28"}/>)
     return (<CloudyIcon className={"w-64 md:mr-28"}/>)
   } else {
-    if (cloudiness === "partly cloudy") return (<PartlyCloudyDayIcon className={"w-64 md:mr-28"}/>)
     if (rain === "drizzle") return (<PartlyCloudyDayDrizzleIcon className={"w-64 md:mr-28"}/>)
     if (rain === "rain") return (<PartlyCloudyDayRainIcon className={"w-64 md:mr-28"}/>)
     if (rain === "snow") return (<PartlyCloudyDaySnowIcon className={"w-64 md:mr-28"}/>)
+    if (cloudiness === "partly cloudy") return (<PartlyCloudyDayIcon className={"w-64 md:mr-28"}/>)
     return (<ClearDayIcon className={"w-64 md:mr-28"}/>)
   }
 }

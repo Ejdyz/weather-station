@@ -223,13 +223,16 @@ export async function getHowMuchIsCurrentlyRaining(data) {
  */
 export async function getHowCloudyCurrentlyIs(data) {
   if (data.light === -1) return null
-  //if the light is greater than the bottom border of cloudiness it is cloudy
-  if (data.light >= env.CLOUDY_BORDER) return "cloudy"
-  if (data.light <= env.TOP_CLOUDY_BORDER || data.humidity > 70) return "partly cloudy"
-  //if the light is lower than the bottom border of cloudiness and greater than the bottom border of partly cloudiness it is partly cloudy
-  if (data.light < env.CLOUDY_BORDER && data.light >= env.PARTLY_CLOUDY_BORDER) return "partly cloudy"
-  //if the light is lower than the bottom border of partly cloudiness it is clear weather
-  if (data.light < env.PARTLY_CLOUDY_BORDER) return "clear"
+
+  if(data.light >= env.CLOUDY_BORDER){
+    return "cloudy"
+  }
+  if(data.light < env.CLOUDY_BORDER && data.light > env.PARTLY_CLOUDY_BORDER){
+    return "clear"
+  }
+  if(data.light < env.PARTLY_CLOUDY_BORDER){
+    return "partly cloudy"
+  }
   return null
 }
 /**

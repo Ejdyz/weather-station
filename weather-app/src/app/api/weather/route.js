@@ -216,7 +216,7 @@ async function insertWeatherSummary(){
       [Sequelize.fn('MIN', Sequelize.col('humidity')), 'lowestHumidity'],
       [Sequelize.literal(`CASE WHEN SUM(CASE WHEN isRaining = TRUE THEN 1 ELSE 0 END) > 0 THEN TRUE ELSE FALSE END`), 'wasRaining'],
       [Sequelize.fn('MAX', Sequelize.col('rain')), 'highestRaining'],
-      [Sequelize.fn('MAX', Sequelize.col('light')), 'highestLight'],
+      [Sequelize.fn('MIN', Sequelize.col('light')), 'highestLight'],
       [Sequelize.fn('MAX', Sequelize.col('pressure')), 'highestPressure'],
       [Sequelize.fn('MIN', Sequelize.col('pressure')), 'lowestPressure']
     ],

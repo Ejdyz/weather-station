@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuToggle} from "@nextui-org/navbar";
 import {Link} from "@nextui-org/link"
 import {LogoIcon} from "@/components/icons/Icons";
@@ -10,26 +10,29 @@ import {useRouter} from "next/navigation";
 
 export default function App({page}) {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const scrollToRef = useRef(null);
-  const handleLinkClick = (sectionId) => {
-    if (page !== "home") {
-      router.replace("/#" + sectionId ); // Redirect to the home page
-    }
-    setIsMenuOpen(false);
-    scrollToRef.current = sectionId;
-  };
-  useEffect(() => {
-    // Scroll to the section after the navbar is closed
-    if (scrollToRef.current) {
-      scrollToSection(scrollToRef.current);
-      scrollToRef.current = null; // Reset the stored section ID
-    }
-  }, [isMenuOpen]); // Run this effect whenever isOpen changes
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollToSection, setScrollToSection] = useState(null);
 
-  function scrollToSection(sectionId) {
+  const handleLinkClick = (sectionId) => {
+    router.push("/#" + sectionId ); // Redirect to the home page
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isMenuOpen && scrollToSection) {
+      const section = document.getElementById(scrollToSection);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Reset scrollToSection to avoid re-triggering
+      setScrollToSection(null);
+    }
+  }, [isMenuOpen, scrollToSection]);
+
+
+  function scrollToSectionX(sectionId) {
     if (page !== "home") {
-      router.replace("/#" + sectionId ); // Redirect to the home page
+      router.push("/#" + sectionId ); // Redirect to the home page
     }
     const section = document.getElementById(sectionId);
     if (section) {
@@ -41,7 +44,7 @@ export default function App({page}) {
   }
 
   return (
-  <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} position="static" className="z-10">
+  <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} position="static" className="z-10" >
     <NavbarContent>
       <NavbarBrand>
         <LogoIcon className="w-11"/>
@@ -79,21 +82,18 @@ export default function App({page}) {
           }}
         >
           <DropdownItem
-            key="Východ slunce"
             color="primary"
-            onPress={()=>scrollToSection("sunrise")}
+            onAction={()=>scrollToSectionX("sunrise")}
             >
               Východ slunce
           </DropdownItem>
           <DropdownItem
-            key="Východ slunce"
-             color="primary" onPress={()=>scrollToSection("charts")}
+             color="primary" onAction={()=>scrollToSectionX("charts")}
             >
               Grafy a tabulky
           </DropdownItem>
           <DropdownItem
-            key="Východ slunce"
-             color="primary" onPress={()=>scrollToSection("radar")}
+             color="primary" onAction={()=>scrollToSectionX("radar")}
             >
               Radar
           </DropdownItem>
@@ -111,7 +111,7 @@ export default function App({page}) {
         className="sm:hidden"
       />
     </NavbarContent>
-    <NavbarMenu>
+    <NavbarMenu >
       <NavbarItem isActive={page==="about"}>
         <Link color="foreground"  href="/about" >
           O projektu

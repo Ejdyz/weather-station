@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState} from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuToggle} from "@nextui-org/navbar";
 import {Link} from "@nextui-org/link"
 import {LogoIcon} from "@/components/icons/Icons";
@@ -11,29 +11,17 @@ import {useRouter} from "next/navigation";
 export default function App({page}) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrollToSection, setScrollToSection] = useState(null);
 
   const handleLinkClick = (sectionId) => {
     router.push("/#" + sectionId ); // Redirect to the home page
     setIsMenuOpen(false);
   };
 
-  useEffect(() => {
-    if (!isMenuOpen && scrollToSection) {
-      const section = document.getElementById(scrollToSection);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-      // Reset scrollToSection to avoid re-triggering
-      setScrollToSection(null);
-    }
-  }, [isMenuOpen, scrollToSection]);
-
-
   function scrollToSectionX(sectionId) {
     if (page !== "home") {
       router.push("/#" + sectionId ); // Redirect to the home page
     }
+
     const section = document.getElementById(sectionId);
     if (section) {
       window.scrollTo({

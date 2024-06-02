@@ -1,116 +1,122 @@
 export const SunriseIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M0 7.5H64V39.5H0z"></path>
-        </clipPath>
-      </defs>
+    <svg
+      id="Vrstva_1"
+      data-name="Vrstva 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      {...props}
+    >
       <path
+        d="M41.81,46.824a11.74,11.74,0,0,0,1.241-5.279A11.258,11.258,0,0,0,32,30.091,11.258,11.258,0,0,0,20.949,41.545a11.763,11.763,0,0,0,1.157,5.11"
+        fill="none"
+        stroke="#f59e0b"
+        strokeMiterlimit={10}
+        strokeWidth={3}
+      />
+      <path
+        d="M32,17v6.777m16.734.423-4.6,4.773M15.279,24.186l4.6,4.773M8.319,41.545h6.539m34.284,0h6.539"
+        fill="none"
+        stroke="#f59e0b"
+        strokeLinecap="round"
+        strokeMiterlimit={10}
+        strokeWidth={3}
+      />
+      <path
+        d="M15.16,47H26.738L32,42.091,37.262,47H48.84"
         fill="none"
         stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
-        d="M16 42.5L27 42.5 32 38 37 42.5 48 42.5"
-      ></path>
-      <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#f59e0b"
-          strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="3"
-          d="M42.5 39A10.5 10.5 0 1132 28.5 10.5 10.5 0 0142.5 39zM32 22.71V16.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 54.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 39H9.5m45 0h-6.21"
-        ></path>
-      </g>
+        strokeWidth={2}
+      />
     </svg>
   );
 };
 export const SunsetIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M0 7.5H64V39.5H0z"></path>
-        </clipPath>
-      </defs>
-      <path
-        fill="none"
-        stroke="#f0f0f0"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M16 42.5L27 42.5 32 47 37 42.5 48 42.5"
-      ></path>
-      <g clipPath="url(#a)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" {...props}>
+      <g id="Vrstva_1" data-name="Vrstva 1">
         <path
+          d="M41.81,46.824a11.74,11.74,0,0,0,1.241-5.279A11.258,11.258,0,0,0,32,30.091,11.258,11.258,0,0,0,20.949,41.545a11.763,11.763,0,0,0,1.157,5.11"
+          fill="none"
+          stroke="#f59e0b"
+          strokeMiterlimit={10}
+          strokeWidth={3}
+        />
+        <path
+          d="M32,17v6.777m16.734.423-4.6,4.773M15.279,24.186l4.6,4.773M8.319,41.545h6.539m34.284,0h6.539"
           fill="none"
           stroke="#f59e0b"
           strokeLinecap="round"
-          strokeMiterlimit="10"
-          strokeWidth="3"
-          d="M42.5 39A10.5 10.5 0 1132 28.5 10.5 10.5 0 0142.5 39zM32 22.71V16.5m0 45v-6.21m11.52-27.81l4.39-4.39M16.09 54.91l4.39-4.39m0-23l-4.39-4.39m31.82 31.78l-4.39-4.39M15.71 39H9.5m45 0h-6.21"
-        ></path>
+          strokeMiterlimit={10}
+          strokeWidth={3}
+        />
+        <path
+          d="M15.16,47H26.738L32,52l5.262-5H48.84"
+          fill="none"
+          stroke="#f0f0f0"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+        />
       </g>
     </svg>
   );
 };
 export const MoonriseIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M0 7.5H64V39.5H0z"></path>
-        </clipPath>
-      </defs>
-      <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
-        ></path>
-      </g>
+    <svg
+      id="Vrstva_3"
+      data-name="Vrstva 3"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      {...props}
+    >
       <path
+        d="M47.916,44.129a16.449,16.449,0,0,0,2.871-5.844,17.263,17.263,0,0,1-1.844.1A16.665,16.665,0,0,1,32.167,21.837a16.3,16.3,0,0,1,.553-4.152A16.635,16.635,0,0,0,17.787,34.133a16.344,16.344,0,0,0,3.518,10.144"
+        fill="none"
+        stroke="#72b9d5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+      />
+      <polyline
+        points="18.287 44.685 29.287 44.685 34.287 40.185 39.287 44.685 50.287 44.685"
         fill="none"
         stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
-        d="M16 42.5L27 42.5 32 38 37 42.5 48 42.5"
-      ></path>
+        strokeWidth={2}
+      />
     </svg>
-  )
+)
 }
 export const MoonsetIcon = (props) => {
   return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <defs>
-        <clipPath id="a">
-          <path fill="none" d="M0 7.5H64V39.5H0z"></path>
-        </clipPath>
-      </defs>
-      <g clipPath="url(#a)">
-        <path
-          fill="none"
-          stroke="#72b9d5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="3"
-          d="M46.66 36.2a16.66 16.66 0 01-16.78-16.55 16.29 16.29 0 01.55-4.15A16.56 16.56 0 1048.5 36.1c-.61.06-1.22.1-1.84.1z"
-        ></path>
-      </g>
+    <svg
+      id="Vrstva_3"
+      data-name="Vrstva 3"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      {...props}
+    >
       <path
+        d="M47.916,44.129a16.449,16.449,0,0,0,2.871-5.844,17.263,17.263,0,0,1-1.844.1A16.665,16.665,0,0,1,32.167,21.837a16.3,16.3,0,0,1,.553-4.152A16.635,16.635,0,0,0,17.787,34.133a16.344,16.344,0,0,0,3.518,10.144"
+        fill="none"
+        stroke="#72b9d5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={3}
+      />
+      <path
+        d="M17.16,44.8H28.738L34,49.8l5.262-5H50.84"
         fill="none"
         stroke="#f0f0f0"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
-        d="M16 42.5L27 42.5 32 47 37 42.5 48 42.5"
-      ></path>
+        strokeWidth={2}
+      />
     </svg>
   )
 }

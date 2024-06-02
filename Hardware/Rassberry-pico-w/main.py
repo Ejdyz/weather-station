@@ -17,7 +17,7 @@ password = "janajana"
 api_url = "https://weather.ejdy.cz/api/weather"
 api_password = "adG1E4Mg6rFArJG4EKRx2sO3vT34gGs2Na8kJPJrhLlFh5PBYi"
 
-# delay between posts in milliseconds (now set to 5 min)
+# delay between posts in milliseconds (now set to 1 min)
 delay = 1000 * 60
 reqNumber = 0
 utcDiff = 1
@@ -140,8 +140,16 @@ def send_data():
     else:
         clear_data_file()
 
+def initial_send():
+    if connect_wifi():
+        send_data()
+
 def SendData(timer):
     tempData = getTemperatureAndHumidity()
+    currTime = time.localtime()
+    minutes = currTime[4]
+    should_save = (minutes % 5 == 0)
+    
     post_data = {
         "temperature": tempData[0],
         "humidity": tempData[1],
@@ -151,14 +159,13 @@ def SendData(timer):
         "rain": getRain(),
         "time": getTimestamp(),
         "password": api_password,
-        "shouldSave": reqNumber == 4,
+        "shouldSave": should_save,
     }
 
     save_data_to_file(post_data)
     if connect_wifi():
         send_data()
     ledBlink()
-    incrementReqNumber()
 
 def sendDataPeriodically():
     global delay
@@ -180,4 +187,5 @@ if connect_wifi():
         time.sleep(1)
 
 gc.collect()
+initial_send()  # Check and send any unsent data
 sendDataPeriodically()

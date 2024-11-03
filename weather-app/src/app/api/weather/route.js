@@ -11,6 +11,7 @@ import DaysModel from "../../../../models/Days";
 const verifyPressure = (pressure) => {
   const pres = Math.trunc(pressure)
   const stringPres = pres.toString()
+
   if(pres > 100000 || pressure <= 0) { //remove first 3 numbers
     return calculatePressureFromDB();
   }
@@ -110,31 +111,24 @@ export async function POST(request) {
     return NextResponse.json({error:"wrong shouldSave value"}, { status: 400 })
   }
 
-  const timeDate = new Date(time);
-  const correctedTimeDate = new Date(new Date(time).setHours(timeDate.getHours() - (timeDate.getTimezoneOffset()/60)));
-  console.log("time from station:" + time)
-  console.log("time from station:"  + correctedTimeDate);
-  const lastRecordDate = await getLastDate();
-  console.log(lastRecordDate);
+  const currentTimeDate = new Date(time);
+  console.log("time in db:"  + currentTimeDate);
+
   const yesterdayTime = await getLastDate();
-  yesterdayTime.setHours(yesterdayTime.getHours() + 2);
+
   console.log("time in db:"  + yesterdayTime);
-  const wasItYesterday = await isYesterday(correctedTimeDate, yesterdayTime);
+
+  const wasItYesterday = await isYesterday(currentTimeDate, yesterdayTime);
+
   console.log("Was it yesterday: " + wasItYesterday);
 
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
-    let Time = new Date(time);
 
-    if (isNaN(Time)) {
-      console.log("Invalid date" + time);
-      Time = new Date();
-    }
-    Time = new Date(Time.setHours(Time.getHours() - 2))
     // Usage
     updateStatusAndRecord({
-      Time: Time, // Example data
+      Time: time, // Example data
       temperature: temperature,
       humidity: humidity,
       rain: rain,

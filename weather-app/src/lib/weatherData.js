@@ -48,13 +48,7 @@ export const getLastRecords = async (numOfRecords) => {
         order: [["id", "DESC"]],
       })
         .then( (results) => {
-          const result = results.map((record) => {
-            return {
-              ...record,
-              time: new Date(record.time).setHours(new Date(record.time).getHours()),
-            };
-          });
-          resolve(result.reverse());
+          resolve(results.reverse());
         })
         .catch((error) => {
           reject(error);
@@ -280,6 +274,7 @@ export async function  getWeatherStationStatus(){
     console.error("Unable to connect to the database:", error.original);
   }
 
+  console.log(data)
   return {
     isActive:isActive,
     data:data

@@ -12,7 +12,7 @@ export const getLastRecord = async () => {
     console.log("Connection has been established successfully.");
     return await new Promise((resolve, reject) => {
       RecordsModel.findOne({
-        order: [["id", "DESC"]],
+        order: [["time", "DESC"]],
         raw: true,
       })
         .then( (result) => {
@@ -45,16 +45,10 @@ export const getLastRecords = async (numOfRecords) => {
       RecordsModel.findAll({
         limit: numOfRecords,
         raw: true,
-        order: [["id", "DESC"]],
+        order: [["time", "DESC"]],
       })
         .then( (results) => {
-          const result = results.map((record) => {
-            return {
-              ...record,
-              time: new Date(record.time).setHours(new Date(record.time).getHours()),
-            };
-          });
-          resolve(result.reverse());
+          resolve(results.reverse());
         })
         .catch((error) => {
           reject(error);
@@ -83,7 +77,7 @@ export const getLastDays = async (forCharts, days) => {
     const lastDays = await new Promise((resolve, reject) => {
       DaysModel.findAll({
         limit: days,
-        order: [["id", "DESC"]],
+        order: [["day", "DESC"]],
         raw: true,
       })
         .then( (result) => {
@@ -280,6 +274,7 @@ export async function  getWeatherStationStatus(){
     console.error("Unable to connect to the database:", error.original);
   }
 
+  console.log(data)
   return {
     isActive:isActive,
     data:data

@@ -65,7 +65,6 @@ export default async function Home() {
   let lastRecords = await getLastRecords(49)
   const lastData = lastRecords.map(item => {
     let newDate = new Date(item.time)
-    newDate.setHours(newDate.getHours() + 2)
     if ([0,1,2,3,4,5,6,7,8,9].includes(new Date(item.time).getMinutes())){
       newDate = (newDate.getHours() + ":0" + newDate.getMinutes()).toString()
     }else{
@@ -92,7 +91,6 @@ export default async function Home() {
             <div className="md:translate-y-[-60px]">
               <MainData data={data}/>
             </div>
-
             <div className=" flex flex-col justify-center items-center">
               <MainChart data={lastData}/>
             </div>

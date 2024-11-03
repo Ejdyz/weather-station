@@ -12,15 +12,16 @@ const MainChart = ({data,isForHistory }) => {
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()-1).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   }
+
   const CustomTooltip =({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip" style={{ backdropFilter:"blur(5px)", padding:"15px", borderRadius:"5px", border: "1px white solid"}} >
-          <p>{formatDate(payload[0].payload.createdAt)}</p>
+          <p>{formatDate(new Date(payload[0].payload.time))}</p>
           <p style={{color: `${payload[0].stroke}`}}>{`${payload[0].name} : ${payload[0].value} ${payload[0].unit}`}</p>
         </div>
       );
@@ -36,7 +37,6 @@ const MainChart = ({data,isForHistory }) => {
           onValueChange={setSelected}
           defaultValue={"Temperature"}
           className="ml-[5vw]"
-
         >
           <Radio value="Temperature" color="secondary"><h4 className="text-white">Teplota</h4></Radio>
           <Radio value="Humidity" color={"danger"}><h4 className="text-white">Vlhkost</h4></Radio>

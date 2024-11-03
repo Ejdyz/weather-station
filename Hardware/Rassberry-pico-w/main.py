@@ -55,8 +55,20 @@ def settime():
         response = requests.get(time_api_url)
         if response.status_code == 200:
             current_time = response.json()["current_time"]
-            tm = time.gmtime(time.mktime(time.strptime(current_time, "%Y-%m-%dT%H:%M:%S.%f%z")))
-            machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6] + 1, tm[3] + utcDiff, tm[4], tm[5], 0))
+            # Parse the time manually
+            date_time = current_time.split("T")
+            date = date_time[0].split("-")
+            t = date_time[1].split(":")
+            tm_year = int(date[0])
+            tm_mon = int(date[1])
+            tm_mday = int(date[2])
+            tm_hour = int(t[0])
+            tm_min = int(t[1])
+            tm_sec = int(float(t[2][:2]))
+            tm_wday = 0  # This will be set automatically
+            
+            tm = (tm_year, tm_mon, tm_mday, tm_wday, tm_hour, tm_min, tm_sec, 0)
+            machine.RTC().datetime(tm)
             log("Time set successfully")
         else:
             log("Failed to fetch time from API")

@@ -2,7 +2,6 @@ from machine import ADC, Pin, I2C, UART, Timer
 import utime as time
 import dht
 import network
-import ntptime
 import urequests as requests
 import gc
 import json
@@ -16,6 +15,7 @@ ssid = "Petr"
 password = "janajana"
 api_url = "https://weather.ejdy.cz/api/weather"
 api_password = "adG1E4Mg6rFArJG4EKRx2sO3vT34gGs2Na8kJPJrhLlFh5PBYi"
+time_api_url = "http://xxxxxxx:xxxxx"
 
 # delay between posts in milliseconds (now set to 1 min)
 delay = 1000 * 60
@@ -48,11 +48,33 @@ def connect_wifi():
     log("Failed to connect to Wi-Fi")
     return False
 
-def settime(t):
+def settime():
     global utcDiff
     import machine
-    tm = time.gmtime(t)
-    machine.RTC().datetime((tm[0], tm[1], tm[2], tm[6] + 1, tm[3] + utcDiff, tm[4], tm[5], 0))
+    try:
+        response = requests.get(time_api_url)
+        if response.status_code == 200:
+            current_time = response.json()["current_time"]
+            # Parse the time manually
+            date_time = current_time.split("T")
+            date = date_time[0].split("-")
+            t = date_time[1].split(":")
+            tm_year = int(date[0])
+            tm_mon = int(date[1])
+            tm_mday = int(date[2])
+            tm_hour = int(t[0])
+            tm_min = int(t[1])
+            tm_sec = int(float(t[2][:2]))
+            tm_wday = 0  # This will be set automatically
+            
+            tm = (tm_year, tm_mon, tm_mday, tm_wday, tm_hour, tm_min, tm_sec, 0)
+            machine.RTC().datetime(tm)
+            log("Time set successfully")
+        else:
+            log("Failed to fetch time from API")
+    except Exception as e:
+        log("Error fetching time from API")
+        log(e)
 
 def getTemperatureAndHumidity():
     global dht_sensor
@@ -176,9 +198,7 @@ def sendDataPeriodically():
 if connect_wifi():
     while True:
         try:
-            ntptime.host = "pool.ntp.org"
-            settime(ntptime.time())
-            log("Time set successfully")
+            settime()
             break
         except Exception as e:
             log("Can't set time")

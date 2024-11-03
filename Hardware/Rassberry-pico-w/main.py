@@ -111,9 +111,9 @@ def getPressure():
 def getTimestamp():
     currTime = time.localtime()
     return (
-        str(currTime[0]) + "-" + str(currTime[1]) + "-" + str(currTime[2]) + " "
+        str(currTime[0]) + "-" + str(currTime[1]) + "-" + str(currTime[2]) + "T"
         + str(0 if currTime[3] + 1 >= 24 else currTime[3] + 1) + ":"
-        + str(currTime[4]) + ":" + str(currTime[5])
+        + str(currTime[4]) + ":" + str(currTime[5])+ "+1"
     )
 
 def incrementReqNumber():

@@ -8,7 +8,7 @@ const Sunrise = ({sunrise, sunset}) => {
           <SunriseIcon className="w-16 h-16" />
           {sunrise}
         </div>
-      <SunRiseLine className="translate-y-[-1rem]" />
+      <SunRiseLine className="translate-y-[-1rem] w-full" />
       <div className="flex-col flex text-center gap-0 text-white">
           <SunsetIcon className="w-16 h-16" />
           {sunset}

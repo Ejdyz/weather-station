@@ -10,13 +10,16 @@ export function WeatherTable({data}) {
         <TableHeader className="w-full">
           <TableRow>
             <TableHead className="sticky left-0 bg-white text-black ">Datum</TableHead>
-            {data.map((item, index) => (
+            {data.map((item, index) => {
+              const date = new Date(item.day)
+              return(
               <TableHead
                 className={"text-black bg-gray-100 text-center " + (data.length <=7? data.length === index+1?"md:min-w-32 min-w-28":"md:min-w-48 min-w-28" : data.length <=10?"min-w-32":"min-w-28")}
                 key={index}>
-                {item?.day?.getDate() + "/" + (item?.day?.getMonth() + 1) + "/" + item?.day?.getFullYear()}
+                {date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()}
               </TableHead>
-            ))}
+            )})}
+            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -29,6 +32,7 @@ export function WeatherTable({data}) {
                 </div>
               </TableHead>
             ))}
+            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
            <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black ">Teplota <br/><span className="text-gray-300">(°C)</span></TableCell>
@@ -39,8 +43,9 @@ export function WeatherTable({data}) {
                     { item.highestTemperature}/{item.lowestTemperature}
                     <ArrowDown size={20} stroke="DeepSkyBlue"/>
                   </span>
-           </TableHead>
-            ))}
+                </TableHead>
+              ))}
+              {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12 text-center">Žádná data k zobrazení</TableHead>}
           </TableRow>
           <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black">Vlhkost <br/><span className="text-gray-300">(%)</span></TableCell>
@@ -53,6 +58,7 @@ export function WeatherTable({data}) {
                 </span>
               </TableHead>
             ))}
+            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
            <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black">Tlak <br/><span className="text-gray-300">(hPa)</span></TableCell>
@@ -65,6 +71,7 @@ export function WeatherTable({data}) {
                 </span>
               </TableHead>
             ))}
+            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
         </TableBody>
       </Table>

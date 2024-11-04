@@ -14,14 +14,13 @@ import MyIcon from "@/components/main/MyIcon";
 import Footer from "@/components/Footer";
 import MainDataLoading from "@/components/main/MainDataLoading";
 import MainChartLoading from "@/components/main/MainChartLoading";
-
+import Selector from "@/components/Selector";
 export const metadata = {
   title: 'Počasí',
   description: 'Hlavní stránka aplikace',
 };
 export const fetchCache = 'force-no-store';
 
-const Selector = dynamic(() => import('@/components/Selector'), { ssr: false,loading: () => <LoadingSelector />})
 const MoonAndSunriseWrapper = dynamic(() => import('@/components/MoonAndSun/MoonAndSunriseWrapper'), { ssr: false,loading: () => <MoonAndSunriseLoading/> })
 const WeatherMap = dynamic(() => import('@/components/map/WeatherMap'), { ssr: false, loading: () => <LoadingMap /> })
 const MainData = dynamic(() => import('@/components/main/MainData'), { ssr: false, loading: () => <MainDataLoading /> })

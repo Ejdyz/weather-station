@@ -1,4 +1,3 @@
-import {getHowCloudyCurrentlyIs, getHowMuchIsCurrentlyRaining} from "@/lib/weatherData";
 import {
   ClearDayIcon,
   CloudyIcon,
@@ -8,27 +7,45 @@ import {
   RainingIcon,
   SnowingIcon
 } from "@/components/icons/Icons";
-import {useEffect, useState} from "react";
-import {Spinner} from "@nextui-org/spinner";
+import { 
+  CLOUDY_BORDER, 
+  PARTLY_CLOUDY_BORDER, 
+  RAIN_AND_DRIZZLE_BORDER, 
+  DRIZZLE_AND_DRY_BORDER
+} from "@/lib/config";
 
 const Icon = (data) => {
-  const [cloudiness, setCloudiness] = useState();
-  const [rain, setRain] = useState();
-  const [loading, setLoading] = useState(true);
+  const cloudiness = getHowCloudyCurrentlyIs({light: data.data.highestLight})
+  const rain = getHowMuchIsCurrentlyRaining({
+    rain: data.data.highestRaining, 
+    temperature: data.data.highestTemperature, 
+    humidity: data.data.highestHumidity + data.data.lowestHumidity, 
+    pressure: (data.data.highestPressure + data.data.lowestPressure)/2}
+  )
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true)
-      const result1 = await getHowCloudyCurrentlyIs({light: data.data.highestLight});
-      const result2 = await  getHowMuchIsCurrentlyRaining({rain: data.data.highestRaining, temperature: data.data.highestTemperature, humidity: data.data.highestHumidity+data.data.lowestHumidity, pressure: (data.data.highestPressure+data.data.lowestPressure)/2})
-      setLoading(false)
-      setCloudiness(result1);
-      setRain(result2);
-    };
+  function getHowCloudyCurrentlyIs(data) {
+    if (data?.light === -1) return null
+  
+    if(data?.light >= CLOUDY_BORDER){
+      return "cloudy"
+    }
+    if(data?.light < CLOUDY_BORDER && data?.light > PARTLY_CLOUDY_BORDER){
+      return "clear"
+    }
+    if(data?.light < PARTLY_CLOUDY_BORDER){
+      return "partly cloudy"
+    }
+    return null
+  }
 
-    fetchData();
-  }, []);
-  if(loading) return <div className="max-w-20"><Spinner size={"lg"}/></div>
+  function getHowMuchIsCurrentlyRaining(data) {
+    if (data?.rain === -1 || data?.rain < PARTLY_CLOUDY_BORDER) return null
+    if (data?.temperature < 0 && data?.rain > 0) return "snow"
+    if (data?.rain > RAIN_AND_DRIZZLE_BORDER) return "rain"
+    if (data?.rain < RAIN_AND_DRIZZLE_BORDER && data?.rain > DRIZZLE_AND_DRY_BORDER  ) return "drizzle"
+    return null
+  }
+  
   if (cloudiness === "cloudy") {
     if (rain === "drizzle") return (<DrizzleIcon className={"max-w-20"}/>)
     if (rain === "rain") return (<RainingIcon className={"max-w-20"}/>)

@@ -331,3 +331,62 @@ export async function getLastDate(){
     console.error("Unable to connect to the database:", error.original);
   }
 }
+
+export async function getRangeOfDays(startDate, endDate){
+  const db = require("@/database/database");
+  const DaysModel = require("../../models/Days");
+  const { Op } = require("sequelize");
+
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    const lastDays = await new Promise((resolve, reject) => {
+      DaysModel.findAll({
+        where: {
+          day: {
+            [Op.between]: [startDate, endDate]
+          }
+        },
+        raw: true,
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+
+    return lastDays
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}
+
+export async function getRangeOfRecords(startDate, endDate){
+  const db = require("@/database/database");
+  const RecordsModel = require("../../models/Records");
+  const { Op } = require("sequelize");
+
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    return await new Promise((resolve, reject) => {
+      RecordsModel.findAll({
+        where: {
+          time: {
+            [Op.between]: [startDate, endDate]
+          }
+        }
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}

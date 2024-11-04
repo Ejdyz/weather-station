@@ -2,7 +2,6 @@ import MyNavbar from "@/components/navbar/MyNavbar";
 import Divider from "@/components/Divider";
 import dynamic from "next/dynamic";
 import LoadingMap from "@/components/map/LoadingMap";
-import LoadingSelector from "@/components/charts/LoadingSelector";
 import MoonAndSunriseLoading from "@/components/MoonAndSun/MoonAndSunriseLoading";
 import {
   getHowCloudyCurrentlyIs,

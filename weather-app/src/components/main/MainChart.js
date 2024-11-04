@@ -31,7 +31,7 @@ const MainChart = ({data,isForHistory }) => {
 
   return (
     <>
-      <div className={` pb-4 md:w-[94vw] w-[calc(97vw)] text-white`}>
+      <div className={`pb-4 md:w-[94vw] w-[calc(97vw)] text-white`}>
         <RadioGroup
           orientation="horizontal"
           onValueChange={setSelected}

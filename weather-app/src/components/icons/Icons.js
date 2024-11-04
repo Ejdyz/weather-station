@@ -2263,8 +2263,6 @@ export const LogoIcon = (props) => {
 export const SunRiseLine = (props) => {
   return (
     <svg
-      width={200}
-      height={43}
       viewBox="0 0 258 43"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

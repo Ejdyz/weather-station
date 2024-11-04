@@ -7,7 +7,7 @@ const Moonrise = ({moonrise, moonset}) => {
         <MoonriseIcon  className="w-16 h-16" />
         {moonrise}
       </div>
-      <SunRiseLine className="translate-y-[-1rem]" />
+      <SunRiseLine className="translate-y-[-1rem] w-full" />
       <div className="flex-col flex text-center gap-0 text-white">
         <MoonsetIcon className="w-16 h-16" />
         {moonset}

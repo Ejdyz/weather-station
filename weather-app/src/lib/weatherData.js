@@ -1,5 +1,12 @@
 "use server"
 import {env} from "process"
+import { 
+  CLOUDY_BORDER, 
+  PARTLY_CLOUDY_BORDER, 
+  RAIN_AND_DRIZZLE_BORDER, 
+  DRIZZLE_AND_DRY_BORDER
+} from "@/lib/config";
+
 /**
  * Retrieves the last weather record from the database.
  * @returns {Promise} A promise that resolves with the last record from the database.
@@ -204,10 +211,10 @@ export async function getZodiacSign() {
  * @returns {Promise<"rain"| "drizzle" | "snow" | null>} A promise that resolves with the current weather.
  */
 export async function getHowMuchIsCurrentlyRaining(data) {
-  if (data.rain === -1 || data.rain < env.DRIZZLE_AND_DRY_BORDER) return null
-  if (data.temperature < 0 && data.rain > 0) return "snow"
-  if (data.rain > env.RAIN_AND_DRIZZLE_BORDER) return "rain"
-  if (data.rain < env.RAIN_AND_DRIZZLE_BORDER && data.rain > env.DRIZZLE_AND_DRY_BORDER  ) return "drizzle"
+  if (data?.rain === -1 || data?.rain < DRIZZLE_AND_DRY_BORDER) return null
+  if (data?.temperature < 0 && data?.rain > 0) return "snow"
+  if (data?.rain > RAIN_AND_DRIZZLE_BORDER) return "rain"
+  if (data?.rain < RAIN_AND_DRIZZLE_BORDER && data?.rain > DRIZZLE_AND_DRY_BORDER  ) return "drizzle"
   return null
 }
 
@@ -216,15 +223,15 @@ export async function getHowMuchIsCurrentlyRaining(data) {
  * @returns {Promise<"cloudy"| "partly cloudy" | "clear" | null>} A promise that resolves with the current weather.
  */
 export async function getHowCloudyCurrentlyIs(data) {
-  if (data.light === -1) return null
+  if (data?.light === -1) return null
 
-  if(data.light >= env.CLOUDY_BORDER){
+  if(data?.light >= CLOUDY_BORDER){
     return "cloudy"
   }
-  if(data.light < env.CLOUDY_BORDER && data.light > env.PARTLY_CLOUDY_BORDER){
+  if(data?.light < CLOUDY_BORDER && data?.light > PARTLY_CLOUDY_BORDER){
     return "clear"
   }
-  if(data.light < env.PARTLY_CLOUDY_BORDER){
+  if(data?.light < PARTLY_CLOUDY_BORDER){
     return "partly cloudy"
   }
   return null
@@ -236,8 +243,6 @@ export async function getHowCloudyCurrentlyIs(data) {
  */
 export async function isNight(sunset, sunrise){
   const currentTime = new Date()
-  currentTime.setHours(currentTime.getHours() + 2)
-  console.log(currentTime)
   let sunsetTime = new Date();
   sunsetTime.setHours(parseInt(sunset.split(':')[0], 10));
   sunsetTime.setMinutes(parseInt(sunset.split(':')[1], 10));
@@ -274,7 +279,6 @@ export async function  getWeatherStationStatus(){
     console.error("Unable to connect to the database:", error.original);
   }
 
-  console.log(data)
   return {
     isActive:isActive,
     data:data
@@ -324,6 +328,65 @@ export async function getLastDate(){
       })
         .then( (result) => {
           resolve(result.time);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}
+
+export async function getRangeOfDays(startDate, endDate){
+  const db = require("@/database/database");
+  const DaysModel = require("../../models/Days");
+  const { Op } = require("sequelize");
+
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    const lastDays = await new Promise((resolve, reject) => {
+      DaysModel.findAll({
+        where: {
+          day: {
+            [Op.between]: [startDate, endDate]
+          }
+        },
+        raw: true,
+      })
+        .then( (result) => {
+          resolve(result);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    })
+
+    return lastDays
+  } catch (error) {
+    console.error("Unable to connect to the database:", error.original);
+  }
+}
+
+export async function getRangeOfRecords(startDate, endDate){
+  const db = require("@/database/database");
+  const RecordsModel = require("../../models/Records");
+  const { Op } = require("sequelize");
+
+  try {
+    await db.authenticate();
+    console.log("Connection has been established successfully.");
+    return await new Promise((resolve, reject) => {
+      RecordsModel.findAll({
+        where: {
+          time: {
+            [Op.between]: [startDate, endDate]
+          }
+        }
+      })
+        .then( (result) => {
+          resolve(result);
         })
         .catch((error) => {
           reject(error);

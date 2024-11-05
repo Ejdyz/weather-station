@@ -18,9 +18,9 @@ const WeatherMap = () => {
   return (
     <div className="p-4">
       <iframe
-        src="https://www.rainviewer.com/map.html?loc=49.8876,16.2323,7&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&c=1&o=55&lm=1&layer=radar&sm=1&sn=1&hu=0"
+        src="https://www.rainviewer.com/map.html?loc=50.6774,14.057,7&oCS=1&oAP=1&c=1&o=55&lm=1&layer=radar&sm=1&sn=1" 
+        frameborder="0"  allowfullscreen
         width="100%"
-
         className="h-[90vh] rounded-2xl"
       />
     </div>

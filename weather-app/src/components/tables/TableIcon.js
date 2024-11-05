@@ -39,7 +39,7 @@ const Icon = (data) => {
   }
 
   function getHowMuchIsCurrentlyRaining(data) {
-    if (data?.rain === -1 || data?.rain < PARTLY_CLOUDY_BORDER) return null
+    if (data?.rain === -1 || data?.rain < DRIZZLE_AND_DRY_BORDER) return null
     if (data?.temperature < 0 && data?.rain > 0) return "snow"
     if (data?.rain > RAIN_AND_DRIZZLE_BORDER) return "rain"
     if (data?.rain < RAIN_AND_DRIZZLE_BORDER && data?.rain > DRIZZLE_AND_DRY_BORDER  ) return "drizzle"

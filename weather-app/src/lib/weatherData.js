@@ -455,7 +455,6 @@ export async function getRangeOfRecords(startDate, endDate){
           }
       };
 
-      console.log(output)
       return output;
 
   } catch (error) {

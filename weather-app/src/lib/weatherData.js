@@ -373,10 +373,23 @@ export async function getRangeOfRecords(startDate, endDate){
   const db = require("@/database/database");
   const RecordsModel = require("../../models/Records");
   const { Op } = require("sequelize");
+  
+  // Calculate the day difference
+  const dayDifference = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24);
+
 
   try {
     await db.authenticate();
     console.log("Connection has been established successfully.");
+    
+    // Define the sampling interval based on day difference
+    let interval = 1;
+    if (dayDifference > 14) {
+      interval = 12;
+    } else if (dayDifference > 7) {
+      interval = 3;
+    }
+
     return await new Promise((resolve, reject) => {
       RecordsModel.findAll({
         where: {
@@ -385,13 +398,17 @@ export async function getRangeOfRecords(startDate, endDate){
           }
         }
       })
-        .then( (result) => {
-          resolve(result);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    })
+      .then((result) => {
+        // Filter results based on interval
+        const filteredResult = result.filter((row, index) => (index + 1) % interval === 0);
+        console.log(filteredResult)
+        resolve(filteredResult);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);
   }

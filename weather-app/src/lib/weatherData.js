@@ -372,7 +372,7 @@ export async function getRangeOfDays(startDate, endDate){
 export async function getRangeOfRecords(startDate, endDate){
   const db = require("@/database/database");
   const RecordsModel = require("../../models/Records");
-  const { Op } = require("sequelize");
+  const { Op, fn, col } = require('sequelize');
   
   // Calculate the day difference
   const dayDifference = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24);
@@ -390,24 +390,73 @@ export async function getRangeOfRecords(startDate, endDate){
       interval = 3;
     }
 
-    return await new Promise((resolve, reject) => {
-      RecordsModel.findAll({
-        where: {
-          time: {
-            [Op.between]: [startDate, endDate]
+     // Fetch all records in the specified date range
+     const records = await RecordsModel.findAll({
+          where: {
+              time: {
+                  [Op.between]: [startDate, endDate]
+              }
           }
-        }
-      })
-      .then((result) => {
-        // Filter results based on interval
-        const filteredResult = result.filter((row, index) => (index + 1) % interval === 0);
-        console.log(filteredResult)
-        resolve(filteredResult);
-      })
-      .catch((error) => {
-        reject(error);
       });
-  });
+
+      // Filter results based on the interval
+      const filteredRecords = records.filter((row, index) => (index + 1) % interval === 0);
+
+      // Aggregate calculations for highest, lowest, and average
+      const stats = await RecordsModel.findOne({
+          attributes: [
+              [fn('MAX', col('temperature')), 'highest_temperature'],
+              [fn('MIN', col('temperature')), 'lowest_temperature'],
+              [fn('AVG', col('temperature')), 'average_temperature'],
+
+              [fn('MAX', col('humidity')), 'highest_humidity'],
+              [fn('MIN', col('humidity')), 'lowest_humidity'],
+              [fn('AVG', col('humidity')), 'average_humidity'],
+
+              [fn('MAX', col('pressure')), 'highest_pressure'],
+              [fn('MIN', col('pressure')), 'lowest_pressure'],
+              [fn('AVG', col('pressure')), 'average_pressure'],
+
+              [fn('MAX', col('rain')), 'highest_rain'],
+              [fn('MIN', col('rain')), 'lowest_rain'],
+              [fn('AVG', col('rain')), 'average_rain']
+          ],
+          where: {
+              time: {
+                  [Op.between]: [startDate, endDate]
+              }
+          }
+      });
+
+      // Construct the output object in the desired format
+      const output = {
+          records: filteredRecords,
+          data: {
+              temperature: {
+                  highest: stats.dataValues.highest_temperature,
+                  lowest: stats.dataValues.lowest_temperature,
+                  average: stats.dataValues.average_temperature
+              },
+              humidity: {
+                  highest: stats.dataValues.highest_humidity,
+                  lowest: stats.dataValues.lowest_humidity,
+                  average: stats.dataValues.average_humidity
+              },
+              pressure: {
+                  highest: stats.dataValues.highest_pressure,
+                  lowest: stats.dataValues.lowest_pressure,
+                  average: stats.dataValues.average_pressure
+              },
+              rain: {
+                  highest: stats.dataValues.highest_rain,
+                  lowest: stats.dataValues.lowest_rain,
+                  average: stats.dataValues.average_rain
+              }
+          }
+      };
+
+      console.log(output)
+      return output;
 
   } catch (error) {
     console.error("Unable to connect to the database:", error.original);

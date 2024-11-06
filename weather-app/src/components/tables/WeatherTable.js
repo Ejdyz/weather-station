@@ -10,7 +10,7 @@ export function WeatherTable({data}) {
         <TableHeader className="w-full">
           <TableRow>
             <TableHead className="sticky left-0 bg-white text-black ">Datum</TableHead>
-            {data.map((item, index) => {
+            {Array.isArray(data) && data.map((item, index) => {
               const date = new Date(item.day)
               return(
               <TableHead
@@ -19,24 +19,24 @@ export function WeatherTable({data}) {
                 {date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()}
               </TableHead>
             )})}
-            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
+            {Array.isArray(data.records) || !data || data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
           <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black">Oblačnost</TableCell>
-            {data.map((item, index) => (
+            {Array.isArray(data) && data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <div className="flex flex-row justify-center align-middle ">
                   <TableIcon data={item}/>
                 </div>
               </TableHead>
             ))}
-            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
+            {Array.isArray(data.records) || !data || data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
            <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black ">Teplota <br/><span className="text-gray-300">(°C)</span></TableCell>
-             {data.map((item, index) => (
+             {Array.isArray(data) && data.map((item, index) => (
                <TableHead className="text-black bg-gray-100 " key={index}>
                   <span className="flex flex-row justify-center align-middle">
                     <ArrowUpIcon size={20} stroke="Crimson"/>
@@ -45,11 +45,11 @@ export function WeatherTable({data}) {
                   </span>
                 </TableHead>
               ))}
-              {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12 text-center">Žádná data k zobrazení</TableHead>}
+              {Array.isArray(data.records) || !data || data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12 text-center">Žádná data k zobrazení</TableHead>}
           </TableRow>
           <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black">Vlhkost <br/><span className="text-gray-300">(%)</span></TableCell>
-            {data.map((item, index) => (
+            {Array.isArray(data) && data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <span className="flex flex-row justify-center align-middle">
                   <ArrowUpIcon size={20} stroke="Crimson"/>
@@ -58,11 +58,11 @@ export function WeatherTable({data}) {
                 </span>
               </TableHead>
             ))}
-            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
+            {Array.isArray(data.records) || !data || data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
            <TableRow>
             <TableCell className="sticky left-0 bg-white text-center text-black">Tlak <br/><span className="text-gray-300">(hPa)</span></TableCell>
-            {data.map((item, index) => (
+            {Array.isArray(data) && data.map((item, index) => (
               <TableHead className="text-black bg-gray-100 " key={index}>
                 <span className="flex flex-row justify-center align-middle">
                   <ArrowUpIcon size={20} stroke="Crimson"/>
@@ -71,7 +71,7 @@ export function WeatherTable({data}) {
                 </span>
               </TableHead>
             ))}
-            {data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
+            {Array.isArray(data.records) || !data || data.length === 0 && <TableHead className="text-black bg-gray-100 w-11/12"></TableHead>}
           </TableRow>
         </TableBody>
       </Table>

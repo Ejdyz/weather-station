@@ -8,23 +8,23 @@ import {ArrowUpIcon, ArrowDown, CircleSlash2} from "lucide-react";
 const MainChart = ({data,isForHistory }) => {
   const [selected, setSelected] = useState("Temperature");
 
-  console.log(data)
 
   const getAverageValue = (data, key) => {
     if (isForHistory && key === "Temperature") {
-      return data?.data?.temperature?.average.toFixed(2) + "°C"
+      return data?.data?.temperature?.average?.toFixed(2) + "°C"
     }
     if (isForHistory && key === "Humidity") {
-      return data?.data?.humidity?.average.toFixed(2) + "%"
+      return data?.data?.humidity?.average?.toFixed(2) + "%"
     }
     if (isForHistory && key === "Pressure") {
-      return data?.data?.pressure?.average.toFixed(2) + "hPa"
+      return data?.data?.pressure?.average?.toFixed(2) + "hPa"
     }
     if (isForHistory && key === "Rain") {
-      return data?.data?.rain?.average.toFixed(2) + "%"
+      return data?.data?.rain?.average?.toFixed(2) + "%"
     }
     return 0;
   }
+
   const getHighestValue = (data, key) => {
     if (isForHistory && key === "Temperature") {
       return data?.data?.temperature?.highest + "°C"
@@ -40,6 +40,7 @@ const MainChart = ({data,isForHistory }) => {
     }
     return 0;
   }
+  
   const getLowestValue = (data, key) => {
     if (isForHistory && key === "Temperature") {
       return data?.data?.temperature?.lowest+ "°C"

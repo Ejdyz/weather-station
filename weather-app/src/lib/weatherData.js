@@ -323,7 +323,7 @@ export async function getLastDate(){
     console.log("Connection has been established successfully.");
     return await new Promise((resolve, reject) => {
       RecordsModel.findOne({
-        order: [["id", "DESC"]],
+        order: [["time", "DESC"]],
         raw: true,
       })
         .then( (result) => {
@@ -354,6 +354,7 @@ export async function getRangeOfDays(startDate, endDate){
           }
         },
         raw: true,
+        order: [["day", "ASC"]],
       })
         .then( (result) => {
           resolve(result);
@@ -393,10 +394,11 @@ export async function getRangeOfRecords(startDate, endDate){
      // Fetch all records in the specified date range
      const records = await RecordsModel.findAll({
           where: {
-              time: {
-                  [Op.between]: [startDate, endDate]
-              }
-          }
+            time: {
+              [Op.between]: [startDate, endDate]
+            }
+          },
+          order: [["time", "ASC"]],
       });
 
       // Filter results based on the interval

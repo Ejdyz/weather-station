@@ -7,7 +7,7 @@ const { DataTypes } = require("sequelize");
  * Import the Sequelize instance that you have exported
  * in the config/database.js file.
  */
-const sequelize = require("@/database/database");
+const sequelize = require("../src/database/database");
 
 /**
  * Define a model that can be managed by Sequelize.

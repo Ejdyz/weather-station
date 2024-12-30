@@ -7,7 +7,7 @@ const { DataTypes } = require("sequelize");
  * Import the Sequelize instance that you have exported
  * in the config/database.js file.
  */
-const sequelize = require("@/database/database");
+const sequelize = require("../src/database/database");
 
 /**
  * Define a model that can be managed by Sequelize.
@@ -27,7 +27,7 @@ const Days = sequelize.define(
     },
     highestTemperature: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     lowestTemperature: {
       type: DataTypes.FLOAT,
@@ -35,7 +35,7 @@ const Days = sequelize.define(
     },
     highestHumidity: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     lowestHumidity: {
       type: DataTypes.FLOAT,
@@ -43,19 +43,19 @@ const Days = sequelize.define(
     },
     wasRaining: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
     },
     highestRaining: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     highestLight: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     highestPressure: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     lowestPressure: {
       type: DataTypes.FLOAT,

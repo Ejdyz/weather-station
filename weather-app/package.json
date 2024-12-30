@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:sync": "node ./scripts/databaseSync.js"
+    "db:sync": "node ./scripts/databaseSync.js",
+    "db:fill": "node ./scripts/databaseFill.js"
   },
   "dependencies": {
     "@internationalized/date": "^3.5.6",

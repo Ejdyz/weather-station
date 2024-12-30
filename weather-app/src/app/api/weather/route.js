@@ -112,13 +112,13 @@ export async function POST(request) {
   }
 
   const currentTimeDate = new Date(time);
-  console.log("time in db:"  + currentTimeDate);
+  console.log("current time:"  + currentTimeDate);
 
   const yesterdayTime = await getLastDate();
 
   console.log("time in db:"  + yesterdayTime);
 
-  const wasItYesterday = await isYesterday(currentTimeDate, yesterdayTime);
+  const wasItYesterday = !yesterdayTime? null : await isYesterday(currentTimeDate, yesterdayTime);
 
   console.log("Was it yesterday: " + wasItYesterday);
 
@@ -246,8 +246,10 @@ async function createRecord({ Time, temperature, humidity, rain, isRaining, sunl
 
 async function updateStatusAndRecord({Time, temperature, humidity, rain, isRaining, sunlight, pressure, shouldSave, wasItYesterday}) {
   try {
+    console.log("Updating status and creating record...");
     // Update status
-    await Status.update({
+    await Status.upsert({
+      id: 1,
       time: Time,
       temperature: temperature,
       humidity: humidity,
@@ -255,22 +257,27 @@ async function updateStatusAndRecord({Time, temperature, humidity, rain, isRaini
       isRaining: isRaining,
       light: sunlight,
       pressure: pressure
-    }, {
-      where: { id: 1 }
     });
     console.log("Status Record updated successfully!");
+  } catch (error) {
+    console.error("Error updating status:", error);
+  }
 
-    // Conditionally create a record
-    if (shouldSave) {
-      await createRecord({ Time, temperature, humidity, rain, isRaining, sunlight, pressure });
-      console.log("Was it successful? Yes");
+  // Conditionally create a record
+  if (shouldSave) {
+    try {
+      await createRecord({ Time, temperature, humidity, rain, isRaining, sunlight, pressure }); 
+    } catch (error) {
+      console.error("Error when creating weather record:", error);
+    }
 
-      // Further conditional operation
-      if (wasItYesterday) {
+    // Further conditional operation
+    if (wasItYesterday) {
+      try {
         await insertWeatherSummary();
+      } catch (error) {
+        console.log("Error inserting weather summary:", error);
       }
     }
-  } catch (error) {
-    console.error("Error updating status or creating record:", error);
   }
 }

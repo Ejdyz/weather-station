@@ -43,7 +43,7 @@ const Status = sequelize.define(
     },
     pressure: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     light: {
       type: DataTypes.INTEGER,

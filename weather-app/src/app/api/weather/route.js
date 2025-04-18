@@ -92,9 +92,9 @@ export async function POST(request) {
   if (typeof humidity !== "number") {
     return NextResponse.json({error:"wrong humidity value"}, { status: 400 })
   }
-  if (typeof pressure !== "number") {
-    return NextResponse.json({error:"wrong pressure value"}, { status: 400 })
-  }
+  // if (typeof pressure !== "number") {
+  //   return NextResponse.json({error:"wrong pressure value"}, { status: 400 })
+  // }
   if (typeof sunlight !== "number") {
     return NextResponse.json({error:"wrong sunlight value"}, { status: 400 })
   }
@@ -134,7 +134,7 @@ export async function POST(request) {
       rain: rain,
       isRaining: isRaining,
       sunlight: sunlight,
-      pressure: verifyPressure(pressure),
+      pressure: null, //verifyPressure(pressure),
       shouldSave: shouldSave,
       wasItYesterday: wasItYesterday
     }).catch(console.error);
@@ -235,7 +235,7 @@ async function createRecord({ Time, temperature, humidity, rain, isRaining, sunl
       rain: rain,
       isRaining: isRaining,
       light: sunlight,
-      pressure: verifyPressure(pressure)
+      pressure: null //verifyPressure(pressure)
     });
     console.log("Record created successfully!");
   } catch (error) {

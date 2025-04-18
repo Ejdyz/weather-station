@@ -41,6 +41,8 @@ build/Release
 # Dependency directories
 node_modules/
 weather-app/package-lock.json
+./weather-app/package-lock.json
+/weather-app/package-lock.json
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

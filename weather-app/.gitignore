@@ -6,6 +6,7 @@
 .pnp.js
 /package-lock.json
 package-lock.json
+/weather-app/package-lock.json
 .yarn/install-state.gz
 
 # testing

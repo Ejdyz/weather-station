@@ -9,10 +9,10 @@ import {Spinner} from "@nextui-org/spinner";
 
 const Selector = () => {
   const [data, setData] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("tables");
+  const [selectedTab, setSelectedTab] = useState("charts");
   const [isLoading, setIsLoading] = useState(true);
   const [dates, setDates] = useState({
-    start: parseDate(new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0]),
+    start: parseDate(new Date(new Date().setDate(new Date().getDate() - 4)).toISOString().split('T')[0]),
     end: parseDate(new Date().toISOString().split('T')[0]),
   });
 
@@ -64,6 +64,26 @@ const Selector = () => {
     <div className="flex justify-center flex-col items-center">
       <div className="border-b-1 w-full z- translate-y-5" />
       <Tabs selectedKey={selectedTab} onSelectionChange={setSelectedTab} aria-label="Options" color="primary" className="z-10">
+      <Tab key="charts" title={"Graf"}>
+          <div className={"flex flex-col md:w-[calc(100vw-4rem)] w-[calc(100vw-2rem)] gap-2 "}>
+            <DateRangePicker
+              color="primary"
+              className="max-w-96"
+              label="Rozsah dní"
+              value={dates}
+              onChange={setDates}
+            />
+            <div className={"flex max-w-screen justify-center"}>
+              {isLoading ?
+                <div className="h-[23rem] w-full flex justify-center items-center">
+                  <Spinner size="lg"/>
+                </div>
+                :
+                <MainChart data={data} isForHistory/>
+              }
+            </div>
+          </div>
+        </Tab>
         <Tab key="tables" title={"Tabulka"}>
           <div className={"flex flex-col md:w-[calc(100vw-4rem)] w-[calc(100vw-2rem)] gap-2 "}>
             <DateRangePicker
@@ -82,26 +102,6 @@ const Selector = () => {
                 <WeatherTable data={data}/>
               </div>
             }
-          </div>
-        </Tab>
-        <Tab key="charts" title={"Graf"}>
-          <div className={"flex flex-col md:w-[calc(100vw-4rem)] w-[calc(100vw-2rem)] gap-2 "}>
-            <DateRangePicker
-              color="primary"
-              className="max-w-96"
-              label="Rozsah dní"
-              value={dates}
-              onChange={setDates}
-            />
-            <div className={"flex max-w-screen justify-center"}>
-              {isLoading ?
-                <div className="h-[23rem] w-full flex justify-center items-center">
-                  <Spinner size="lg"/>
-                </div>
-                :
-                <MainChart data={data} isForHistory/>
-              }
-            </div>
           </div>
         </Tab>
       </Tabs>

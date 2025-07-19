@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Status {
+  id             Int       @id @unique @default(autoincrement())
+  recorded_at    DateTime   // when the data was captured
+  created_at     DateTime?
+  temperature    Float?
+  humidity       Float?
+  pressure       Float?
+  light          Int?
+  wind_speed     Float?
+  wind_direction Float?
+  rain_mm        Float?
+  rtc_sync_lost  Boolean?
+}
+
+model History {
+  id             Int          @id @unique @default(autoincrement())
+  history_day_id History_days @relation(fields: [history_daysId], references: [id])
+  recorded_at    DateTime
+  temperature    Float?
+  humidity       Float?
+  pressure       Float?
+  light          Int?
+  wind_speed     Float?
+  wind_direction Float?
+  rain_mm        Float?
+  history_daysId String
+  created_at     DateTime
+
+
+  @@index([recorded_at], name: "idx_history_recorded_at")
+  @@index([history_daysId, recorded_at], name: "idx_history_day_recorded_at")
+}
+
+model History_days {
+  id                 String    @id @unique @default(cuid())
+  date               DateTime  @unique
+  created_at         DateTime?
+  max_temperature    Float?
+  avg_temperature    Float?
+  min_temperature    Float?
+  max_humidity       Float?
+  avg_humidity       Float?
+  min_humidity       Float?
+  max_pressure       Float?
+  avg_pressure       Float?
+  min_pressure       Float?
+  max_light          Float?
+  avg_light          Float?
+  min_light          Float?
+  max_wind_speed     Float?
+  avg_wind_speed     Float?
+  min_wind_speed     Float?
+  max_wind_direction Float?
+  avg_wind_direction Float?
+  min_wind_direction Float?
+  max_rain_mm        Float?
+  avg_rain_mm        Float?
+  min_rain_mm        Float?
+  History            History[]
+
+  @@index([date], name: "idx_history_days_date")
+}
+
+model Forecasts {
+  id             Int           @id @unique @default(autoincrement())
+  created_at     DateTime
+  forecast_for   DateTime
+  type           forecast_type @default(hourly)
+  confidence     Float?
+  temperature    Float?
+  humidity       Float?
+  pressure       Float?
+  light          Float?
+  wind_speed     Float?
+  wind_direction Float?
+  rain_mm        Float?
+
+  @@index([forecast_for], name: "idx_forecasts_forecast_for")
+}
+
+enum forecast_type {
+  hourly
+  daily
+}

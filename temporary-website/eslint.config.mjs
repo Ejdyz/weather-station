@@ -1,5 +1,6 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { includeIgnoreFile } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
@@ -16,6 +17,8 @@ import promisePlugin from "eslint-plugin-promise";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const gitignorePath = fileURLToPath(new URL(".gitignore", import.meta.url));
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
@@ -24,7 +27,7 @@ const eslintConfig = [
   // Base configurations
   js.configs.recommended,
   ...compat.extends("next/core-web-vitals", "next/typescript"),
-  
+  includeIgnoreFile(gitignorePath, "Imported .gitignore patterns"),
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     ignores: [

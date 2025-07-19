@@ -81,7 +81,7 @@ export default function Home() {
                   <br/>
                   V blízké době se můžete těšit na novou stránku, která přinese spoustu nových funkcí a vylepšení.
                   <br/><br/>
-                  Po kliknutí na tlačítko Github se dostanete na repozitář, kde můžete sledovat vývoj a přispět k projektu.
+                  Po kliknutí na tlačítko Github se dostanete na repozitář, kde můžete sledovat vývoj projektu.
                 </CardDescription>
               </div>
             </CardHeader>

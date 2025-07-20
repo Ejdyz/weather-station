@@ -193,7 +193,7 @@ void resendSavedData() {
   SPIFFS.rename("/unsent_data_tmp.txt", "/unsent_data.txt");
 }
 
-void sendJsonToServer(float windSpeed, const char* windDir, float rain, float dhtTemp, float dhtHum, float press, int light) {
+void sendJsonToServer(float windSpeed, const char* windDir, float rain, float dhtTemp, float dhtHum, float press, float bmpTemperature, int light) {
   Serial.println("Sending data to API...");
   StaticJsonDocument<512> jsonDoc;
   jsonDoc["wind_speed_m_s"] = windSpeed;
@@ -202,6 +202,7 @@ void sendJsonToServer(float windSpeed, const char* windDir, float rain, float dh
   jsonDoc["temperature_dht"] = dhtTemp;
   jsonDoc["humidity_dht"] = dhtHum;
   jsonDoc["pressure_hpa"] = press;
+  jsonDoc["temperature_bmp"] = bmpTemperature;
   jsonDoc["sunlight_raw"] = light;
   jsonDoc["rtc_timestamp"] = rtcTimestamp;
   jsonDoc["rtc_confidence_lost"] = rtcConfidenceLost;
@@ -298,7 +299,7 @@ void vTaskOutput(void* pvParameters) {
     resendSavedData();
     Serial.println("Finished resending saved data.");
     
-    sendJsonToServer(speed_m_s, dominantDir, rain_mm, dhtTemperature, dhtHumidity, pressure, sunlightRaw);
+    sendJsonToServer(speed_m_s, dominantDir, rain_mm, dhtTemperature, dhtHumidity, pressure, bmpTemperature, sunlightRaw);
 
     anemometerCount = 0;
     rainCount = 0;

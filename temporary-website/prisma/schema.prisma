@@ -19,6 +19,7 @@ model Status {
   recorded_at    DateTime // when the data was captured
   created_at     DateTime @default(now())
   temperature    Float?
+  internal_temperature Float? // internal temperature of the device
   humidity       Float?
   pressure       Float?
   light          Int?

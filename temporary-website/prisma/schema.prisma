@@ -30,7 +30,7 @@ model Status {
 
 model History {
   id             Int          @id @unique @default(autoincrement())
-  history_day_id History_days @relation(fields: [history_daysId], references: [id])
+  history_day_id History_days @relation(fields: [history_daysId], references: [id], onDelete: Cascade)
   recorded_at    DateTime
   temperature    Float?
   humidity       Float?
@@ -39,7 +39,7 @@ model History {
   wind_speed     Float?
   wind_direction Float?
   rain_mm        Float?
-  history_daysId String
+  history_daysId Int
   created_at     DateTime
 
 
@@ -48,7 +48,7 @@ model History {
 }
 
 model History_days {
-  id                 String    @id @unique @default(cuid())
+  id                 Int    @id @unique @default(autoincrement())
   date               DateTime  @unique
   created_at         DateTime?
   max_temperature    Float?
@@ -81,7 +81,7 @@ model Forecasts {
   id             Int           @id @unique @default(autoincrement())
   created_at     DateTime
   forecast_for   DateTime
-  type           forecast_type @default(hourly)
+  type           Forecast_type @default(Hourly)
   confidence     Float?
   temperature    Float?
   humidity       Float?
@@ -94,7 +94,7 @@ model Forecasts {
   @@index([forecast_for], name: "idx_forecasts_forecast_for")
 }
 
-enum forecast_type {
-  hourly
-  daily
+enum Forecast_type {
+  Hourly
+  Daily
 }

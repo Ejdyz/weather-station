@@ -15,9 +15,9 @@ datasource db {
 }
 
 model Status {
-  id             Int       @id @unique @default(autoincrement())
-  recorded_at    DateTime   // when the data was captured
-  created_at     DateTime?
+  id             Int      @id @unique @default(autoincrement())
+  recorded_at    DateTime // when the data was captured
+  created_at     DateTime @default(now())
   temperature    Float?
   humidity       Float?
   pressure       Float?
@@ -40,17 +40,16 @@ model History {
   wind_direction Float?
   rain_mm        Float?
   history_daysId Int
-  created_at     DateTime
-
+  created_at     DateTime     @default(now())
 
   @@index([recorded_at], name: "idx_history_recorded_at")
   @@index([history_daysId, recorded_at], name: "idx_history_day_recorded_at")
 }
 
 model History_days {
-  id                 Int    @id @unique @default(autoincrement())
+  id                 Int       @id @unique @default(autoincrement())
   date               DateTime  @unique
-  created_at         DateTime?
+  created_at         DateTime  @default(now())
   max_temperature    Float?
   avg_temperature    Float?
   min_temperature    Float?
@@ -79,7 +78,7 @@ model History_days {
 
 model Forecasts {
   id             Int           @id @unique @default(autoincrement())
-  created_at     DateTime
+  created_at     DateTime      @default(now())
   forecast_for   DateTime
   type           Forecast_type @default(Hourly)
   confidence     Float?

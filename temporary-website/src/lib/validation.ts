@@ -1,16 +1,16 @@
 import { z } from 'zod';
 
 export const StatusApiSchema = z.object({
-  wind_speed_m_s: z.number().nullable(),
-  wind_direction: z.number().nullable(),
-  rain_mm: z.number().nullable(),
-  temperature_dht: z.number().nullable(),
-  humidity_dht: z.number().nullable(),
-  pressure_hpa: z.number().nullable(),
-  temperature_bmp: z.number().nullable(),
-  sunlight_raw: z.number().nullable(),
-  rtc_timestamp: z.iso.datetime(),
-  rtc_sync_lost: z.boolean().nullable(),
+  wind_speed_m_s: z.number("Value must be a number or null").nullable(),
+  wind_direction: z.number("Value must be a number or null").nullable(),
+  rain_mm: z.number("Value must be a number or null").nullable(),
+  temperature_dht: z.number("Value must be a number or null").nullable(),
+  humidity_dht: z.number("Value must be a number or null").nullable(),
+  pressure_hpa: z.number("Value must be a number or null").nullable(),
+  temperature_bmp: z.number("Value must be a number or null").nullable(),
+  sunlight_raw: z.number("Value must be a number or null").nullable(),
+  rtc_timestamp: z.iso.datetime("Value must be a valid ISO datetime"),
+  rtc_sync_lost: z.boolean("Value must be a boolean or null").nullable(),
   api_key: z.string().min(1, 'API key is required'),
 });
 

@@ -57,7 +57,7 @@ volatile uint32_t lastWindSpeedInterrupt = 0;
 // Wind direction data
 volatile int windDirCount[8] = { 0 };
 const int windDirRaw[8] = {750, 2000, 3730, 3120, 2650, 1350, 150, 370};
-const char* windDirLabel[8] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+const int windDirDegrees[8] = {0, 45, 90, 135, 180, 225, 270, 315};
 
 // --- Wi-Fi watchdog globals ---
 static const uint32_t WIFI_CHECK_PERIOD_MS = 5000;  // how often to poll
@@ -129,14 +129,14 @@ void printWiFiDetails() {
 
   // WiFi SSID connected to:
   Serial.print("Connected to: "); Serial.println(WiFi.SSID());
-  // Devide IP Address:
+  // Device IP Address:
   Serial.print("IP: "); Serial.println(WiFi.localIP());
   // Device MAC Address:
   Serial.print("MAC: ");
   Serial.print(mac[0],HEX); Serial.print(":"); Serial.print(mac[1],HEX); Serial.print(":");
   Serial.print(mac[2],HEX); Serial.print(":"); Serial.print(mac[3],HEX); Serial.print(":");
   Serial.print(mac[4],HEX); Serial.print(":"); Serial.println(mac[5],HEX);
-  // Strenght of the signal:
+  // Strength of the signal:
   Serial.print("Signal strength: ");
   Serial.print(rssi);
   Serial.println("dBm");
@@ -193,7 +193,7 @@ void resendSavedData() {
   SPIFFS.rename("/unsent_data_tmp.txt", "/unsent_data.txt");
 }
 
-void sendJsonToServer(float windSpeed, const char* windDir, float rain, float dhtTemp, float dhtHum, float press, float bmpTemperature, int light) {
+void sendJsonToServer(float windSpeed, int windDir, float rain, float dhtTemp, float dhtHum, float press, float bmpTemperature, int light) {
   Serial.println("Sending data to API...");
   StaticJsonDocument<512> jsonDoc;
   jsonDoc["wind_speed_m_s"] = windSpeed;
@@ -205,7 +205,7 @@ void sendJsonToServer(float windSpeed, const char* windDir, float rain, float dh
   jsonDoc["temperature_bmp"] = bmpTemperature;
   jsonDoc["sunlight_raw"] = light;
   jsonDoc["rtc_timestamp"] = rtcTimestamp;
-  jsonDoc["rtc_confidence_lost"] = rtcConfidenceLost;
+  jsonDoc["rtc_sync_lost"] = rtcConfidenceLost;
   jsonDoc["api_key"] = apiKey;
 
   String requestBody;
@@ -293,7 +293,7 @@ void vTaskOutput(void* pvParameters) {
             dominantIdx = i;
         }
     }
-    const char* dominantDir = windDirLabel[dominantIdx];
+    const int dominantDir = windDirDegrees[dominantIdx];
 
     Serial.println("Trying to resend saved data...");
     resendSavedData();

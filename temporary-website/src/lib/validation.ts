@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { timingSafeCryptoCompare } from './utils';
 
 export const StatusApiSchema = z.object({
   wind_speed_m_s: z.number("Value must be a number or null").nullable(),
@@ -11,7 +12,13 @@ export const StatusApiSchema = z.object({
   sunlight_raw: z.number("Value must be a number or null").nullable(),
   rtc_timestamp: z.iso.datetime("Value must be a valid ISO datetime"),
   rtc_sync_lost: z.boolean("Value must be a boolean or null").nullable(),
-  api_key: z.string().min(1, 'API key is required'),
+  api_key: z.string().refine(
+    (val) => {
+      const expected = process.env.API_KEY;
+      return timingSafeCryptoCompare(val, expected);
+    },
+    { message: "Invalid API key" }
+  ),
 });
 
 export type StatusApi = z.infer<typeof StatusApiSchema>;

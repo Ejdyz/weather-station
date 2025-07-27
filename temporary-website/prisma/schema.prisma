@@ -49,7 +49,7 @@ model History {
 
 model History_days {
   id                 Int       @id @unique @default(autoincrement())
-  date               DateTime  @unique
+  date               DateTime  @unique @db.Date
   created_at         DateTime  @default(now())
   max_temperature    Float?
   avg_temperature    Float?

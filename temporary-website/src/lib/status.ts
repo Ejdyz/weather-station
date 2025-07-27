@@ -41,7 +41,11 @@ export async function getNumberOfLastStatusRecordsIn5minutes() {
 }
 
 export async function getAllStatusRecords() {
-  const recentRecords = await prisma.status.findMany();
+  const recentRecords = await prisma.status.findMany({
+    orderBy: {
+      recorded_at: 'desc',
+    }
+  });
   return recentRecords;
 }
 

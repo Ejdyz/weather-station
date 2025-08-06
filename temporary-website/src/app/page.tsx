@@ -22,7 +22,8 @@ import { DraftingCompass, CloudSun, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link'
 import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatDateForDisplay, formatWeatherData } from "@/lib/utils";
+import { formatWeatherData } from "@/lib/utils";
+import DateComponent from "@/components/ui/date";
 
 export const metadata = {
   title: "Weather Station",
@@ -59,7 +60,7 @@ export default async function Home() {
   },
   {
     name: "Čas",
-    data: formatDateForDisplay(latestRecord?.recorded_at),
+    data: <DateComponent date={latestRecord?.created_at} />,
   }
 ]
   return (

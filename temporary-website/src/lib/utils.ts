@@ -96,12 +96,22 @@ export function formatDateForDisplay(date: Date | string | null | undefined): st
   if (!date) {
     return "N/A";
   }
-  const d = new Date(date);
+  
+  // Ensure we have a proper Date object
+  const d = typeof date === 'string' ? new Date(date) : date;
+  
+  // Check if the date is valid
+  if (isNaN(d.getTime())) {
+    return "Invalid Date";
+  }
+  
+  // Format with explicit Czech locale and timezone
   return d.toLocaleDateString('cs-CZ', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'Europe/Prague', // Explicit timezone for Czech Republic
   });
 };

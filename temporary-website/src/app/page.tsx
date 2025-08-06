@@ -25,6 +25,8 @@ import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
 import { formatWeatherData } from "@/lib/utils";
 import DateComponent from "@/components/ui/date";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Weather Station",
   description: "Temporary website for the weather station project",

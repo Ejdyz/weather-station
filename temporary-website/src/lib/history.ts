@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { createOrGetHistoryDaysFromDate, updateHistoryDayWithHistoryRecords } from '@/lib/days';
 import { Status } from '@/generated/prisma';
-
+import { getLastStatusRecord } from '@/lib/status';
 
 export async function createHistoryRecord(statusRecords: Status[]) {
 
@@ -74,4 +74,23 @@ export async function getAllHistoryRecordsForHistoryDayUpdate(historyDayId: numb
   });
 
   return historyRecords;
+}
+
+export async function getLastHistoryRecord() {
+  const lastRecord = await prisma.history.findFirst({
+    orderBy: {
+      recorded_at: 'desc',
+    },
+  });
+
+  return lastRecord;
+}
+
+export async function getLatestRecordFromHistoryAndStatus() {
+  const latestStatus = await getLastStatusRecord();
+  if (latestStatus !== null) {
+    return latestStatus;
+  }
+  const latestHistory = await getLastHistoryRecord();
+  return latestHistory;
 }

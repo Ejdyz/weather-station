@@ -21,49 +21,51 @@ import {
 import { DraftingCompass, CloudSun, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link'
+import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
+import { formatDateForDisplay, formatWeatherData } from "@/lib/utils";
 
 export const metadata = {
   title: "Weather Station",
   description: "Temporary website for the weather station project",
 }
 
-const invoices = [
+export default async function Home() {
+  const latestRecord = await getLatestRecordFromHistoryAndStatus()
+
+  const data = [
   {
-    invoice: "Teplota",
-    paymentStatus: "30 °C",
+    name: "Teplota",
+    data: formatWeatherData("temperature", latestRecord?.temperature),
   },
   {
-    invoice: "Vlhkost",
-    paymentStatus: "70 %",
+    name: "Vlhkost",
+    data: formatWeatherData("humidity", latestRecord?.humidity),
   },
   {
-    invoice: "Tlak",
-    paymentStatus: "1013 hPa",
+    name: "Tlak",
+    data: formatWeatherData("pressure", latestRecord?.pressure),
   },
   {
-    invoice: "Rychlost větru",
-    paymentStatus: "10 m/s",
+    name: "Rychlost větru",
+    data: formatWeatherData("wind_speed", latestRecord?.wind_speed),
   },
   {
-    invoice: "Směr větru",
-    paymentStatus: "Jihozápad",
+    name: "Směr větru",
+    data: formatWeatherData("wind_direction", latestRecord?.wind_direction),
   },
   {
-    invoice: "Srážky",
-    paymentStatus: "0.5 mm",
+    name: "Srážky",
+    data: formatWeatherData("rain_mm", latestRecord?.rain_mm),
   },
   {
-    invoice: "Čas",
-    paymentStatus: "2025-01-01 00:00:00",
+    name: "Čas",
+    data: formatDateForDisplay(latestRecord?.recorded_at),
   }
 ]
-
-
-export default function Home() {
   return (
-    <div className="min-h-[100dvh] flex h-full justify-center md:items-center items-start md:mt-0 mt-20">
-      <Card className="w-96 min-h-56 overflow-hidden relative border-sky-200 scale-125 gap-2">
-        <div className="absolute size-96 text-[350px] text-right italic font-bold text-sky-200 -ml-22 mt-20 blur-sm opacity-100">
+    <div className="min-h-[100dvh] flex h-full justify-center md:items-center items-start ">
+      <Card className="md:w-96 w-full min-h-56 md:h-auto h-[100dvh] overflow-hidden relative border-sky-200 md:scale-125 gap-2">
+        <div className="absolute size-96 text-[350px] text-right italic font-bold text-sky-200 -ml-22 md:mt-20 mt-40 blur-sm opacity-100">
           V2
         </div>
         <Tabs defaultValue="landing" className="z-10" orientation="horizontal">
@@ -110,10 +112,10 @@ export default function Home() {
             <CardContent className="relative z-10">
               <Table >
                 <TableBody>
-                  {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                      <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                      <TableCell >{invoice.paymentStatus}</TableCell>
+                  {data.map((data) => (
+                    <TableRow key={data.name}>
+                      <TableCell className="font-medium">{data.name}</TableCell>
+                      <TableCell >{data.data}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

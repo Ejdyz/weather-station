@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "lint:strict": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",
-    "send-status": "ts-node scripts/sendingStatusEveryMinute.ts"
+    "send-status": "ts-node scripts/sendingStatusEveryMinute.ts",
+    "postinstall": "prisma generate --no-hints"
   },
   "dependencies": {
     "@prisma/client": "^6.12.0",

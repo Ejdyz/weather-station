@@ -399,11 +399,28 @@ void loop() {
       Serial.println("------------------------");
       return;
     }
+
+    if(cmd.startsWith("FILES CLEAR")){
+      Serial.println("------------------------");
+      Serial.println("Clearing SPIFFS files...");
+      
+      // Format SPIFFS to clear all data
+      if (SPIFFS.format()) {
+        Serial.println("SPIFFS formatted successfully!");
+        Serial.println("All files and data cleared.");
+      } else {
+        Serial.println("Failed to format SPIFFS!");
+      }
+      Serial.println("------------------------");
+      return;
+    }
+    
     Serial.println("------------------------");
     Serial.println("Bad command. Available commands:");
     Serial.println("RTC SET");
     Serial.println("RTC GET");
     Serial.println("WiFi GET");
+    Serial.println("FILES CLEAR");
     Serial.println("------------------------");
   }
   vTaskDelay(pdMS_TO_TICKS(100));

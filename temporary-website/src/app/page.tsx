@@ -24,6 +24,8 @@ import Link from 'next/link'
 import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
 import { formatDateForDisplay, formatWeatherData } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Weather Station",
   description: "Temporary website for the weather station project",

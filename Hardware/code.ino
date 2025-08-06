@@ -15,7 +15,7 @@
 #define WIND_DIR_PIN   35
 #define RAIN_PIN       14
 #define DHTPIN         27
-#define DHTTYPE        DHT11
+#define DHTTYPE        DHT22
 #define LDR_PIN        34
 // RTC Pins
 #define RTC_CLK_PIN    26 // SCLK/CLK

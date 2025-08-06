@@ -15,6 +15,10 @@
 - It aims to measure various environmental parameters and display the data on a web interface. 
 - This repository contains both the hardware schematics and software code necessary for the project.
 
+## Possible additional functions
+- Connection to network and power delivery via PoE
+- Adding web server for rendering useful information and remote resetting  
+
 ## Hardware Components
 - **ESP32** - The core computing unit of the weather station.
 - **Sensors**:

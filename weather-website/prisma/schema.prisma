@@ -38,6 +38,7 @@ model History {
   pressure       Float?
   light          Int?
   wind_speed     Float?
+  max_wind_speed Float?
   wind_direction Float?
   rain_mm        Float?
   history_daysId Int

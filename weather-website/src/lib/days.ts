@@ -39,7 +39,7 @@ export async function updateHistoryDayWithHistoryRecords(historyDayId: number) {
       max_light: data._max.light,
       avg_light: data._avg.light,
       min_wind_speed: data._min.wind_speed,
-      max_wind_speed: data._max.wind_speed,
+      max_wind_speed: data._max.max_wind_speed,
       avg_wind_speed: data._avg.wind_speed,
       min_wind_direction: data._min.wind_direction,
       max_wind_direction: data._max.wind_direction,

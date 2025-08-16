@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { createOrGetHistoryDaysFromDate, updateHistoryDayWithHistoryRecords } from '@/lib/days';
 import { Status } from '@/generated/prisma';
 import { getLastStatusRecord } from '@/lib/status';
+import { max } from 'lodash';
 
 export async function createHistoryRecord(statusRecords: Status[]) {
 
@@ -16,9 +17,10 @@ export async function createHistoryRecord(statusRecords: Status[]) {
     humidity: lastStatusRecord.humidity,
     pressure: lastStatusRecord.pressure,
     light: lastStatusRecord.light,
-    wind_speed: (() => {
+    wind_speed: lastStatusRecord.wind_speed,
+    max_wind_speed: (() => {
         const vals = statusRecords.map(r => r.wind_speed).filter((v): v is number => v !== null);
-        return vals.length ? vals.reduce((sum, v) => sum + v, 0) / vals.length : null;
+        return vals.length ? max(vals) : null;
     })(),
     wind_direction: (() => {
         const vals = statusRecords.map(r => r.wind_direction).filter((v): v is number => v !== null);
@@ -59,6 +61,7 @@ export async function getAllHistoryRecordsForHistoryDayUpdate(historyDayId: numb
       pressure: true,
       light: true,
       wind_speed: true,
+      max_wind_speed: true,
       wind_direction: true,
       rain_mm: true,
     },

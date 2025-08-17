@@ -22,7 +22,7 @@ import { DraftingCompass, CloudSun, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link'
 import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData } from "@/lib/utils";
+import { formatWeatherData, apparentTemperature, dewPointTemperature} from "@/lib/utils";
 import DateComponent from "@/components/ui/date";
 
 export const dynamic = "force-dynamic";
@@ -39,6 +39,14 @@ export default async function Home() {
   {
     name: "Teplota",
     data: formatWeatherData("temperature", latestRecord?.temperature),
+  },
+  {
+    name: "Pocitová teplota",
+    data: formatWeatherData("temperature", apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, (latestRecord?.wind_speed || 0) * 3.6)),
+  },
+  {
+    name: "Rosný bod",
+    data: formatWeatherData("temperature", dewPointTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0)),
   },
   {
     name: "Vlhkost",

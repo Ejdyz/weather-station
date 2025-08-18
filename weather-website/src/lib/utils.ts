@@ -42,6 +42,25 @@ export function convertDirectionToCardinalString(degrees: number): string {
   return directions[index];
 }
 
+export function convertDirectionToEnglishCardinalCharacters(degrees: number): string {
+  if (degrees < 0 || degrees > 360) {
+    throw new Error("Degrees must be between 0 and 360");
+  }
+  const directions = [
+    "N",
+    "NE",
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW",
+  ];
+  const index = Math.round(degrees / 45) % 8;
+  return directions[index];
+}
+
+
 export function convertDirectionToCardinalChar(degrees: number): string {
   if (degrees < 0 || degrees > 360) {
     throw new Error("Degrees must be between 0 and 360");

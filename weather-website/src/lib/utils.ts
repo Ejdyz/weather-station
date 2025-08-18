@@ -172,3 +172,112 @@ export function dewPointTemperature(T: number, RH: number): number {
 
   return (b * Math.log(logValue)) / (a - Math.log(logValue));
 }
+
+/**
+ * Heuristic sky condition from pressure (hPa), humidity (%), temperature (°C)
+ * Requires your helpers: dewPointTemperature(T, RH) and vaporPressure_hPa(T, RH)
+ * @param pressure_hPa 
+ * @param humidity_percent 
+ * @param temperature_C 
+ * @returns "clear" | "partly cloudy" | "cloudy" | "overcast" | "unknown"
+ */
+export function skyConditionWithoutFog(pressure_hPa: number, humidity_percent: number, temperature_C: number) : "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" {
+  if (!isFinite(pressure_hPa) || !isFinite(humidity_percent) || !isFinite(temperature_C)) return "unknown";
+  const RH = Math.max(0, Math.min(100, humidity_percent));
+
+  const Td = dewPointTemperature(temperature_C, RH);      // °C
+  const dpd = temperature_C - Td;                         // dew-point depression (°C)
+  const vp = vaporPressure_hPa(temperature_C, RH) || 0;   // hPa, optional tie-breaker
+
+  const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x));
+
+  // Pressure: map ~1025 hPa (strong high) → 0 (clear bias), ~995 hPa (deep low) → 1 (cloudy bias)
+  const pressureScore = clamp((1025 - pressure_hPa) / 30, 0, 1);
+
+  // Humidity: 40% → 0, 100% → 1
+  const humidityScore = clamp((RH - 40) / 60, 0, 1);
+
+  // Dew-point depression: 10°C+ → 0 (dry/clear bias), 0°C → 1 (near saturation)
+  const dpdScore = clamp((10 - dpd) / 10, 0, 1);
+
+  // Vapor pressure (temperature-dependent moisture proxy): 5 hPa → ~0, 25 hPa → ~1
+  const vpScore = clamp((vp - 5) / 20, 0, 1);
+
+  // Near-saturation + high RH often means low cloud/overcast or fog
+  if (dpd <= 2 && RH >= 90) return "overcast";
+
+  // Very high pressure and very dry → likely clear
+  if (pressure_hPa >= 1022 && RH <= 45 && dpd >= 6) return "clear";
+
+  const cloudinessIndex =
+    0.45 * dpdScore +
+    0.30 * humidityScore +
+    0.20 * pressureScore +
+    0.05 * vpScore;
+
+  if (cloudinessIndex < 0.25) return "clear";
+  if (cloudinessIndex < 0.50) return "partly cloudy";
+  if (cloudinessIndex < 0.75) return "cloudy";
+  return "overcast";
+}
+
+/**
+ * Heuristic sky condition including fog from pressure (hPa), humidity (%), temperature (°C), wind speed (m/s)
+ * @param pressure_hPa 
+ * @param humidity_percent 
+ * @param temperature_C 
+ * @param wind_mps 
+ * @returns "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" | "fog"
+ */
+export function skyCondition(pressure_hPa: number, humidity_percent: number, temperature_C: number, wind_mps: number) : "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" | "fog" {
+  if (![pressure_hPa, humidity_percent, temperature_C, wind_mps].every(isFinite)) {
+    return "unknown";
+  }
+
+  const RH = Math.max(0, Math.min(100, humidity_percent));
+  const Td = dewPointTemperature(temperature_C, RH);
+  const dpd = temperature_C - Td; // dew-point depression
+
+  // Optional: vapor pressure tie-breaker if helper exists
+  const vp = (typeof vaporPressure_hPa === "function")
+    ? (vaporPressure_hPa(temperature_C, RH) || 0)
+    : 0;
+
+  // --- Fog detection ---
+  // Dense fog: tiny dpd + very high RH + light wind
+  if (dpd <= 0.5 && RH >= 97 && wind_mps <= 3) {
+    return "fog";
+  }
+  // Likely fog (patchy/mist): small dpd + high RH + calm wind
+  if (dpd <= 1.0 && RH >= 95 && wind_mps <= 2) {
+    return "fog";
+  }
+
+  // --- Sky condition heuristic (non-fog cases) ---
+  const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x));
+
+  // Pressure: 1025 = strong high (clear), 995 = deep low (cloudy)
+  const pressureScore = clamp((1025 - pressure_hPa) / 30, 0, 1);
+  // Humidity: 40% → 0, 100% → 1
+  const humidityScore = clamp((RH - 40) / 60, 0, 1);
+  // Dew-point depression: 10°C+ → 0, 0°C → 1
+  const dpdScore = clamp((10 - dpd) / 10, 0, 1);
+  // Vapor pressure: 5–25 hPa scale
+  const vpScore = clamp((vp - 5) / 20, 0, 1);
+
+  // Special cases
+  if (dpd <= 2 && RH >= 90) return "overcast";
+  if (pressure_hPa >= 1022 && RH <= 45 && dpd >= 6) return "clear";
+
+  // Weighted blend
+  const cloudinessIndex =
+    0.45 * dpdScore +
+    0.30 * humidityScore +
+    0.20 * pressureScore +
+    0.05 * vpScore;
+
+  if (cloudinessIndex < 0.25) return "clear";
+  if (cloudinessIndex < 0.50) return "partly cloudy";
+  if (cloudinessIndex < 0.75) return "cloudy";
+  return "overcast";
+}

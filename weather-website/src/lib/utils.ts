@@ -24,25 +24,8 @@ export function timingSafeCryptoCompare(compare: string, expected: string | unde
   );
 }
 
-export function convertDirectionToCardinalString(degrees: number): string {
-  if (degrees < 0 || degrees > 360) {
-    throw new Error("Degrees must be between 0 and 360");
-  }
-  const directions = [
-    "Sever",
-    "Severo-východ",
-    "Východ",
-    "Jihovýchod",
-    "Jih",
-    "Jiho-západ",
-    "Západ",
-    "Severo-západ",
-  ];
-  const index = Math.round(degrees / 45) % 8;
-  return directions[index];
-}
 
-export function convertDirectionToEnglishCardinalCharacters(degrees: number): string {
+export function convertDirectionToCardinalString(degrees: number): string {
   if (degrees < 0 || degrees > 360) {
     throw new Error("Degrees must be between 0 and 360");
   }

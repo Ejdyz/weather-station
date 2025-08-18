@@ -15,6 +15,7 @@ export default {
     data_title: 'Dočasné zobrazení dat'
   },
   data: {
+    sky_condition: 'Oblačnost',
     temperature: 'Teplota',
     apparent: 'Pocitová teplota',
     dew_point: 'Rosný bod',
@@ -22,6 +23,16 @@ export default {
     pressure: 'Tlak',
     wind_speed: 'Rychlost větru',
     wind_direction: 'Směr větru',
+    wind_direction_cardinal:{
+      N: 'Sever',
+      NE: 'Severovýchod',
+      E: 'Východ',
+      SE: 'Jihovýchod',
+      S: 'Jih',
+      SW: 'Jihozápad',
+      W: 'Západ',
+      NW: 'Severozápad'
+    },
     rain: 'Srážky',
     time: 'Čas'
   }

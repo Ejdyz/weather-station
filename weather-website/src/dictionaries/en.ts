@@ -15,6 +15,7 @@ export default {
     data_title: 'Temporary data display'
   },
   data: {
+    sky_condition: 'Sky condition',
     temperature: 'Temperature',
     apparent: 'Apparent temperature',
     dew_point: 'Dew point',
@@ -22,6 +23,16 @@ export default {
     pressure: 'Pressure',
     wind_speed: 'Wind speed',
     wind_direction: 'Wind direction',
+    wind_direction_cardinal: {
+      N: 'North',
+      NE: 'Northeast',
+      E: 'East',
+      SE: 'Southeast',
+      S: 'South',
+      SW: 'Southwest',
+      W: 'West',
+      NW: 'Northwest'
+    },
     rain: 'Rain',
     time: 'Time'
   }

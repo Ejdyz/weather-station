@@ -16,6 +16,16 @@ export default {
   },
   data: {
     sky_condition: 'Oblačnost',
+    sky_conditions: {
+      clear: 'Jasno',
+      partly_cloudy: 'Částečně oblačno',
+      cloudy: 'Oblačno',
+      overcast: 'Zataženo',
+      rain: 'Déšť',
+      snow: 'Sníh',
+      thunderstorm: 'Bouřka',
+      fog: 'Mlha'
+    },
     temperature: 'Teplota',
     apparent: 'Pocitová teplota',
     dew_point: 'Rosný bod',
@@ -34,6 +44,38 @@ export default {
       NW: 'Severozápad'
     },
     rain: 'Srážky',
+    rain_conditions:{
+      light: 'Lehké', //<2,5mm/h
+      moderate: 'Střední', //2,5<= i <10 mm/h
+      heavy: 'Silné' //>=10 mm/h
+    },
     time: 'Čas'
-  }
+  },
+  zodiac: {
+    aries: 'Beran',
+    taurus: 'Býk',
+    gemini: 'Blíženci',
+    cancer: 'Rak',
+    leo: 'Lev',
+    virgo: 'Panna',
+    libra: 'Váhy',
+    scorpio: 'Štír',
+    sagittarius: 'Střelec',
+    capricorn: 'Kozoroh',
+    aquarius: 'Vodnář',
+    pisces: 'Ryby'
+  },
+  moon_phase:{
+    new_moon: 'Nov',
+    waxing_crescent: 'Rostoucí srpek',
+    first_quarter: 'První čtvrt',
+    waxing_gibbous: 'Rostoucí gibbous',
+    full_moon: 'Úplněk',
+    waning_gibbous: 'Ubývající gibbous',
+    last_quarter: 'Poslední čtvrt',
+    waning_crescent: 'Ubývající srpek'
+  },
+
+
+
 } as const;

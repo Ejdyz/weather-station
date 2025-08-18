@@ -16,6 +16,16 @@ export default {
   },
   data: {
     sky_condition: 'Sky condition',
+    sky_conditions: {
+      clear: 'Clear',
+      partly_cloudy: 'Partly cloudy',
+      cloudy: 'Cloudy',
+      overcast: 'Overcast',
+      rain: 'Rain',
+      snow: 'Snow',
+      thunderstorm: 'Thunderstorm',
+      fog: 'Fog'
+    },
     temperature: 'Temperature',
     apparent: 'Apparent temperature',
     dew_point: 'Dew point',
@@ -34,6 +44,35 @@ export default {
       NW: 'Northwest'
     },
     rain: 'Rain',
+    rain_conditions:{
+      light: 'Light', //<2,5mm/h
+      moderate: 'Moderate', //2,5<= i <10 mm/h
+      heavy: 'Heavy' //>=10 mm/h
+    },
     time: 'Time'
-  }
+  },
+  zodiac: {
+    aries: 'Aries',
+    taurus: 'Taurus',
+    gemini: 'Gemini',
+    cancer: 'Cancer',
+    leo: 'Leo',
+    virgo: 'Virgo',
+    libra: 'Libra',
+    scorpio: 'Scorpio',
+    sagittarius: 'Sagittarius',
+    capricorn: 'Capricorn',
+    aquarius: 'Aquarius',
+    pisces: 'Pisces'
+  },
+  moon_phase:{
+    new_moon: 'New Moon',
+    waxing_crescent: 'Waxing Crescent',
+    first_quarter: 'First Quarter',
+    waxing_gibbous: 'Waxing Gibbous',
+    full_moon: 'Full Moon',
+    waning_gibbous: 'Waning Gibbous',
+    last_quarter: 'Last Quarter',
+    waning_crescent: 'Waning Crescent'
+  },
 } as const;

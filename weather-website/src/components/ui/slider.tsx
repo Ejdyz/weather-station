@@ -31,13 +31,13 @@ export function Slider({ slides }:{slides: JSX.Element[]}) {
 
   return (
     <>
-      <div className="keen-slider" ref={sliderRef}>
+      <div className="keen-slider h-full" ref={sliderRef}>
         {slides.map((slide, index) => (
           <div key={index} className="keen-slider__slide flex justify-center items-center">{slide}</div>
         ))}
       </div>
       {loaded > 0 && instanceRef.current && (
-        <div className="w-full flex justify-center gap-2">
+        <div className="flex justify-center gap-2">
           {[
             ...Array(instanceRef.current.track.details.slides.length).keys(),
           ].map((idx) => {

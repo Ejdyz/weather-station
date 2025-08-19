@@ -22,7 +22,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <I18nProvider initialLocale={locale} initialDictionary={dict}>
-          <div className="p-2 flex justify-end"><LanguageSwitcher currentLocale={locale} /></div>
           {children}
         </I18nProvider>
       </body>

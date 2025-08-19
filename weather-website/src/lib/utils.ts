@@ -7,7 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 import { timingSafeEqual } from "crypto"
-
 /**
  * Compares two strings in a timing-safe manner to prevent timing attacks.
  * @param compare - The string to compare.
@@ -23,7 +22,6 @@ export function timingSafeCryptoCompare(compare: string, expected: string | unde
     Buffer.from(expected, 'utf8')
   );
 }
-
 
 export function convertDirectionToCardinalString(degrees: number): string {
   if (degrees < 0 || degrees > 360) {
@@ -43,28 +41,8 @@ export function convertDirectionToCardinalString(degrees: number): string {
   return directions[index];
 }
 
-
-export function convertDirectionToCardinalChar(degrees: number): string {
-  if (degrees < 0 || degrees > 360) {
-    throw new Error("Degrees must be between 0 and 360");
-  }
-  const directions = [
-    "S",
-    "SV",
-    "V",
-    "JV",
-    "J",
-    "JZ",
-    "Z",
-    "SZ",
-  ];
-  const index = Math.round(degrees / 45) % 8;
-  return directions[index];
-}
-
-
 interface WeatherTypeForFormat {
-  type: "temperature" | "humidity" | "pressure" | "wind_speed" | "wind_direction" | "rain_mm" | "light" | "date";
+  type: "temperature" | "humidity" | "pressure" | "wind_speed_ms" | "wind_speed_kmh" | "wind_direction" | "rain_mm" | "light" | "date";
   value: number | null | undefined;
 }
 
@@ -79,8 +57,10 @@ export function formatWeatherData(type: WeatherTypeForFormat["type"], value: Wea
       return `${_.round(value, 2)} %`;
     case "pressure":
       return `${_.round(value, 2)} hPa`;
-    case "wind_speed":
-      return `${_.round(value, 2)} m/s (${_.round(value * 3.6, 2)} km/h)`;
+    case "wind_speed_ms":
+      return `${_.round(value, 2)} m/s`;
+    case "wind_speed_kmh":
+      return `${_.round(value * 3.6, 2)} km/h`;
     case "wind_direction":
       return convertDirectionToCardinalString(value);
     case "rain_mm":
@@ -126,7 +106,7 @@ export function formatDateForDisplay(date: Date | string | null | undefined): st
  * @param {number} tempC - Teplota vzduchu v °C
  * @returns {number} - Nasycený tlak vodní páry (hPa)
  */
-function saturationVaporPressure_hPa(tempC : number) : number {
+export function saturationVaporPressure_hPa(tempC : number) : number {
     // Konstanty pro vodu (T >= 0 °C)
     const overWater = { a: 17.62, b: 243.12 };
     // Konstanty pro led (T < 0 °C)
@@ -139,7 +119,7 @@ function saturationVaporPressure_hPa(tempC : number) : number {
     return 6.112 * Math.exp((a * tempC) / (b + tempC));
 }
 
-function vaporPressure_hPa(Tc :number, RH :number) {
+export function vaporPressure_hPa(Tc :number, RH :number) {
   const es = saturationVaporPressure_hPa(Tc);
   return (RH / 100) * es; // parciální tlak vodní páry (hPa)
 }
@@ -282,4 +262,106 @@ export function skyCondition(pressure_hPa: number, humidity_percent: number, tem
   if (cloudinessIndex < 0.50) return "partly cloudy";
   if (cloudinessIndex < 0.75) return "cloudy";
   return "overcast";
+}
+
+
+export async function fetchGeolocationData() {
+  let data = {
+    moonrise: "-:-",
+    moonset: "-:-",
+    sunrise: "-:-",
+    sunset: "-:-",
+    golden_hour_begin: "-:-",
+    golden_hour_end: "-:-"
+  }
+
+  const API_KEY = process.env.GEOLOCATION_API_KEY;
+  const latitude = 50.625209331688644;
+  const longitude = 14.15659458567475;
+  const elevation = 400;
+
+  try {
+    //API_KEY40.76473&long=-74.00084&elevation
+    const response = await fetch(`https://api.ipgeolocation.io/v2/astronomy?apiKey=${API_KEY}&lat=${latitude}&long=${longitude}&format=json&elevation=${elevation}`);
+    const json = await response.json();
+    if (!json || !json.astronomy) {
+      throw new Error("Invalid geolocation data");
+    }
+    data = {
+      moonrise: json.astronomy.moonrise === "-:-" ? json.astronomy.night_begin : json.astronomy.moonrise,
+      moonset: json.astronomy.moonset === "-:-" ? json.astronomy.night_end : json.astronomy.moonset,
+      sunrise: json.astronomy.sunrise === "-:-" ? json.astronomy.night_begin : json.astronomy.sunrise,
+      sunset: json.astronomy.sunset === "-:-" ? json.astronomy.night_end : json.astronomy.sunset,
+      golden_hour_begin: json.astronomy.evening.golden_hour_begin ,
+      golden_hour_end: json.astronomy.evening.golden_hour_end,
+    };
+  }catch (error) {
+    console.error("Error fetching geolocation data:", error);
+  }
+
+  return data;
+}
+
+
+/**
+ * Get the moon phase fraction for a specific date.
+ * @param date The date to calculate the moon phase for.
+ * @returns A number between 0 and 1 representing the moon phase.
+ */
+export function getMoonPhaseFraction(date: Date): number {
+  // Reference: known new moon (March 29, 2025 at 06:58 UTC)
+  const reference = new Date(Date.UTC(2025, 2, 29, 6, 58))
+  const synodicMonth = 29.530588853 // days
+
+  const diff = (date.getTime() - reference.getTime()) / 1000 / 60 / 60 / 24
+  const phase = (diff % synodicMonth + synodicMonth) % synodicMonth
+  return phase / synodicMonth
+}
+/**
+ * Get the name of the moon phase based on its fraction.
+ * @param fraction A number between 0 and 1 representing the moon phase.
+ * @returns The name of the moon phase.
+ */
+export function getMoonPhaseName(fraction: number): string {
+  if (fraction < 0.03 || fraction > 0.97) return "new_moon"
+  if (fraction < 0.25) return "waxing_crescent"
+  if (fraction < 0.27) return "first_quarter"
+  if (fraction < 0.48) return "waxing_gibbous"
+  if (fraction < 0.52) return "full_moon"
+  if (fraction < 0.73) return "waning_gibbous"
+  if (fraction < 0.77) return "last_quarter"
+  return "waning_crescent"
+}
+
+
+/**
+ * Calculate the pressure at sea level.
+ * @param pressure The atmospheric pressure at the given altitude.
+ * @param temperature The temperature at the given altitude.
+ * @returns The pressure at sea level.
+ */
+export function pressureAtSeaLevel(pressure: number, temperature: number): number {
+  const altitude = 400;
+  const T_K = temperature + 273.15;
+  const k = 5.255877432444129;
+  const P0 = pressure * (1 + (0.0065 * altitude) / T_K) ** k;
+  return P0;
+}
+
+export function windSpeedToBeaufortIndex(wind_speed_ms: number): number {
+  const wind_speed_kmh = wind_speed_ms * 3.6;
+
+  if (wind_speed_kmh < 1) return 0;    // Calm
+  if (wind_speed_kmh < 6) return 1;    // Light air
+  if (wind_speed_kmh < 12) return 2;   // Light breeze
+  if (wind_speed_kmh < 20) return 3;   // Gentle breeze
+  if (wind_speed_kmh < 29) return 4;   // Moderate breeze
+  if (wind_speed_kmh < 39) return 5;   // Fresh breeze
+  if (wind_speed_kmh < 50) return 6;   // Strong breeze
+  if (wind_speed_kmh < 62) return 7;   // High wind
+  if (wind_speed_kmh < 75) return 8;   // Gale
+  if (wind_speed_kmh < 89) return 9;   // Strong gale
+  if (wind_speed_kmh < 103) return 10; // Storm
+  if (wind_speed_kmh < 118) return 11; // Violent storm
+  return 12;                            // Hurricane
 }

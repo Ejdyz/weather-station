@@ -1,44 +1,162 @@
-import { Slider } from "@/components/ui/slider";
 import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData, apparentTemperature, dewPointTemperature, skyCondition, convertDirectionToCardinalString } from "@/lib/utils";
+import { formatWeatherData, apparentTemperature, dewPointTemperature, skyCondition, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, saturationVaporPressure_hPa, vaporPressure_hPa } from "@/lib/utils";
 import DateComponent from "@/components/ui/date";
 import { getTranslator } from "@/lib/server-dictionary";
+import Background from "@/components/ui/background";
+import Base from "@/components/ui/base";
+import { Separator } from "@/components/ui/separator";
+import DataContainer from "@/components/main/dataContainer";
 
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const { t } = await getTranslator();
-
   const wind_direction = t('data.wind_direction_cardinal') as Record<string, string>;
+  const beaufort = t('data.beaufort_description') as string[];
+
   const latestRecord = await getLatestRecordFromHistoryAndStatus();
 
-  const data = [
-    { title: "data.sky_condition", key: 'sky_condition', value: skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0) },
-    { title: "data.temperature", key: 'temperature', value: formatWeatherData('temperature', latestRecord?.temperature) },
-    { title: "data.apparent", key: 'apparent', value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, (latestRecord?.wind_speed || 0) * 3.6)) },
-    { title: "data.dew_point", key: 'dew_point', value: formatWeatherData('temperature', dewPointTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0)) },
-    { title: "data.humidity", key: 'humidity', value: formatWeatherData('humidity', latestRecord?.humidity) },
-    { title: "data.pressure", key: 'pressure', value: formatWeatherData('pressure', latestRecord?.pressure) },
-    { title: "data.wind_speed", key: 'wind_speed', value: formatWeatherData('wind_speed', latestRecord?.wind_speed) },
-    { title: "data.wind_direction", key: 'wind_direction', value: wind_direction[convertDirectionToCardinalString(latestRecord?.wind_direction || 0)] },
-    { title: "data.rain", key: 'rain', value: formatWeatherData('rain_mm', latestRecord?.rain_mm) },
-    { title: "data.time", key: 'time', value: <DateComponent date={latestRecord?.created_at} /> },
-  ];
+  const skyConditionValue = skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
+  const windDirectionValue = convertDirectionToCardinalString(latestRecord?.wind_direction || 0);
+
+  const data = {
+    apparentTemperature: {
+      title: t("data.apparent"),
+      shortTitle: t("data.apparent_short"),
+      key: 'apparent',
+      value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, (latestRecord?.wind_speed || 0) * 3.6))
+    },
+    skyCondition: {
+      title: t("data.sky_condition"),
+      key: 'sky_condition',
+      value: skyConditionValue,
+      formattedValue: skyConditionValue.charAt(0).toLocaleUpperCase() + skyConditionValue.slice(1),
+    },
+    temperature: {
+      title: t("data.temperature"),
+      key: 'temperature',
+      value: formatWeatherData('temperature', latestRecord?.temperature),
+    },
+    dewPoint: {
+      title: t("data.dew_point"),
+      key: 'dew_point',
+      value: formatWeatherData('temperature', dewPointTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0)),
+      icon: "/icons/thermometer-raindrop.svg",
+      vaporPressureTitle: t("data.vapor_pressure"),
+      vaporPressureValue: formatWeatherData('pressure', vaporPressure_hPa(latestRecord?.temperature || 0, latestRecord?.humidity || 0)),
+      vaporPressureIcon: "/icons/thermometer.svg",
+      saturationVaporPressureTitle: t("data.saturation_vapor_pressure"),
+      saturationVaporPressureValue: formatWeatherData('pressure', saturationVaporPressure_hPa(latestRecord?.temperature || 0)),
+      saturationVaporPressureIcon: "/icons/thermometer.svg"
+    },
+    humidity: { 
+      title: t("data.humidity"), 
+      key: 'humidity', 
+      value: formatWeatherData('humidity', latestRecord?.humidity),
+      icon: "/icons/humidity.svg"
+    },
+    pressure: { 
+      title: t("data.pressure"), 
+      key: 'pressure', 
+      value: formatWeatherData('pressure', latestRecord?.pressure),
+      valueAtSeaLevel: formatWeatherData('pressure', pressureAtSeaLevel(latestRecord?.pressure || 0, latestRecord?.temperature || 0)),
+      icon: "/icons/barometer.svg"
+    },
+    windSpeed: { 
+      title: t("data.wind_speed"), 
+      key: 'wind_speed', 
+      value: formatWeatherData('wind_speed_ms', latestRecord?.wind_speed),
+      valueKmh: formatWeatherData('wind_speed_kmh', latestRecord?.wind_speed),
+      beaufortTitle: beaufort[windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)],
+      beaufortIcon: `/icons/wind-beaufort-${windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)}.svg`,
+      beaufortIndex: windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0),
+      icon: (latestRecord?.wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
+    },
+    wind_direction: { 
+      title: t("data.wind_direction"), 
+      key: 'wind_direction', 
+      value: wind_direction[windDirectionValue],
+      icon: `/icons/compass-${windDirectionValue}.svg`
+    },
+    rain: { 
+      title: t("data.rain"), 
+      key: 'rain', 
+      value: formatWeatherData('rain_mm', latestRecord?.rain_mm),
+      icon: "/icons/raindrop.svg"
+    },
+    time: { 
+      title: t("data.time"), 
+      key: 'time', 
+      value: <DateComponent date={latestRecord?.created_at} /> 
+    },
+  }
 
   return (
-    <div className="min-h-[100dvh] flex h-full justify-center md:items-center items-start bg-gradient-to-b from-sky-950 to-blue-500">
-      <div className="md:w-96 w-full min-h-56 md:h-auto h-[100dvh] overflow-hidden relative border-sky-200 md:scale-125 gap-2">
-        <div className="rounded-md bg-white/30 bg-opacity-0 p-2">
-          <Slider slides={
-            data.map(item => (
-              <div key={item.key} className="p-14">
-                <h3 className="text-lg font-semibold">{t(item.title)}</h3>
-                <p className="text-sm">{item.value}</p>
-              </div>
-            ))
-          } />
+    <Background>
+      <Base>
+        <div className="flex text-white md:flex-row flex-col h-full md:max-h-80">
+          <div className="flex justify-between items-center md:w-1/2 w-full">
+            <div className="flex justify-center flex-col items-start p-4 ">
+              <h1 className="md:text-8xl sm:text-7xl text-4xl font-bold">{data.temperature.value}</h1>
+              <strong  className="md:text-2xl">{data.skyCondition.formattedValue}</strong>
+              <p>{data.apparentTemperature.shortTitle} <strong>{data.apparentTemperature.value}</strong></p>
+            </div>
+            <img src="/icons/clear-day.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
+          </div>
+          <Separator orientation="horizontal" className="md:hidden mx-auto sm:w-[calc(100%-6rem)] w-full" />
+          <Separator orientation="vertical" className="hidden md:block my-4 w-1" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 w-full md:w-1/2 items-center">
+            <DataContainer 
+              title={data.pressure.title}
+              value={data.pressure.value}
+              icon={data.pressure.icon} 
+              additionalData={[
+                {
+                  title: t("data.pressure_at_sea_level"),
+                  value: data.pressure.valueAtSeaLevel,
+                  icon: data.pressure.icon
+                }
+              ]}
+            />
+            <DataContainer title={data.humidity.title} value={data.humidity.value} icon={data.humidity.icon} />
+            <DataContainer 
+              title={data.windSpeed.title} 
+              value={data.windSpeed.value} 
+              icon={data.windSpeed.icon} 
+                additionalData={
+                  [{ 
+                    value: data.windSpeed.valueKmh, 
+                    title: t("data.wind_speed"), 
+                    icon: data.windSpeed.icon 
+                  },
+                  { 
+                    value: data.windSpeed.beaufortTitle, 
+                    title: data.windSpeed.beaufortIndex + ". " + t("data.beaufort_number"), 
+                    icon: data.windSpeed.beaufortIcon 
+                  }]
+                }/>
+            <DataContainer title={data.wind_direction.title} value={data.wind_direction.value} icon={data.wind_direction.icon} />
+            <DataContainer title={data.rain.title} value={data.rain.value} icon={data.rain.icon} />
+            <DataContainer
+              title={data.dewPoint.title}
+              value={data.dewPoint.value}
+              icon={data.dewPoint.icon} 
+              additionalData={[
+                {
+                  title: data.dewPoint.saturationVaporPressureTitle,
+                  value: data.dewPoint.saturationVaporPressureValue,
+                  icon: data.dewPoint.saturationVaporPressureIcon
+                },
+                {
+                  title: data.dewPoint.vaporPressureTitle,
+                  value: data.dewPoint.vaporPressureValue,
+                  icon: data.dewPoint.vaporPressureIcon
+                }
+              ]}
+            />
+          </div>
         </div>
-      </div>
-    </div>
+      </Base>
+    </Background>
   );
 }

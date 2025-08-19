@@ -1,3 +1,5 @@
+import { be } from "zod/v4/locales";
+
 export default {
   landing: {
     title: 'Site under development!',
@@ -15,6 +17,22 @@ export default {
     data_title: 'Temporary data display'
   },
   data: {
+    beaufort_number: "Beaufort number",
+    beaufort_description: [
+      "Calm",
+      "Light air",
+      "Light breeze",
+      "Gentle breeze",
+      "Moderate breeze",
+      "Fresh breeze",
+      "Strong breeze",
+      "Moderate gale",
+      "Gale",
+      "Strong gale",
+      "Storm",
+      "Violent storm",
+      "Hurricane"
+    ],
     sky_condition: 'Sky condition',
     sky_conditions: {
       clear: 'Clear',
@@ -28,9 +46,13 @@ export default {
     },
     temperature: 'Temperature',
     apparent: 'Apparent temperature',
+    apparent_short: 'Apparent',
     dew_point: 'Dew point',
     humidity: 'Humidity',
     pressure: 'Pressure',
+    pressure_at_sea_level: 'Pressure at sea level',
+    saturation_vapor_pressure: 'Saturation vapor pressure',
+    vapor_pressure: 'Vapor pressure',
     wind_speed: 'Wind speed',
     wind_direction: 'Wind direction',
     wind_direction_cardinal: {

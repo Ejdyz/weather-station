@@ -4,6 +4,15 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+
+  --background-image-clear: linear-gradient(270deg,rgba(145, 209, 255, 1) 0%, rgba(0, 128, 207, 1) 100%);
+  --background-image-rain: linear-gradient(355deg,rgba(138, 161, 161, 1) 0%, rgba(14, 49, 74, 1) 100%);
+  --background-image-partly-cloudy: linear-gradient(355deg,rgba(186, 230, 230, 1) 0%, rgba(115, 169, 202, 1) 100%);
+  --background-image-night: linear-gradient(160deg, rgb(18 18 18) 0%, rgb(37 37 37) 100% 100%);
+  --background-image-fog: linear-gradient(355deg,rgba(137, 137, 137, 1) 0%, rgba(154, 154, 154, 1) 100%);
+  --background-image-cloudy: linear-gradient(355deg,rgba(151, 169, 172, 1) 0%, rgba(80, 85, 87, 1) 100%);
+  --background-image-overcast: linear-gradient(158deg,rgba(15, 41, 51, 1) 0%, rgba(94, 100, 101, 1) 100%);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);

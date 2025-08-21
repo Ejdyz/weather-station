@@ -265,15 +265,36 @@ export function skyCondition(pressure_hPa: number, humidity_percent: number, tem
 }
 
 
-export async function fetchGeolocationData() {
-  let data = {
-    moonrise: "-:-",
-    moonset: "-:-",
-    sunrise: "-:-",
-    sunset: "-:-",
-    golden_hour_begin: "-:-",
-    golden_hour_end: "-:-"
+// Helper to parse a "HH:MM" time string to a Date (local timezone) using today's date.
+function parseTimeToDate(time: string, base: Date): Date {
+  const d = new Date(base);
+  const [h, m] = time.split(":").map(Number);
+  if (Number.isFinite(h) && Number.isFinite(m)) {
+    d.setHours(h, m, 0, 0);
   }
+  return d;
+}
+
+interface GeolocationData {
+  moonrise: Date;
+  moonset: Date;
+  sunrise: Date;
+  sunset: Date;
+  golden_hour_begin: string; // keep as string for now
+  golden_hour_end: string;   // keep as string for now
+}
+
+export async function fetchGeolocationData(): Promise<GeolocationData> {
+  // Default values (used if API fails): create Date objects for typical times
+  const today = new Date();
+  let data: GeolocationData = {
+    moonrise: parseTimeToDate("17:00", today),
+    moonset: parseTimeToDate("05:00", today),
+    sunrise: parseTimeToDate("06:00", today),
+    sunset: parseTimeToDate("20:00", today),
+    golden_hour_begin: "-:-",
+    golden_hour_end: "-:-",
+  };
 
   const API_KEY = process.env.GEOLOCATION_API_KEY;
   const latitude = 50.625209331688644;
@@ -281,21 +302,41 @@ export async function fetchGeolocationData() {
   const elevation = 400;
 
   try {
-    //API_KEY40.76473&long=-74.00084&elevation
     const response = await fetch(`https://api.ipgeolocation.io/v2/astronomy?apiKey=${API_KEY}&lat=${latitude}&long=${longitude}&format=json&elevation=${elevation}`);
     const json = await response.json();
     if (!json || !json.astronomy) {
       throw new Error("Invalid geolocation data");
     }
+
+    // Resolve fallback strings first (replace "-:-" with provided night_* values)
+    const sunriseStr: string = json.astronomy.sunrise === "-:-" ? json.astronomy.night_begin : json.astronomy.sunrise;
+    const sunsetStr: string = json.astronomy.sunset === "-:-" ? json.astronomy.night_end : json.astronomy.sunset;
+    const moonriseStr: string = json.astronomy.moonrise === "-:-" ? json.astronomy.night_begin : json.astronomy.moonrise;
+    const moonsetStr: string = json.astronomy.moonset === "-:-" ? json.astronomy.night_end : json.astronomy.moonset;
+
+    const sunriseDate = parseTimeToDate(sunriseStr, today);
+    const sunsetDate = parseTimeToDate(sunsetStr, today);
+    let moonriseDate = parseTimeToDate(moonriseStr, today);
+    let moonsetDate = parseTimeToDate(moonsetStr, today);
+
+    if (moonsetDate.getTime() <= moonriseDate.getTime()) {
+      moonsetDate = new Date(moonsetDate.getTime() + 24 * 60 * 60 * 1000); // add one day
+    }
+
+    if (sunsetDate.getTime() <= sunriseDate.getTime()) {
+      sunsetDate.setDate(sunsetDate.getDate() + 1);
+    }
+
     data = {
-      moonrise: json.astronomy.moonrise === "-:-" ? json.astronomy.night_begin : json.astronomy.moonrise,
-      moonset: json.astronomy.moonset === "-:-" ? json.astronomy.night_end : json.astronomy.moonset,
-      sunrise: json.astronomy.sunrise === "-:-" ? json.astronomy.night_begin : json.astronomy.sunrise,
-      sunset: json.astronomy.sunset === "-:-" ? json.astronomy.night_end : json.astronomy.sunset,
-      golden_hour_begin: json.astronomy.evening.golden_hour_begin ,
-      golden_hour_end: json.astronomy.evening.golden_hour_end,
+      moonrise: moonriseDate,
+      moonset: moonsetDate,
+      sunrise: sunriseDate,
+      sunset: sunsetDate,
+      golden_hour_begin: json.astronomy.evening?.golden_hour_begin ?? "-:-",
+      golden_hour_end: json.astronomy.evening?.golden_hour_end ?? "-:-",
     };
-  }catch (error) {
+
+  } catch (error) {
     console.error("Error fetching geolocation data:", error);
   }
 
@@ -323,14 +364,14 @@ export function getMoonPhaseFraction(date: Date): number {
  * @returns The name of the moon phase.
  */
 export function getMoonPhaseName(fraction: number): string {
-  if (fraction < 0.03 || fraction > 0.97) return "new_moon"
-  if (fraction < 0.25) return "waxing_crescent"
-  if (fraction < 0.27) return "first_quarter"
-  if (fraction < 0.48) return "waxing_gibbous"
-  if (fraction < 0.52) return "full_moon"
-  if (fraction < 0.73) return "waning_gibbous"
-  if (fraction < 0.77) return "last_quarter"
-  return "waning_crescent"
+  if (fraction < 0.03 || fraction > 0.97) return "new"
+  if (fraction < 0.25) return "waxing-crescent"
+  if (fraction < 0.27) return "first-quarter"
+  if (fraction < 0.48) return "waxing-gibbous"
+  if (fraction < 0.52) return "full"
+  if (fraction < 0.73) return "waning-gibbous"
+  if (fraction < 0.77) return "last-quarter"
+  return "waning-crescent"
 }
 
 

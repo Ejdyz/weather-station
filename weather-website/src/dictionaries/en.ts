@@ -87,14 +87,15 @@ export default {
     aquarius: 'Aquarius',
     pisces: 'Pisces'
   },
-  moon_phase:{
-    new_moon: 'New Moon',
+  moon_phases: {
+    new: 'New Moon',
     waxing_crescent: 'Waxing Crescent',
     first_quarter: 'First Quarter',
     waxing_gibbous: 'Waxing Gibbous',
-    full_moon: 'Full Moon',
+    full: 'Full Moon',
     waning_gibbous: 'Waning Gibbous',
     last_quarter: 'Last Quarter',
     waning_crescent: 'Waning Crescent'
   },
+  golden_hour: 'Golden Hour',
 } as const;

@@ -1,11 +1,15 @@
 import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData, apparentTemperature, dewPointTemperature, skyCondition, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, saturationVaporPressure_hPa, vaporPressure_hPa } from "@/lib/utils";
+import { formatWeatherData, apparentTemperature, dewPointTemperature, skyCondition, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, saturationVaporPressure_hPa, vaporPressure_hPa, fetchGeolocationData } from "@/lib/utils";
 import DateComponent from "@/components/ui/date";
 import { getTranslator } from "@/lib/server-dictionary";
 import Background from "@/components/ui/background";
 import Base from "@/components/ui/base";
 import { Separator } from "@/components/ui/separator";
 import DataContainer from "@/components/main/dataContainer";
+import { Carousel } from "@/components/ui/carousel";
+import RiseAndSetComponent from "@/components/main/RiseAndSetComponent";
+import MoonPhase from "@/components/main/moonPhase";
+import GoldenHour from "@/components/main/goldenHour";
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +22,8 @@ export default async function Page() {
 
   const skyConditionValue = skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
   const windDirectionValue = convertDirectionToCardinalString(latestRecord?.wind_direction || 0);
-
+  const geoAPIData = await fetchGeolocationData()
+  
   const data = {
     apparentTemperature: {
       title: t("data.apparent"),
@@ -89,6 +94,19 @@ export default async function Page() {
       key: 'time', 
       value: <DateComponent date={latestRecord?.created_at} /> 
     },
+    sun: {
+      setTime: geoAPIData.sunset,
+      riseTime: geoAPIData.sunrise
+    },
+    moon: {
+      setTime: geoAPIData.moonset,
+      riseTime: geoAPIData.moonrise
+    },
+    goldenHour: {
+      begin: geoAPIData.golden_hour_begin,
+      end: geoAPIData.golden_hour_end
+    }
+
   }
 
   return (
@@ -97,7 +115,7 @@ export default async function Page() {
         <div className="flex text-white md:flex-row flex-col h-full md:max-h-80">
           <div className="flex justify-between items-center md:w-1/2 w-full">
             <div className="flex justify-center flex-col items-start p-4 ">
-              <h1 className="md:text-8xl sm:text-7xl text-4xl font-bold">{data.temperature.value}</h1>
+              <h1 className="md:text-8xl sm:text-8xl text-4xl font-bold">{data.temperature.value}</h1>
               <strong  className="md:text-2xl">{data.skyCondition.formattedValue}</strong>
               <p>{data.apparentTemperature.shortTitle} <strong>{data.apparentTemperature.value}</strong></p>
             </div>
@@ -157,6 +175,34 @@ export default async function Page() {
           </div>
         </div>
       </Base>
+      <div className="grid grid-cols-2 gap-2 mt-2">
+        {/* Sunset and Sunrise */}
+        <Base className="lg:h-40 h-32 lg:p-2">
+          <div className="lg:hidden h-full">
+            <Carousel dotsClassName="lg:bottom-4 bottom-2 relative" slides={[
+              <RiseAndSetComponent key={"sun"} className="relative lg:mt-9 mt-10 lg:scale-100 scale-75" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={new Date()} type="sun"/>,
+              <RiseAndSetComponent key={"moon"} className="relative lg:mt-9 mt-10 lg:scale-100 scale-75" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={new Date()} type="moon"/>
+            ]}/>
+          </div>
+          <div className="justify-evenly hidden lg:flex">
+            <RiseAndSetComponent className="relative lg:scale-100 scale-75" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={new Date()} type="sun"/>
+            <RiseAndSetComponent className="relative lg:scale-100 scale-75" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={new Date()} type="moon"/>
+          </div>
+        </Base>
+        {/* Golden hour and moon phase */}
+        <Base className="lg:h-40 h-32 lg:p-2">
+          <div className="lg:hidden h-full">
+            <Carousel dotsClassName="lg:bottom-4 bottom-2 relative" slides={[
+              <MoonPhase key={"moonPhase"} date={new Date()} />,
+              <GoldenHour key={"goldenHour"} date={data.goldenHour.begin + " - " + data.goldenHour.end} />
+            ]}/>
+          </div>
+          <div className="justify-evenly hidden lg:flex h-full">
+            <MoonPhase key={"moonPhase"} date={new Date()} />
+            <GoldenHour date={data.goldenHour.begin + " - " + data.goldenHour.end} />
+          </div>
+        </Base>
+      </div>
     </Background>
   );
 }

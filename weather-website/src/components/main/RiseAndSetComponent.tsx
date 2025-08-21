@@ -6,6 +6,7 @@ interface RiseAndSetProps {
   setTime: Date;  // local time of set
   currentTime: Date; // current local time
   type: "sun" | "moon"; // future usage (styling / icon)
+  className?: string; // optional className for styling
 }
 
 export default function RiseAndSetComponent({
@@ -13,6 +14,7 @@ export default function RiseAndSetComponent({
   setTime,
   currentTime,
   type,
+  className
 }: RiseAndSetProps) {
 
   const icons = {
@@ -46,7 +48,7 @@ export default function RiseAndSetComponent({
   const cy = (size) / 2 + radius * Math.sin(rad);
 
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className={className ?? "relative"} style={{ width: size, height: size }}>
       <CircularSlider
         size={size}
         startAngle={startAngle}

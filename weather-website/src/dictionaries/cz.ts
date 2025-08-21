@@ -85,17 +85,15 @@ export default {
     aquarius: 'Vodnář',
     pisces: 'Ryby'
   },
-  moon_phase:{
-    new_moon: 'Nov',
-    waxing_crescent: 'Rostoucí srpek',
-    first_quarter: 'První čtvrt',
-    waxing_gibbous: 'Rostoucí gibbous',
-    full_moon: 'Úplněk',
-    waning_gibbous: 'Ubývající gibbous',
-    last_quarter: 'Poslední čtvrt',
-    waning_crescent: 'Ubývající srpek'
+  moon_phases: {
+    new: "Nov",
+    waxing_crescent: "Rostoucí srpek",
+    first_quarter: "První čtvrt",
+    waxing_gibbous: "Rostoucí gibbous",
+    full: "Úplněk",
+    waning_gibbous: "Ubývající gibbous",
+    last_quarter: "Poslední čtvrt",
+    waning_crescent: "Ubývající srpek"
   },
-
-
-
+  golden_hour: 'Zlatá hodina',
 } as const;

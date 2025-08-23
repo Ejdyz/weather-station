@@ -98,4 +98,75 @@ export default {
     waning_crescent: 'Waning Crescent'
   },
   golden_hour: 'Golden Hour',
+  days_of_week: {
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    saturday: 'Saturday',
+    sunday: 'Sunday'
+  },
+    months: {
+    january: {
+      long: 'January',
+      short: 'Jan',
+      genitive: 'January'
+    },
+    february: {
+      long: 'February',
+      short: 'Feb',
+      genitive: 'February'
+    },
+    march: {
+      long: 'March',
+      short: 'Mar',
+      genitive: 'March'
+    },
+    april: {
+      long: 'April',
+      short: 'Apr',
+      genitive: 'April'
+    },
+    may: {
+      long: 'May',
+      short: 'May',
+      genitive: 'May'
+    },
+    june: {
+      long: 'June',
+      short: 'Jun',
+      genitive: 'June'
+    },
+    july: {
+      long: 'July',
+      short: 'Jul',
+      genitive: 'July'
+    },
+    august: {
+      long: 'August',
+      short: 'Aug',
+      genitive: 'August'
+    },
+    september: {
+      long: 'September',
+      short: 'Sep',
+      genitive: 'September'
+    },
+    october: {
+      long: 'October',
+      short: 'Oct',
+      genitive: 'October'
+    },
+    november: {
+      long: 'November',
+      short: 'Nov',
+      genitive: 'November'
+    },
+    december: {
+      long: 'December',
+      short: 'Dec',
+      genitive: 'December'
+    }
+  }
 } as const;

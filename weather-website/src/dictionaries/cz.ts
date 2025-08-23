@@ -96,4 +96,75 @@ export default {
     waning_crescent: "Ubývající srpek"
   },
   golden_hour: 'Zlatá hodina',
+  days_of_week: {
+    monday: 'Pondělí',
+    tuesday: 'Úterý',
+    wednesday: 'Středa',
+    thursday: 'Čtvrtek',
+    friday: 'Pátek',
+    saturday: 'Sobota',
+    sunday: 'Neděle'
+  },
+  months: {
+    january: {
+      long: 'Leden',
+      short: 'Led',
+      genitive: 'Ledna'
+    },
+    february: {
+      long: 'Únor',
+      short: 'Úno',
+      genitive: 'Února'
+    },
+    march: {
+      long: 'Březen',
+      short: 'Bře',
+      genitive: 'Března'
+    },
+    april: {
+      long: 'Duben',
+      short: 'Dub',
+      genitive: 'Dubna'
+    },
+    may: {
+      long: 'Květen',
+      short: 'Kvě',
+      genitive: 'Květnu'
+    },
+    june: {
+      long: 'Červen',
+      short: 'Čvn',
+      genitive: 'Června'
+    },
+    july: {
+      long: 'Červenec',
+      short: 'Čvc',
+      genitive: 'Července'
+    },
+    august: {
+      long: 'Srpen',
+      short: 'Srp',
+      genitive: 'Srpna'
+    },
+    september: {
+      long: 'Září',
+      short: 'Zář',
+      genitive: 'Září'
+    },
+    october: {
+      long: 'Říjen',
+      short: 'Říj',
+      genitive: 'Října'
+    },
+    november: {
+      long: 'Listopad',
+      short: 'Lis',
+      genitive: 'Listopadu'
+    },
+    december: {
+      long: 'Prosinec',
+      short: 'Pro',
+      genitive: 'Prosince'
+    }
+  },
 } as const;

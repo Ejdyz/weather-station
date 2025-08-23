@@ -1,5 +1,4 @@
 import 'server-only';
-import type { DictionaryShape } from './types';
 import en from './en';
 import cz from './cz';
 

@@ -264,6 +264,25 @@ export function skyCondition(pressure_hPa: number, humidity_percent: number, tem
   return "overcast";
 }
 
+export function getIconSrcFromWeatherData(pressure_hPa: number, humidity_percent: number, temperature_C: number, wind_mps: number, rain_mm: number, partOfTheDay: "day" | "night") {
+  const isRaining = rain_mm > 0;
+  const isSnowing = temperature_C < 0;
+  const skyConditionString = skyCondition(pressure_hPa, humidity_percent, temperature_C, wind_mps).replace(" ", "-");
+
+  const pathPrefix = "/icons/skyCondition/";
+  const rainSuffix = isRaining ? isSnowing ? "-snow" : (rain_mm <= 2.5 ? "-drizzle" : "-rain") : "";
+
+  if (skyConditionString === "unknown") return `${pathPrefix}partly-cloudy-${partOfTheDay}${rainSuffix}.svg`;
+  if (skyConditionString === "fog") return `${pathPrefix}fog.svg`;
+  if (skyConditionString === "clear" && isRaining){
+    return `${pathPrefix}cloudy${rainSuffix}.svg`;
+  }
+  if (skyConditionString === "overcast" || skyConditionString === "cloudy"){
+    return `${pathPrefix}${skyConditionString}${rainSuffix}.svg`;
+  }else{
+    return `${pathPrefix}${skyConditionString}-${partOfTheDay}${rainSuffix}.svg`;
+  }
+}
 
 // Helper to parse a "HH:MM" time string to a Date (local timezone) using today's date.
 function parseTimeToDate(time: string, base: Date): Date {

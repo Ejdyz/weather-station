@@ -1,6 +1,7 @@
 "use client"
 import { JSX, useEffect, useState } from 'react';
 import { useKeenSlider } from "keen-slider/react";
+import Spinner from './spinner';
 
 
 export function Carousel({ slides, className, dotsClassName }:{slides: JSX.Element[], className?: string, dotsClassName?: string}) {
@@ -26,7 +27,7 @@ export function Carousel({ slides, className, dotsClassName }:{slides: JSX.Eleme
   }
 
   if (loaded === 0) {
-    return <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white' />;
+    return <Spinner />;
   }
 
   return (

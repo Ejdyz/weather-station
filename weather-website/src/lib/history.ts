@@ -133,15 +133,23 @@ export async function getHistoryRecordsWithSpace(count:number, spaceBetweenMin:n
       },
     },
     select: {
-      id: true,
       recorded_at: true,
       temperature: true,
+      app_temperature: true,
       humidity: true,
       pressure: true,
+      pressure_at_sea_level: true,
       light: true,
       wind_speed: true,
+      max_wind_speed: true,
+      beaufort: true,
       wind_direction: true,
       rain_mm: true,
+      dew_point: true,
+      saturation_vapor_pressure: true,
+      vapor_pressure: true,
+      sky_condition_icon: true,
+      sky_condition_description: true
     },
   });
 

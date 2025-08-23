@@ -15,6 +15,7 @@ export default {
     data_title: 'Temporary data display'
   },
   data: {
+    beaufort: "Beaufort scale",
     beaufort_number: "Beaufort number",
     beaufort_description: [
       "Calm",
@@ -47,11 +48,12 @@ export default {
     apparent_short: 'Apparent',
     dew_point: 'Dew point',
     humidity: 'Humidity',
-    pressure: 'Pressure',
+    pressure: 'Relative pressure',
     pressure_at_sea_level: 'Pressure at sea level',
     saturation_vapor_pressure: 'Saturation vapor pressure',
     vapor_pressure: 'Vapor pressure',
     wind_speed: 'Wind speed',
+    max_wind_speed: 'Max wind speed in past 5min',
     wind_direction: 'Wind direction',
     wind_direction_cardinal: {
       N: 'North',

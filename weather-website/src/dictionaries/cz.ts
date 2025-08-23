@@ -15,6 +15,7 @@ export default {
     data_title: 'Dočasné zobrazení dat'
   },
   data: {
+    beaufort: "Beaufortova škála",
     beaufort_number: "Stupeň",
     beaufort_description: [
       "Bezvětří",
@@ -47,11 +48,12 @@ export default {
     apparent_short: 'Pocitová',
     dew_point: 'Rosný bod',
     humidity: 'Vlhkost',
-    pressure: 'Tlak',
+    pressure: 'Relativní tlak',
     pressure_at_sea_level: 'Tlak na hladině moře',
     saturation_vapor_pressure: 'Sytostní tlak vodní páry',
     vapor_pressure: 'Tlak vodní páry',
     wind_speed: 'Rychlost větru',
+    max_wind_speed: 'Maximální rychlost větru za posledních 5 minut',
     wind_direction: 'Směr větru',
     wind_direction_cardinal:{
       N: 'Sever',

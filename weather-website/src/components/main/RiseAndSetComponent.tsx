@@ -17,7 +17,6 @@ export default function RiseAndSetComponent({
   type,
   className
 }: RiseAndSetProps) {
-
   const icons = {
     rise: type === "sun" ? "/icons/sunrise.svg" : "/icons/moonrise.svg",
     set: type === "sun" ? "/icons/sunset.svg" : "/icons/moonset.svg",
@@ -51,6 +50,7 @@ export default function RiseAndSetComponent({
   return (
     <div className={className ?? "relative"} style={{ width: size, height: size }}>
       <CircularSlider
+        key={"circular-slider"}
         size={size}
         startAngle={startAngle}
         endAngle={endAngle}
@@ -61,15 +61,16 @@ export default function RiseAndSetComponent({
       />
       <div className="w-full flex flex-row justify-between -mt-[130px]">
         <div className="text-center">
-          <Image width={100}  height={100}  src={icons.rise} alt="Rise Icon" className="size-16 -left-2.5 relative"/>
+          <Image width={64}  height={64}  src={icons.rise} alt="Rise Icon" className="size-16 -left-2.5 relative"/>
           <p className="font-semibold text-white -mt-5 relative -left-2.5">{getHoursAndMinutes(riseTime)}</p>
         </div>
         <div className="text-center">
-          <Image width={100}  height={100}  src={icons.set} alt="Set Icon" className="size-16 -right-2.5 relative"/>
+          <Image width={64}  height={64}  src={icons.set} alt="Set Icon" className="size-16 -right-2.5 relative"/>
           <p className="font-semibold text-white -mt-5 relative -right-2.5">{getHoursAndMinutes(setTime)}</p>
         </div>
       </div>
-      <Image width={100}  height={100} 
+      <Image width={48}  height={48} 
+        key={"thumb-icon"}
         alt="Thumb Icon"
         src={icons.thumb}
         className={"pointer-events-none absolute w-12 h-12 " + (isThumbHidden ? "hidden" : "")}

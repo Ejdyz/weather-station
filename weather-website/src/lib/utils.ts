@@ -7,6 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 import { timingSafeEqual } from "crypto"
+import { FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config"
 /**
  * Compares two strings in a timing-safe manner to prevent timing attacks.
  * @param compare - The string to compare.
@@ -74,7 +75,7 @@ export function formatWeatherData(type: WeatherTypeForFormat["type"], value: Wea
   }
 }
 
-export function formatDateForDisplay(date: Date | string | null | undefined): string {
+export function formatDateToDisplayNumericFull(date: Date | string | null | undefined): string {
   if (!date) {
     return "N/A";
   }
@@ -291,7 +292,7 @@ export function getIconSrcFromWeatherData(pressure_hPa: number, humidity_percent
 }
 
 // Helper to parse a "HH:MM" time string to a Date (local timezone) using today's date.
-function parseTimeToDate(time: string, base: Date): Date {
+export function parseTimeToDate(time: string, base: Date): Date {
   const d = new Date(base);
   const [h, m] = time.split(":").map(Number);
   if (Number.isFinite(h) && Number.isFinite(m)) {
@@ -300,7 +301,7 @@ function parseTimeToDate(time: string, base: Date): Date {
   return d;
 }
 
-interface GeolocationData {
+export interface GeolocationData {
   moonrise: Date;
   moonset: Date;
   sunrise: Date;
@@ -313,10 +314,10 @@ export async function fetchGeolocationData(): Promise<GeolocationData> {
   // Default values (used if API fails): create Date objects for typical times
   const today = new Date();
   let data: GeolocationData = {
-    moonrise: parseTimeToDate("17:00", today),
-    moonset: parseTimeToDate("05:00", today),
-    sunrise: parseTimeToDate("06:00", today),
-    sunset: parseTimeToDate("20:00", today),
+    moonrise: parseTimeToDate(FALLBACK_MOONRISE, today),
+    moonset: parseTimeToDate(FALLBACK_MOONSET, today),
+    sunrise: parseTimeToDate(FALLBACK_SUNRISE, today),
+    sunset: parseTimeToDate(FALLBACK_SUNSET, today),
     golden_hour_begin: "-:-",
     golden_hour_end: "-:-",
   };
@@ -399,6 +400,10 @@ export function getMoonPhaseName(fraction: number): string {
   return "waning-crescent"
 }
 
+export function getMoonPhase(date: Date): string {
+  const fraction = getMoonPhaseFraction(date);
+  return getMoonPhaseName(fraction);
+}
 
 /**
  * Calculate the pressure at sea level.

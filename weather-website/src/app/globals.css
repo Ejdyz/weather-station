@@ -129,3 +129,46 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Minimal hover-reveal scrollbar (opt-in via .hover-scrollbar)
+   - Constant thickness to prevent layout shift
+   - Subtle fade-in/out of the thumb on hover/focus-within
+   - Usage: add class "hover-scrollbar" to any element with overflow: auto/scroll
+*/
+.hover-scrollbar {
+  /* Reserve space for the scrollbar to avoid content jump in supporting browsers */
+  scrollbar-gutter: stable;
+
+  /* Firefox keeps a thin gutter always, thumb color toggles on hover */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* hidden appearance by default */
+}
+.hover-scrollbar:hover,
+.hover-scrollbar:focus-within {
+  /* Subtle visible thumb on interaction (Firefox) */
+  scrollbar-color: color-mix(in oklch, var(--foreground) 35%, transparent) transparent;
+}
+
+/* WebKit-based browsers (Chrome, Edge, Safari) */
+.hover-scrollbar::-webkit-scrollbar {
+  /* Keep a constant thickness to prevent layout shift */
+  width: 6px;   /* default thickness (vertical) */
+  height: 6px;  /* default thickness (horizontal) */
+}
+.hover-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hover-scrollbar::-webkit-scrollbar-thumb {
+  /* Start hidden with smooth transition */
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 150ms ease, background-color 150ms ease;
+  border-radius: 9999px;
+  background-clip: padding-box;
+  border: 2px solid transparent; /* creates a gap to reduce visual weight */
+}
+.hover-scrollbar:hover::-webkit-scrollbar-thumb,
+.hover-scrollbar:focus-within::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--foreground) 35%, transparent);
+  opacity: 1;
+}

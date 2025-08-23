@@ -3,6 +3,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import Image from "next/image";
 
 interface DataItem {
   title: string;
@@ -18,7 +19,7 @@ export default function DataContainer({ title, value, icon, additionalData }: Da
   const Base = (
     <div className="flex flex-col gap-3">
       <div className="flex justify-start items-center gap-2">
-        <img src={icon} alt={title} className="size-16" />
+        <Image width={100}  height={100}  src={icon} alt={title} className="size-16" />
         <div className="flex flex-col">
           <strong className="text-lg">{value}</strong>
           <span className="-mt-2">{title}</span>
@@ -41,7 +42,7 @@ export default function DataContainer({ title, value, icon, additionalData }: Da
           <ul className="flex flex-col gap-4 pl-0 list-none">
             {additionalData.map((item, idx) => (
               <li key={idx} className="flex items-center gap-2">
-                <img src={item.icon} alt={item.title} className="size-12" />
+                <Image width={100}  height={100}  src={item.icon} alt={item.title} className="size-12" />
                 <div className="flex flex-col leading-tight">
                   <strong className="text-sm">{item.value}</strong>
                   <span className="text-xs -mt-0.5 opacity-80">{item.title}</span>

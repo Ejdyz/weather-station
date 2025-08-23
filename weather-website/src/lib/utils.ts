@@ -342,7 +342,7 @@ export async function fetchGeolocationData(): Promise<GeolocationData> {
 
     const sunriseDate = parseTimeToDate(sunriseStr, today);
     const sunsetDate = parseTimeToDate(sunsetStr, today);
-    let moonriseDate = parseTimeToDate(moonriseStr, today);
+    const moonriseDate = parseTimeToDate(moonriseStr, today);
     let moonsetDate = parseTimeToDate(moonsetStr, today);
 
     if (moonsetDate.getTime() <= moonriseDate.getTime()) {

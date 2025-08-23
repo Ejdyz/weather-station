@@ -1,9 +1,10 @@
 "use client";
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { AppLocale, SUPPORTED_LOCALES } from './i18n';
-import type { DictionaryShape } from '@/dictionaries/types';
 
-export type Dictionary = DictionaryShape;
+export type Dictionary = {
+  [key: string]: any;
+};
 
 interface I18nContextValue {
   locale: AppLocale;

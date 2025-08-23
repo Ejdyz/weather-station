@@ -12,6 +12,7 @@ import GoldenHour from "@/components/main/goldenHour";
 import RecentHistory from "@/components/main/recentHistory";
 import { getLastHistoryDay } from "@/lib/days";
 import { FALLBACK_GOLDEN_HOUR_END, FALLBACK_GOLDEN_HOUR_START, FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config";
+import Image from "next/image";
 
 export const dynamic = 'force-dynamic';
 
@@ -125,7 +126,7 @@ export default async function Page() {
               <strong  className="md:text-2xl">{data.skyCondition.formattedValue}</strong>
               <p>{data.apparentTemperature.shortTitle} <strong>{data.apparentTemperature.value}</strong></p>
             </div>
-            <img src="/icons/skyCondition/fog.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
+            <Image width={100}  height={100}  src="/icons/skyCondition/fog.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
           </div>
           <Separator orientation="horizontal" className="md:hidden mx-auto sm:w-[calc(100%-6rem)] w-full" />
           <Separator orientation="vertical" className="hidden md:block my-4 w-1" />

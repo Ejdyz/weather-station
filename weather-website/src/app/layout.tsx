@@ -4,7 +4,6 @@ import './globals.css';
 import 'keen-slider/keen-slider.min.css'
 import { cookies } from 'next/headers';
 import { DEFAULT_LOCALE, isSupportedLocale } from '@/hooks/context/i18n';
-import { LanguageSwitcher } from '@/components/footer/LanguageSwitcher';
 import { I18nProvider } from '@/hooks/context/i18n-context';
 import { getDictionary } from '@/dictionaries/dictionaries';
 

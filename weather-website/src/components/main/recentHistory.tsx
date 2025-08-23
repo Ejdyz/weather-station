@@ -1,7 +1,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,6 +14,7 @@ import {
 import { getHistoryRecordsWithSpace } from '@/lib/history'
 import { getTranslator } from "@/lib/server-dictionary";
 import { getIconSrcFromWeatherData, formatDateToDisplayWrittenDays, formatDateToDisplayNumericFull, formatWeatherData, dewPointTemperature, apparentTemperature, pressureAtSeaLevel } from '@/lib/utils';
+import Image from "next/image";
 
 const now = new Date();
 const defaultSunsetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 0);
@@ -88,7 +88,7 @@ export default async function RecentHistory({sunsetDate = defaultSunsetDate, sun
         <DialogTrigger>      
           <div className='text-center text-white min-w-18 max-w-20 select-none cursor-pointer'>
             <p>{formatTime(record.recorded_at)}</p>
-            <img src={weatherCondition} alt={"Weather Icon"} className='w-full h-auto' />
+            <Image width={100}  height={100}  src={weatherCondition} alt={"Weather Icon"} className='w-full h-auto' />
             <p className='font-semibold '>{record.temperature}°C</p>
           </div>
         </DialogTrigger>

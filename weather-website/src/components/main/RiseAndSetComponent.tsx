@@ -1,5 +1,6 @@
 "use client"
 import CircularSlider from "react-circular-slider-svg";
+import Image from "next/image";
 
 interface RiseAndSetProps {
   riseTime: Date; // local time of rise
@@ -60,15 +61,16 @@ export default function RiseAndSetComponent({
       />
       <div className="w-full flex flex-row justify-between -mt-[130px]">
         <div className="text-center">
-          <img src={icons.rise} alt="Rise Icon" className="size-16 -left-2.5 relative"/>
+          <Image width={100}  height={100}  src={icons.rise} alt="Rise Icon" className="size-16 -left-2.5 relative"/>
           <p className="font-semibold text-white -mt-5 relative -left-2.5">{getHoursAndMinutes(riseTime)}</p>
         </div>
         <div className="text-center">
-          <img src={icons.set} alt="Set Icon" className="size-16 -right-2.5 relative"/>
+          <Image width={100}  height={100}  src={icons.set} alt="Set Icon" className="size-16 -right-2.5 relative"/>
           <p className="font-semibold text-white -mt-5 relative -right-2.5">{getHoursAndMinutes(setTime)}</p>
         </div>
       </div>
-      <img
+      <Image width={100}  height={100} 
+        alt="Thumb Icon"
         src={icons.thumb}
         className={"pointer-events-none absolute w-12 h-12 " + (isThumbHidden ? "hidden" : "")}
         style={{ left: cx, top: cy, transform: "translate(-50%, -50%)" }}

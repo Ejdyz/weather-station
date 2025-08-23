@@ -1,5 +1,3 @@
-import { be } from "zod/v4/locales";
-
 export default {
   landing: {
     title: 'Site under development!',

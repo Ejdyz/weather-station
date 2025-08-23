@@ -98,6 +98,12 @@ export function formatDateForDisplay(date: Date | string | null | undefined): st
   });
 };
 
+  export function formatDateToDisplayWrittenDays(date: Date) {
+    //[Day of week] [number of day of month]. [Month]
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+    return new Intl.DateTimeFormat('cs-CZ', options).format(date);
+  }
+
 
 /**
  * Výpočet nasyceného tlaku vodní páry (hPa)

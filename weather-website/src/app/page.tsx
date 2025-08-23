@@ -203,6 +203,9 @@ export default async function Page() {
           </div>
         </Base>
       </div>
+      <Base className="mb-8 p-4">
+        <RecentHistory sunriseDate={data.sun.riseTime} sunsetDate={data.sun.setTime} />
+      </Base>
     </Background>
   );
 }

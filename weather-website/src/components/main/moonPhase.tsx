@@ -7,7 +7,6 @@ export default async function MoonPhase({date}:{date: Date}) {
   const moonPhaseFraction = getMoonPhaseFraction(date);
   const moonPhaseName = getMoonPhaseName(moonPhaseFraction);
 
-  console.log(moonPhaseName.replace(/-/g,"_"))
   return (
     <div className="flex flex-col items-center justify-between gap-2 p-0 h-full">
       <img src={`/icons/moon-${moonPhaseName}.svg`} alt="Moon Phase" className="h-full -mt-5" />

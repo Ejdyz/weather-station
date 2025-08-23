@@ -97,3 +97,34 @@ export async function getLatestRecordFromHistoryAndStatus() {
   const latestHistory = await getLastHistoryRecord();
   return latestHistory;
 }
+
+export async function getHistoryRecordsWithSpace(count:number, spaceBetweenMin:number) {
+  const now = new Date();
+  const minutes = now.getMinutes() >= 30? 30 : 0;
+  const since = new Date().setMinutes(minutes, 59);
+
+  const historyRecords = await prisma.history.findMany({
+    where: {
+      recorded_at: {
+        gte: new Date(since - count * 60 * 60 * 1000),
+      },
+    },
+    select: {
+      id: true,
+      recorded_at: true,
+      temperature: true,
+      humidity: true,
+      pressure: true,
+      light: true,
+      wind_speed: true,
+      wind_direction: true,
+      rain_mm: true,
+    },
+  });
+
+  const filteredRecords = historyRecords.filter(record => {
+    return record.recorded_at.getMinutes() % spaceBetweenMin === 0;
+  }).reverse().slice(0, count);
+
+  return filteredRecords;
+}

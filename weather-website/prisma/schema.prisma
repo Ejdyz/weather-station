@@ -34,13 +34,21 @@ model History {
   history_day_id History_days @relation(fields: [history_daysId], references: [id], onDelete: Cascade)
   recorded_at    DateTime
   temperature    Float?
+  app_temperature Float?
   humidity       Float?
   pressure       Float?
+  pressure_at_sea_level Float?
   light          Int?
   wind_speed     Float?
   max_wind_speed Float?
+  beaufort       Int?
   wind_direction Float?
   rain_mm        Float?
+  dew_point      Float?
+  saturation_vapor_pressure Float?
+  vapor_pressure Float?
+  sky_condition_icon String
+  sky_condition_description String
   history_daysId Int
   created_at     DateTime     @default(now())
 
@@ -73,6 +81,13 @@ model History_days {
   max_rain_mm        Float?
   avg_rain_mm        Float?
   min_rain_mm        Float?
+  sunrise           DateTime
+  sunset             DateTime
+  moonrise           DateTime
+  moonset            DateTime
+  moon_phase         String
+  golden_hour_start  String
+  golden_hour_end    String
   History            History[]
 
   @@index([date], name: "idx_history_days_date")

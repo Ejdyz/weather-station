@@ -24,7 +24,7 @@ async function sendStatusWithTimestamp(timestamp: string) {
   const data = generateRandomStatus(timestamp);
 
   try {
-    const res = await fetch('http://localhost:3000/api/test', {
+    const res = await fetch('http://localhost:3000/api/weather', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

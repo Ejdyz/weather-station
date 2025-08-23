@@ -1,6 +1,5 @@
-import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData, apparentTemperature, dewPointTemperature, skyCondition, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, saturationVaporPressure_hPa, vaporPressure_hPa, fetchGeolocationData } from "@/lib/utils";
-import DateComponent from "@/components/ui/date";
+import { getLastHistoryRecord, getLatestRecordFromHistoryAndStatus } from "@/lib/history";
+import { formatWeatherData, apparentTemperature, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, parseTimeToDate } from "@/lib/utils";
 import { getTranslator } from "@/lib/server-dictionary";
 import Background from "@/components/ui/background";
 import Base from "@/components/ui/base";
@@ -10,6 +9,9 @@ import { Carousel } from "@/components/ui/carousel";
 import RiseAndSetComponent from "@/components/main/RiseAndSetComponent";
 import MoonPhase from "@/components/main/moonPhase";
 import GoldenHour from "@/components/main/goldenHour";
+import RecentHistory from "@/components/main/recentHistory";
+import { getLastHistoryDay } from "@/lib/days";
+import { FALLBACK_GOLDEN_HOUR_END, FALLBACK_GOLDEN_HOUR_START, FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,40 +21,46 @@ export default async function Page() {
   const beaufort = t('data.beaufort_description') as string[];
 
   const latestRecord = await getLatestRecordFromHistoryAndStatus();
+  const lastHistoryRecord = await getLastHistoryRecord();
+  const lastHistoryDay = await getLastHistoryDay();
 
-  const skyConditionValue = skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
   const windDirectionValue = convertDirectionToCardinalString(latestRecord?.wind_direction || 0);
-  const geoAPIData = await fetchGeolocationData()
   
   const data = {
-    apparentTemperature: {
-      title: t("data.apparent"),
-      shortTitle: t("data.apparent_short"),
-      key: 'apparent',
-      value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, (latestRecord?.wind_speed || 0) * 3.6))
-    },
-    skyCondition: {
-      title: t("data.sky_condition"),
-      key: 'sky_condition',
-      value: skyConditionValue,
-      formattedValue: skyConditionValue.charAt(0).toLocaleUpperCase() + skyConditionValue.slice(1),
-    },
     temperature: {
       title: t("data.temperature"),
       key: 'temperature',
       value: formatWeatherData('temperature', latestRecord?.temperature),
     },
+    apparentTemperature: {
+      title: t("data.apparent"),
+      shortTitle: t("data.apparent_short"),
+      key: 'apparent',
+      value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, latestRecord?.wind_speed || 0))
+    },
+    skyCondition: {
+      title: t("data.sky_condition"),
+      key: 'sky_condition',
+      value: lastHistoryRecord?.sky_condition_description,
+      formattedValue: t("data.sky_conditions." + (lastHistoryRecord?.sky_condition_description === "unknown" ? "partly_cloudy" : lastHistoryRecord?.sky_condition_description.replace(" ", "_"))),
+    },
     dewPoint: {
       title: t("data.dew_point"),
       key: 'dew_point',
-      value: formatWeatherData('temperature', dewPointTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0)),
+      value: formatWeatherData('temperature', lastHistoryRecord?.dew_point || 0),
       icon: "/icons/thermometer-raindrop.svg",
-      vaporPressureTitle: t("data.vapor_pressure"),
-      vaporPressureValue: formatWeatherData('pressure', vaporPressure_hPa(latestRecord?.temperature || 0, latestRecord?.humidity || 0)),
-      vaporPressureIcon: "/icons/thermometer.svg",
-      saturationVaporPressureTitle: t("data.saturation_vapor_pressure"),
-      saturationVaporPressureValue: formatWeatherData('pressure', saturationVaporPressure_hPa(latestRecord?.temperature || 0)),
-      saturationVaporPressureIcon: "/icons/thermometer.svg"
+    },
+    vaporPressure: {
+      title: t("data.vapor_pressure"),
+      key: 'vapor_pressure',
+      value: formatWeatherData('pressure', lastHistoryRecord?.vapor_pressure || 0),
+      icon: "/icons/thermometer.svg"
+    },
+    saturationVaporPressure: {
+      title: t("data.saturation_vapor_pressure"),
+      key: 'saturation_vapor_pressure',
+      value: formatWeatherData('pressure', lastHistoryRecord?.saturation_vapor_pressure || 0),
+      icon: "/icons/thermometer.svg"
     },
     humidity: { 
       title: t("data.humidity"), 
@@ -72,10 +80,13 @@ export default async function Page() {
       key: 'wind_speed', 
       value: formatWeatherData('wind_speed_ms', latestRecord?.wind_speed),
       valueKmh: formatWeatherData('wind_speed_kmh', latestRecord?.wind_speed),
-      beaufortTitle: beaufort[windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)],
-      beaufortIcon: `/icons/wind-beaufort-${windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)}.svg`,
-      beaufortIndex: windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0),
       icon: (latestRecord?.wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
+    },
+    beaufort: {
+      title: beaufort[windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)],
+      key: 'beaufort',
+      value: windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0),
+      icon: `/icons/wind-beaufort-${windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)}.svg`,
     },
     wind_direction: { 
       title: t("data.wind_direction"), 
@@ -89,22 +100,17 @@ export default async function Page() {
       value: formatWeatherData('rain_mm', latestRecord?.rain_mm),
       icon: "/icons/raindrop.svg"
     },
-    time: { 
-      title: t("data.time"), 
-      key: 'time', 
-      value: <DateComponent date={latestRecord?.created_at} /> 
-    },
     sun: {
-      setTime: geoAPIData.sunset,
-      riseTime: geoAPIData.sunrise
+      setTime: lastHistoryDay?.sunset || parseTimeToDate(FALLBACK_SUNSET, new Date()),
+      riseTime: lastHistoryDay?.sunrise || parseTimeToDate(FALLBACK_SUNRISE, new Date())
     },
     moon: {
-      setTime: geoAPIData.moonset,
-      riseTime: geoAPIData.moonrise
+      setTime: lastHistoryDay?.moonset || parseTimeToDate(FALLBACK_MOONSET, new Date()),
+      riseTime: lastHistoryDay?.moonrise || parseTimeToDate(FALLBACK_MOONRISE, new Date())
     },
     goldenHour: {
-      begin: geoAPIData.golden_hour_begin,
-      end: geoAPIData.golden_hour_end
+      begin: lastHistoryDay?.golden_hour_start || parseTimeToDate(FALLBACK_GOLDEN_HOUR_START, new Date()),
+      end: lastHistoryDay?.golden_hour_end || parseTimeToDate(FALLBACK_GOLDEN_HOUR_END, new Date())
     }
 
   }
@@ -119,7 +125,7 @@ export default async function Page() {
               <strong  className="md:text-2xl">{data.skyCondition.formattedValue}</strong>
               <p>{data.apparentTemperature.shortTitle} <strong>{data.apparentTemperature.value}</strong></p>
             </div>
-            <img src="/icons/clear-day.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
+            <img src="/icons/skyCondition/fog.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
           </div>
           <Separator orientation="horizontal" className="md:hidden mx-auto sm:w-[calc(100%-6rem)] w-full" />
           <Separator orientation="vertical" className="hidden md:block my-4 w-1" />
@@ -148,9 +154,9 @@ export default async function Page() {
                     icon: data.windSpeed.icon 
                   },
                   { 
-                    value: data.windSpeed.beaufortTitle, 
-                    title: data.windSpeed.beaufortIndex + ". " + t("data.beaufort_number"), 
-                    icon: data.windSpeed.beaufortIcon 
+                    value: data.beaufort.title, 
+                    title: data.beaufort.value + ". " + t("data.beaufort_number"), 
+                    icon: data.beaufort.icon 
                   }]
                 }/>
             <DataContainer title={data.wind_direction.title} value={data.wind_direction.value} icon={data.wind_direction.icon} />
@@ -161,21 +167,21 @@ export default async function Page() {
               icon={data.dewPoint.icon} 
               additionalData={[
                 {
-                  title: data.dewPoint.saturationVaporPressureTitle,
-                  value: data.dewPoint.saturationVaporPressureValue,
-                  icon: data.dewPoint.saturationVaporPressureIcon
+                  title: data.saturationVaporPressure.title,
+                  value: data.saturationVaporPressure.value,
+                  icon: data.saturationVaporPressure.icon
                 },
                 {
-                  title: data.dewPoint.vaporPressureTitle,
-                  value: data.dewPoint.vaporPressureValue,
-                  icon: data.dewPoint.vaporPressureIcon
+                  title: data.vaporPressure.title,
+                  value: data.vaporPressure.value,
+                  icon: data.vaporPressure.icon
                 }
               ]}
             />
           </div>
         </div>
       </Base>
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      <div className="grid grid-cols-2 gap-2">
         {/* Sunset and Sunrise */}
         <Base className="lg:h-40 h-32 lg:p-2">
           <div className="lg:hidden h-full">

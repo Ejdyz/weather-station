@@ -19,8 +19,9 @@ export async function createOrGetHistoryDaysFromDate(date: Date) {
 }
 
 import { getAllHistoryRecordsForHistoryDayUpdate } from "./history";
+import { GeolocationData, getMoonPhase } from "./utils";
 
-export async function updateHistoryDayWithHistoryRecords(historyDayId: number) {
+export async function updateHistoryDayWithHistoryRecords(historyDayId: number, geoAPIData: GeolocationData) {
   const data = await getAllHistoryRecordsForHistoryDayUpdate(historyDayId);
 
   const updatedRecord = prisma.history_days.update({
@@ -46,7 +47,14 @@ export async function updateHistoryDayWithHistoryRecords(historyDayId: number) {
       avg_wind_direction: data._avg.wind_direction,
       min_rain_mm: data._min.rain_mm,
       max_rain_mm: data._max.rain_mm,
-      avg_rain_mm: data._avg.rain_mm
+      avg_rain_mm: data._avg.rain_mm,
+      sunrise: geoAPIData.sunrise,
+      sunset: geoAPIData.sunset,
+      moonrise: geoAPIData.moonrise,
+      moonset: geoAPIData.moonset,
+      moon_phase: getMoonPhase(new Date()),
+      golden_hour_start: geoAPIData.golden_hour_begin,
+      golden_hour_end: geoAPIData.golden_hour_end,
     }
   })
 

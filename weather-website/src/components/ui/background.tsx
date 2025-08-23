@@ -33,7 +33,7 @@ export default function Background({ children/*, type */} : { children: React.Re
   }
 
   return (
-    <div className={`h-screen fixed top-0 overflow-auto w-full p-4 max-w-screen ${backgroundClass}`}>
+    <div className={`flex flex-col gap-2 h-screen fixed top-0 overflow-auto w-full p-4 max-w-screen ${backgroundClass}`}>
       <div className="flex gap-2">
         {availableTypes.map((availableType) => (
           <button

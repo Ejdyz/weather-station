@@ -60,3 +60,16 @@ export async function updateHistoryDayWithHistoryRecords(historyDayId: number, g
 
   return updatedRecord;
 }
+
+export async function getAvailableHistoryDays() {
+  const historyDays = await prisma.history_days.findMany({
+    orderBy: {
+      date: "desc",
+    },
+    select: {
+      date: true,
+    }
+  });
+
+  return historyDays.map(day => day.date);
+}

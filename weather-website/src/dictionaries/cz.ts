@@ -169,4 +169,45 @@ export default {
       genitive: 'Prosince'
     }
   },
+  multiSelect:{
+    selectAll: "Vybrat vše",
+    more: "další",
+    placeholder: "Vyberte možnosti",
+    options: "možností",
+    clear: "Vymazat",
+    close: "Zavřít"
+  },
+  historyTableSortItems: {
+    date: "Datum",
+    max_temperature:"Max. Teplota",
+    avg_temperature:"Průměrná Teplota",
+    min_temperature:"Min. Teplota",
+
+    max_humidity:"Max. Vlhkost",
+    avg_humidity:"Průměrná Vlhkost",
+    min_humidity:"Min. Vlhkost",
+
+    max_pressure:"Max. Tlak",
+    avg_pressure:"Průměrný Tlak",
+    min_pressure:"Min. Tlak",
+
+    max_wind_speed:"Max. Rychlost větru",
+    avg_wind_speed:"Průměrná Rychlost větru",
+    min_wind_speed:"Min. Rychlost větru",
+
+    wind_direction:"Směr větru",
+
+    max_rain:"Max. Srážky",
+    all_rain:"Všechny srážky",
+    sunrise:"Východ slunce",
+    sunset:"Západ slunce",
+
+    moonrise:"Východ měsíce",
+    moonset:"Západ měsíce",
+    moon_phase:"Fáze měsíce",
+    golden_hour_start:"Začátek zlaté hodiny",
+    golden_hour_end:"Konec zlaté hodiny",
+
+    noData: "Žádná data pro vybraný rozsah"
+  }
 } as const;

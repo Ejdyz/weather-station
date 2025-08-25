@@ -13,6 +13,7 @@ import RecentHistory from "@/components/main/recentHistory";
 import { getLastHistoryDay } from "@/lib/days";
 import { FALLBACK_GOLDEN_HOUR_END, FALLBACK_GOLDEN_HOUR_START, FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config";
 import Image from "next/image";
+import HistoryDaysWrapper from "@/components/main/historyDaysWrapper";
 
 export const dynamic = 'force-dynamic';
 
@@ -234,6 +235,14 @@ export default async function Page() {
       <Base className="mb-8 p-4 lg:hidden">
         <RecentHistory sunriseDate={data.sun.riseTime} sunsetDate={data.sun.setTime} />
       </Base>
+      <div className="lg:grid-cols-2 grid-cols-1 grid -mt-8 gap-2">
+        <Base>
+          <></>
+        </Base>
+        <Base className="hover-scrollbar">
+          <HistoryDaysWrapper />
+        </Base>
+      </div>
     </Background>
   );
 }

@@ -1,3 +1,5 @@
+import { date } from "zod";
+
 export default {
   landing: {
     title: 'Site under development!',
@@ -168,5 +170,46 @@ export default {
       short: 'Dec',
       genitive: 'December'
     }
+  },
+  multiSelect: {
+    selectAll: "Select All",
+    more: "more",
+    placeholder: "Select options",
+    options: "options",
+    clear: "Clear",
+    close: "Close"
+  },
+  historyTableSortItems: {
+    date: "Date",
+    max_temperature:"Max Temperature",
+    avg_temperature:"Average Temperature",
+    min_temperature:"Min Temperature",
+
+    max_humidity:"Max Humidity",
+    avg_humidity:"Average Humidity",
+    min_humidity:"Min Humidity",
+
+    max_pressure:"Max Pressure",
+    avg_pressure:"Average Pressure",
+    min_pressure:"Min Pressure",
+
+    max_wind_speed:"Max Wind Speed",
+    avg_wind_speed:"Average Wind Speed",
+    min_wind_speed:"Min Wind Speed",
+
+    wind_direction:"Wind Direction",
+
+    max_rain:"Max Rain",
+    all_rain:"All Rain" ,
+    sunrise:"Sunrise",
+    sunset:"Sunset",
+
+    moonrise:"Moonrise",
+    moonset:"Moonset",
+    moon_phase:"Moon Phase" ,
+    golden_hour_start:"Golden Hour Start",
+    golden_hour_end:"Golden Hour End",
+
+    noData: "No Data for selected range"
   }
 } as const;

@@ -26,7 +26,7 @@ import {
 	CommandList,
 	CommandSeparator,
 } from "@/components/ui/command";
-
+import { useI18n } from "@/hooks/context/i18n-context";
 /**
  * Animation types and configurations
  */
@@ -335,6 +335,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 		},
 		ref
 	) => {
+		const { t, locale} = useI18n();
 		const [selectedValues, setSelectedValues] =
 			React.useState<string[]>(defaultValue);
 		const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
@@ -943,7 +944,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 												}}>
 												{`+ ${
 													selectedValues.length - responsiveSettings.maxCount
-												} more`}
+												} ${t("multiSelect.more")}`}
 												<XCircle
 													className={cn(
 														"ml-2 h-4 w-4 cursor-pointer",
@@ -1070,9 +1071,9 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 												<CheckIcon className="h-4 w-4 stroke-white" />
 											</div>
 											<span>
-												(Select All
+												({t("multiSelect.selectAll")}
 												{getAllOptions().length > 20
-													? ` - ${getAllOptions().length} options`
+													? ` - ${getAllOptions().length} ${t("multiSelect.options")}`
 													: ""}
 												)
 											</span>
@@ -1172,7 +1173,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 												<CommandItem
 													onSelect={handleClear}
 													className="flex-1 justify-center cursor-pointer">
-													Clear
+													{t("multiSelect.clear")}
 												</CommandItem>
 												<Separator
 													orientation="vertical"
@@ -1183,7 +1184,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
 										<CommandItem
 											onSelect={() => setIsPopoverOpen(false)}
 											className="flex-1 justify-center cursor-pointer max-w-full">
-											Close
+											{t("multiSelect.close")}
 										</CommandItem>
 									</div>
 								</CommandGroup>

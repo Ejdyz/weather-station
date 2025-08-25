@@ -172,3 +172,8 @@
   background-color: color-mix(in oklch, var(--foreground) 35%, transparent);
   opacity: 1;
 }
+
+
+.rdp-month_caption span {
+  text-transform: capitalize;
+}

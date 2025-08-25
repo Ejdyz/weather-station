@@ -43,35 +43,49 @@ export function convertDirectionToCardinalString(degrees: number): string {
 }
 
 interface WeatherTypeForFormat {
-  type: "temperature" | "humidity" | "pressure" | "wind_speed_ms" | "wind_speed_kmh" | "wind_direction" | "rain_mm" | "light" | "date";
-  value: number | null | undefined;
+  type: "temperature" | "humidity" | "pressure" | "wind_speed_ms" | "wind_speed_kmh" | "wind_direction" | "rain_mm" | "light" | "date_full_numeric" | "date_short_numeric" | "date_short_written" | "time_short_numeric";
+  value: number | Date | null | undefined;
 }
 
 export function formatWeatherData(type: WeatherTypeForFormat["type"], value: WeatherTypeForFormat["value"]): string {
   if (value === null || value === undefined) {
     return "N/A";
   }
-  switch (type) {
-    case "temperature":
-      return `${_.round(value, 2)} °C`;
-    case "humidity":
-      return `${_.round(value, 2)} %`;
-    case "pressure":
-      return `${_.round(value, 2)} hPa`;
-    case "wind_speed_ms":
-      return `${_.round(value, 2)} m/s`;
-    case "wind_speed_kmh":
-      return `${_.round(value * 3.6, 2)} km/h`;
-    case "wind_direction":
-      return convertDirectionToCardinalString(value);
-    case "rain_mm":
-      return `${_.round(value, 2)} mm`;
-    case "light":
-      return `${_.round(value, 2)} lx`;
-    case "date":
-      return new Date(value).toLocaleString();
-    default:
-      throw new Error(`Unknown weather data type: ${type}`);
+
+  if (value instanceof Date) {
+    switch (type) {
+      case "date_full_numeric":
+        return formatDateToDisplayNumericFull(value);
+      case "date_short_numeric":
+        return formatDateNumericShort(value);
+      case "date_short_written":
+        return formatDateToDisplayWrittenDays(value);
+      case "time_short_numeric":
+        return formatTimeNumericShort(value);
+      default:
+        throw new Error(`Unknown weather data type: ${type}`);
+    }
+  } else {
+    switch (type) {
+      case "temperature":
+        return `${_.round(value, 2)} °C`;
+      case "humidity":
+        return `${_.round(value, 2)} %`;
+      case "pressure":
+        return `${_.round(value, 2)} hPa`;
+      case "wind_speed_ms":
+        return `${_.round(value, 2)} m/s`;
+      case "wind_speed_kmh":
+        return `${_.round(value * 3.6, 2)} km/h`;
+      case "wind_direction":
+        return convertDirectionToCardinalString(value);
+      case "rain_mm":
+        return `${_.round(value, 2)} mm`;
+      case "light":
+        return `${_.round(value, 2)} lx`;
+      default:
+        throw new Error(`Unknown weather data type: ${type}`);
+    }
   }
 }
 
@@ -99,11 +113,20 @@ export function formatDateToDisplayNumericFull(date: Date | string | null | unde
   });
 };
 
-  export function formatDateToDisplayWrittenDays(date: Date) {
-    //[Day of week] [number of day of month]. [Month]
-    const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
-    return new Intl.DateTimeFormat('cs-CZ', options).format(date);
-  }
+export function formatDateToDisplayWrittenDays(date: Date) {
+  //[Day of week] [number of day of month]. [Month]
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+  return new Intl.DateTimeFormat('cs-CZ', options).format(date);
+}
+
+export function formatDateNumericShort(date: Date) {
+  return date.getDate().toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getFullYear();
+}
+
+export function formatTimeNumericShort(date: Date) {
+  return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
+}
+
 
 
 /**

@@ -2,7 +2,6 @@ import {
   Dialog,
   DialogPortal,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/table"
 import { getHistoryRecordsWithSpace } from '@/lib/history'
 import { getTranslator } from "@/lib/server-dictionary";
-import { getIconSrcFromWeatherData, formatDateToDisplayWrittenDays, formatDateToDisplayNumericFull, formatWeatherData, dewPointTemperature, apparentTemperature, pressureAtSeaLevel } from '@/lib/utils';
+import { getIconSrcFromWeatherData, formatTimeNumericShort, formatDateToDisplayNumericFull, formatWeatherData, dewPointTemperature } from '@/lib/utils';
 import Image from "next/image";
 
 const now = new Date();
@@ -28,11 +27,6 @@ export default async function RecentHistory({sunsetDate = defaultSunsetDate, sun
   const historyData = await getHistoryRecordsWithSpace(48, 30)
 
   function HistoryItem({record}: {record: typeof historyData[number]}) {
-
-    function formatTime(date: Date) {
-      return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0');
-    }
-
     const wind_direction = t('data.wind_direction_cardinal') as Record<string, string>;
     const beaufort = t('data.beaufort_description') as string[];
     const skyCondition = t('data.sky_conditions') as Record<string, string>;
@@ -111,7 +105,7 @@ export default async function RecentHistory({sunsetDate = defaultSunsetDate, sun
       <Dialog>
         <DialogTrigger>      
           <div className='text-center text-white min-w-18 max-w-20 select-none cursor-pointer'>
-            <p>{formatTime(record.recorded_at)}</p>
+            <p>{formatTimeNumericShort(record.recorded_at)}</p>
             <Image width={100}  height={100}  src={weatherCondition} alt={"Weather Icon"} className='w-full h-auto' />
             <p className='font-semibold '>{record.temperature}°C</p>
           </div>

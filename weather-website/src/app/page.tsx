@@ -58,13 +58,13 @@ export default async function Page() {
       title: t("data.vapor_pressure"),
       key: 'vapor_pressure',
       value: formatWeatherData('pressure', lastHistoryRecord?.vapor_pressure || 0),
-      icon: "/icons/thermometer.svg"
+      icon: "/icons/barometer-raindrop.svg"
     },
     saturationVaporPressure: {
       title: t("data.saturation_vapor_pressure"),
       key: 'saturation_vapor_pressure',
       value: formatWeatherData('pressure', lastHistoryRecord?.saturation_vapor_pressure || 0),
-      icon: "/icons/thermometer.svg"
+      icon: "/icons/barometer-raindrop.svg"
     },
     humidity: { 
       title: t("data.humidity"), 

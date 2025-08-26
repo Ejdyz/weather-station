@@ -15,6 +15,7 @@ import { FALLBACK_GOLDEN_HOUR_END, FALLBACK_GOLDEN_HOUR_START, FALLBACK_MOONRISE
 import Image from "next/image";
 import HistoryDaysWrapper from "@/components/main/historyDaysWrapper";
 import HistoryRecordsWrapper from "@/components/main/historyRecordsWrapper";
+import WeatherRadar from "@/components/main/weatherRadar";
 
 export const dynamic = 'force-dynamic';
 
@@ -244,6 +245,9 @@ export default async function Page() {
           <HistoryDaysWrapper />
         </Base>
       </div>
+      <Base>
+        <WeatherRadar />
+      </Base>
     </Background>
   );
 }

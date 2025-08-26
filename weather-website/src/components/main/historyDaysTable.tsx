@@ -16,6 +16,7 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
   // Sorting state
   const [sortBy, setSortBy] = useState<string>("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const { t } = useI18n();
 
   // Map column identifiers to actual data keys and types to sort by
   type SortType = "number" | "date" | "string" | "time";
@@ -164,7 +165,7 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
       case "min_wind_speed":
         return formatWeatherData("wind_speed_ms", row.min_wind_speed);
       case "wind_direction":
-        return formatWeatherData("wind_direction", row.avg_wind_direction);
+        return t("data.wind_direction_cardinal." + formatWeatherData("wind_direction", row.avg_wind_direction));
 
       // rain
       case "max_rain":
@@ -184,7 +185,7 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
 
       // moon / golden hour
       case "moon_phase":
-        return row.moon_phase;
+        return t("moon_phases." + row.moon_phase.replace("-", "_"));
       case "golden_hour_start":
         return row.golden_hour_start ?? "-";
       case "golden_hour_end":
@@ -192,8 +193,6 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
     }
     return "";
   };
-
-  const { t } = useI18n();
 
   return (
     <div className="max-h-96 overflow-y-auto">

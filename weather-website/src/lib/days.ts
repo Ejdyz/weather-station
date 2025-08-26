@@ -1,4 +1,6 @@
 import { prisma } from "./prisma";
+import { FALLBACK_GOLDEN_HOUR_END, FALLBACK_GOLDEN_HOUR_START, FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config";
+import { parseTimeToDate } from "@/lib/utils";
 
 export async function getLastHistoryDay() {
   const lastHistoryDay = await prisma.history_days.findFirst({
@@ -13,7 +15,16 @@ export async function createOrGetHistoryDaysFromDate(date: Date) {
   const historyDayRecord = prisma.history_days.upsert({
     where: { date: date },
     update: {},
-    create: { date: date },
+    create: {
+      date: date,
+      sunrise: parseTimeToDate(FALLBACK_SUNRISE, date),
+      sunset: parseTimeToDate(FALLBACK_SUNSET, date),
+      moonrise: parseTimeToDate(FALLBACK_MOONRISE, date),
+      moonset: parseTimeToDate(FALLBACK_MOONSET, date),
+      moon_phase: getMoonPhase(date),
+      golden_hour_start: FALLBACK_GOLDEN_HOUR_START,
+      golden_hour_end: FALLBACK_GOLDEN_HOUR_END,
+    },
   })
   return historyDayRecord;
 }
@@ -30,18 +41,15 @@ export async function updateHistoryDayWithHistoryRecords(historyDayId: number, g
       min_temperature: data._min.temperature,
       max_temperature: data._max.temperature,
       avg_temperature: data._avg.temperature,
-      min_humidity: data._min.humidity,
-      max_humidity: data._max.humidity,
-      avg_humidity: data._avg.humidity,
+      min_wind_speed: data._min.wind_speed,
+      max_wind_speed: data._max.wind_speed,
+      avg_wind_speed: data._avg.wind_speed,
       min_pressure: data._min.pressure,
       max_pressure: data._max.pressure,
       avg_pressure: data._avg.pressure,
       min_light: data._min.light,
       max_light: data._max.light,
       avg_light: data._avg.light,
-      min_wind_speed: data._min.wind_speed,
-      max_wind_speed: data._max.max_wind_speed,
-      avg_wind_speed: data._avg.wind_speed,
       min_wind_direction: data._min.wind_direction,
       max_wind_direction: data._max.wind_direction,
       avg_wind_direction: data._avg.wind_direction,

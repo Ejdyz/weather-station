@@ -123,7 +123,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* @apply border-border outline-ring/50; */
   }
   body {
     @apply bg-background text-foreground;
@@ -176,4 +176,8 @@
 
 .rdp-month_caption span {
   text-transform: capitalize;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill:white
 }

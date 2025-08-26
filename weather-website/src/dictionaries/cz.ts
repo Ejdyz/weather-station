@@ -209,5 +209,26 @@ export default {
     golden_hour_end:"Konec zlaté hodiny",
 
     noData: "Žádná data pro vybraný rozsah"
+  },
+  historyRecordsSortItems: {
+    date: "Datum",
+
+    temperature: "Teplota",
+    app_temperature:"Pocitová Teplota",
+    humidity:"Relativní Vlhkost",
+
+    pressure:"Relativní Tlak",
+    pressure_at_sea_level:"Tlak na hladině moře",
+    wind_speed:"Rychlost větru",
+
+    max_wind_speed:"Max. Rychlost větru",
+    wind_direction:"Max. Rychlost větru",
+    rain_mm:"Průměrná Rychlost větru",
+
+    dew_point:"Min. Rychlost větru",
+    saturation_vapor_pressure:"Směr větru",
+    vapor_pressure:"Max. Srážky",
+
+    noData: "Žádná data pro vybraný rozsah"
   }
 } as const;

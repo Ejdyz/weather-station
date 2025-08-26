@@ -82,6 +82,7 @@ export default function DateRangeAndTypeSelector({
           modalPopover={true}
           searchable={false}
           autoSize
+          maxCount={2}
         />
         <Popover>
           <PopoverTrigger asChild>

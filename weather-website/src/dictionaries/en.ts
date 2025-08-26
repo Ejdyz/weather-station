@@ -211,5 +211,26 @@ export default {
     golden_hour_end:"Golden Hour End",
 
     noData: "No Data for selected range"
+  },
+  historyRecordsSortItems: {
+    date: "Datum",
+
+    temperature: "Temperature",
+    app_temperature:"Apparent Temperature",
+    humidity:"Humidity",
+
+    pressure:"Pressure",
+    pressure_at_sea_level:"Pressure at Sea Level",
+    wind_speed:"Wind Speed",
+
+    max_wind_speed:"Max. Wind Speed",
+    wind_direction:"Wind Direction",
+    rain_mm:"Rain (mm)",
+
+    dew_point:"Dew Point",
+    saturation_vapor_pressure:"Saturation Vapor Pressure",
+    vapor_pressure:"Vapor Pressure",
+
+    noData: "No Data for selected range"
   }
 } as const;

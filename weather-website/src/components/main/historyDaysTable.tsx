@@ -196,7 +196,7 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
   const { t } = useI18n();
 
   return (
-    <div className="max-h-50 overflow-y-auto">
+    <div className="max-h-96 overflow-y-auto">
       <Table className="min-w-[400px] text-sm text-white">
         <TableHeader >
           <TableRow >

@@ -7,7 +7,7 @@ import { getTranslator } from "@/lib/server-dictionary";
 export default async function HistoryDaysWrapper() {
   const { t } = await getTranslator();
 
-  const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 6));
+  const defaultStartDate = new Date(new Date().setDate(new Date().getDate() - 8));
   const defaultEndDate = new Date();
   const defaultData = await getHistoryDaysInRange(defaultStartDate, defaultEndDate);
   const availableDates = await getAvailableHistoryDays();

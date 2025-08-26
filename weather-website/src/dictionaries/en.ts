@@ -1,5 +1,3 @@
-import { date } from "zod";
-
 export default {
   landing: {
     title: 'Site under development!',

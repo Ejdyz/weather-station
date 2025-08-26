@@ -1,5 +1,5 @@
 import { getLastHistoryRecord, getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData, apparentTemperature, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, parseTimeToDate, getIconSrcFromWeatherData, skyCondition } from "@/lib/utils";
+import { formatWeatherData, apparentTemperature, convertDirectionToCardinalString, windSpeedToBeaufortIndex, parseTimeToDate, getIconSrcFromWeatherData, skyCondition } from "@/lib/utils";
 import { getTranslator } from "@/lib/server-dictionary";
 import Background from "@/components/ui/background";
 import Base from "@/components/ui/base";

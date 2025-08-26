@@ -114,7 +114,7 @@ export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { 
       if (an > bn) return 1 * dir;
       return 0;
     });
-  }, [data, sortBy, sortDir]);
+  }, [data, sortBy, sortDir, columnMap, getComparableValue]);
 
   const onSort = (colId: string) => {
     if (sortBy === colId) {

@@ -27,7 +27,7 @@ export default function Background({ children, type } : { children: React.ReactN
   }
 
   return (
-    <div className={`flex flex-col gap-2 h-screen fixed top-0 overflow-auto w-full p-4 mb-8 max-w-screen  ${"bg-cloudy" /*backgroundClass*/}`}>
+    <div className={`flex flex-col gap-2 h-screen fixed top-0 overflow-auto w-full p-4 mb-8 max-w-screen  ${backgroundClass}`}>
       {children}
     </div>
   )

@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
     }
          
     const { api_key, ...statusData } = parsedData.data;
-    console.log("request", statusData)
     const lastRecord = await createStatusEntry(statusData);
      
     const fiveMinutesFromLastRecordDate = new Date(lastRecord.recorded_at.getTime() - 5 * 60 * 1000)

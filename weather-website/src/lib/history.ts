@@ -16,7 +16,6 @@ import {
 } from './utils';
 
 export async function createHistoryRecord(statusRecords: Status[]) {
-  console.log("statusRecords", statusRecords)
   const lastStatusRecord = statusRecords[0];
 
   const lastHistoryDay = await createOrGetHistoryDaysFromDate(lastStatusRecord.recorded_at);
@@ -98,7 +97,6 @@ export async function getAllHistoryRecordsForHistoryDayUpdate(historyDayId: numb
       rain_mm: true,
     },
   });
-  console.log("historyRecords", historyRecords)
 
   return historyRecords;
 }

@@ -64,7 +64,7 @@ export default function HistoryRecordsGraph({ data, selectedFilters, availableFi
             stroke={strokes[index]}
             display={"C"}
             label={"c"}
-            type="step"
+            type="monotone"
             key={filter.value}
             dataKey={filter.value}
             hide={!selectedFilters.includes(filter.value)}

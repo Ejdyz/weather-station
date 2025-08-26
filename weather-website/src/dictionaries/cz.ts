@@ -89,13 +89,13 @@ export default {
   },
   moon_phases: {
     new: "Nov",
-    waxing_crescent: "Rostoucí srpek",
-    first_quarter: "První čtvrt",
-    waxing_gibbous: "Rostoucí gibbous",
     full: "Úplněk",
-    waning_gibbous: "Ubývající gibbous",
+    waxing_crescent: "Přibývající srpek",
+    waxing_gibbous: "Přibývající měsíc",
+    first_quarter: "První čtvrt",
     last_quarter: "Poslední čtvrt",
-    waning_crescent: "Ubývající srpek"
+    waning_gibbous: "Ubývající srpek",
+    waning_crescent: "Ubývající měsíc"
   },
   golden_hour: 'Zlatá hodina',
   days_of_week: {

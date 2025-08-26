@@ -9,7 +9,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { formatWeatherData } from "@/lib/utils";
-import { AvailableDate } from "@/lib/daysActions";
+import { AvailableDate } from "@/lib/actions/days";
 import { useI18n } from "@/hooks/context/i18n-context"
 
 export function HistoryDaysTable({ data, selectedFilters, availableFilters }: { data: AvailableDate[]; selectedFilters: string[]; availableFilters: { value: string; label: string }[] }) {

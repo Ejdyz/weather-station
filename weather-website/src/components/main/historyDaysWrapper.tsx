@@ -1,4 +1,4 @@
-import { getHistoryDaysInRange } from "@/lib/daysActions";
+import { getHistoryDaysInRange } from "@/lib/actions/days";
 import DateRangeAndTypeSelector from "./dateRangeAndTypeSelector";
 import { getAvailableHistoryDays } from "@/lib/days";
 import { HistoryDaysTable } from "./historyDaysTable";

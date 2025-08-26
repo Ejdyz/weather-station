@@ -1,5 +1,5 @@
 "use server"
-import { prisma } from "./prisma";
+import { prisma } from "@/lib/prisma";
 import { History_days } from "@/generated/prisma";
 
 export interface AvailableDate extends History_days {

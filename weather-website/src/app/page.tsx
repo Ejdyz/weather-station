@@ -1,5 +1,5 @@
 import { getLastHistoryRecord, getLatestRecordFromHistoryAndStatus } from "@/lib/history";
-import { formatWeatherData, apparentTemperature, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, parseTimeToDate } from "@/lib/utils";
+import { formatWeatherData, apparentTemperature, convertDirectionToCardinalString, pressureAtSeaLevel, windSpeedToBeaufortIndex, parseTimeToDate, getIconSrcFromWeatherData, skyCondition } from "@/lib/utils";
 import { getTranslator } from "@/lib/server-dictionary";
 import Background from "@/components/ui/background";
 import Base from "@/components/ui/base";
@@ -29,7 +29,20 @@ export default async function Page() {
   const lastHistoryDay = await getLastHistoryDay();
 
   const windDirectionValue = convertDirectionToCardinalString(latestRecord?.wind_direction || 0);
-  
+
+  const sunset = lastHistoryDay?.sunset || parseTimeToDate(FALLBACK_SUNSET, new Date());
+  const sunrise = lastHistoryDay?.sunrise || parseTimeToDate(FALLBACK_SUNRISE, new Date());
+  const currentTime = latestRecord?.recorded_at || latestRecord?.created_at || new Date();
+  const partOfDay = currentTime < sunset && currentTime > sunrise ? "day" : "night";
+
+  const mainWeatherIconSrc = getIconSrcFromWeatherData(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0, partOfDay);
+
+  const backgroundType = partOfDay === "night"
+  ? "night"  
+  : latestRecord?.rain_mm || 0 > 0
+    ? "rain"
+    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
+
   const data = {
     temperature: {
       title: t("data.temperature"),
@@ -132,16 +145,16 @@ export default async function Page() {
   }
 
   return (
-    <Background>
+    <Background type={backgroundType}>
       <Base>
         <div className="flex text-white md:flex-row flex-col h-full md:max-h-80">
           <div className="flex justify-between items-center md:w-1/2 w-full">
             <div className="flex justify-center flex-col items-start p-4 ">
-              <h1 className="md:text-8xl sm:text-8xl text-4xl font-bold">{data.temperature.value}</h1>
+              <h1 className="xl:text-8xl lg:text-7xl md:text-5xl text-4xl font-bold">{data.temperature.value}</h1>
               <strong  className="md:text-2xl">{data.skyCondition.formattedValue}</strong>
               <p>{data.apparentTemperature.shortTitle} <strong>{data.apparentTemperature.value}</strong></p>
             </div>
-            <Image width={100}  height={100}  src="/icons/skyCondition/fog.svg" alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square md:max-w-5/12 max-w-1/2" />
+            <Image width={100} height={100}  src={mainWeatherIconSrc} alt="Weather Icon" className="w-full md:p-4 p-4 aspect-square max-h-full h md:max-w-5/12 max-w-1/2" />
           </div>
           <Separator orientation="horizontal" className="md:hidden mx-auto sm:w-[calc(100%-6rem)] w-full" />
           <Separator orientation="vertical" className="hidden md:block my-4 w-1" />
@@ -208,27 +221,27 @@ export default async function Page() {
           <RecentHistory sunriseDate={data.sun.riseTime} sunsetDate={data.sun.setTime} />
         </Base>
         {/* Sunset and Sunrise */}
-        <Base className="lg:h-40 h-32 lg:p-2">
-          <div className="lg:hidden h-full">
-              <Carousel dotsClassName="lg:bottom-4 bottom-2 relative" slides={[
-                <RiseAndSetComponent key={"sun"} className="relative lg:mt-9 mt-10 lg:scale-100 scale-75" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="sun"/>,
-                <RiseAndSetComponent key={"moon"} className="relative lg:mt-9 mt-10 lg:scale-100 scale-75" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="moon"/>
+        <Base className="lg:h-40 h-32 2xl:p-2">
+          <div className="2xl:hidden h-full">
+              <Carousel dotsClassName="2xl:bottom-4 bottom-2 relative" slides={[
+                <RiseAndSetComponent key={"sun"} className="relative 2xl:mt-9 mt-10 lg:scale-100 scale-75 -z-50" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="sun"/>,
+                <RiseAndSetComponent key={"moon"} className="relative 2xl:mt-9 mt-10 lg:scale-100 scale-75 -z-50" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="moon"/>
               ]}/>
           </div>
-          <div className="justify-evenly hidden h-full lg:flex">
-              <RiseAndSetComponent className="relative lg:scale-100 scale-75" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="sun"/>
-              <RiseAndSetComponent className="relative lg:scale-100 scale-75" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="moon"/>
+          <div className="justify-evenly hidden h-full 2xl:flex">
+              <RiseAndSetComponent className="relative lg:scale-100 scale-75 -z-50" riseTime={data.sun.riseTime} setTime={data.sun.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="sun"/>
+              <RiseAndSetComponent className="relative lg:scale-100 scale-75 -z-50" riseTime={data.moon.riseTime} setTime={data.moon.setTime} currentTime={latestRecord?.recorded_at || new Date()} type="moon"/>
           </div>
         </Base>
         {/* Golden hour and moon phase */}
-        <Base className="lg:h-40 h-32 lg:p-2">
-          <div className="lg:hidden h-full">
-            <Carousel dotsClassName="lg:bottom-4 bottom-2 relative" slides={[
+        <Base className="lg:h-40 h-32 2xl:p-2">
+          <div className="2xl:hidden h-full">
+            <Carousel dotsClassName="2xl:bottom-4 bottom-2 relative" slides={[
               <MoonPhase key={"moonPhase"} date={latestRecord?.recorded_at || new Date()} />,
               <GoldenHour key={"goldenHour"} date={data.goldenHour.begin + " - " + data.goldenHour.end} />
             ]}/>
           </div>
-          <div className="justify-evenly hidden lg:flex h-full">
+          <div className="justify-evenly hidden 2xl:flex h-full">
             <MoonPhase key={"moonPhase"} date={latestRecord?.recorded_at || new Date()} />
             <GoldenHour date={data.goldenHour.begin + " - " + data.goldenHour.end} />
           </div>

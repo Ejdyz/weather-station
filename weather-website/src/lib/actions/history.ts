@@ -16,5 +16,5 @@ export async function getHistoryRecordsInRange(startDate: Date, endDate: Date): 
     },
   });
 
-  return historyDays;
+  return historyDays.reverse();
 }

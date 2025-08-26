@@ -7,6 +7,7 @@
 #include <SPIFFS.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_task_wdt.h"
 #include <ThreeWire.h>
 #include <RtcDS1302.h>
 
@@ -342,11 +343,13 @@ void setup() {
   // RTC Init
   Rtc.Begin();
   RtcDateTime compiled(__DATE__, __TIME__);
-  if (!Rtc.IsDateTimeValid()) { Rtc.SetDateTime(compiled); }
+  if (!Rtc.IsDateTimeValid()) { 
+    Serial.println("RTC lost confidence in the DateTime! Setting to compile time.");
+    Rtc.SetDateTime(compiled); 
+  }
   if (Rtc.GetIsWriteProtected()) { Rtc.SetIsWriteProtected(false); }
   if (!Rtc.GetIsRunning()) { Rtc.SetIsRunning(true); }
-  RtcDateTime now = Rtc.GetDateTime();
-  if (now < compiled) { Rtc.SetDateTime(compiled); }
+  // Removed the problematic check: if (now < compiled) { Rtc.SetDateTime(compiled); }
 
   updateRtcStatus();        // populate rtcTimestamp & rtcConfidenceLost
   Serial.print("RTC init: ");
@@ -404,13 +407,17 @@ void loop() {
       Serial.println("------------------------");
       Serial.println("Clearing SPIFFS files...");
       
-      // Format SPIFFS to clear all data
-      if (SPIFFS.format()) {
-        Serial.println("SPIFFS formatted successfully!");
-        Serial.println("All files and data cleared.");
-      } else {
-        Serial.println("Failed to format SPIFFS!");
+      // Remove specific files instead of formatting
+      if (SPIFFS.exists("/unsent_data.txt")) {
+        SPIFFS.remove("/unsent_data.txt");
+        Serial.println("Removed unsent_data.txt");
       }
+      if (SPIFFS.exists("/unsent_data_tmp.txt")) {
+        SPIFFS.remove("/unsent_data_tmp.txt");
+        Serial.println("Removed unsent_data_tmp.txt");
+      }
+      
+      Serial.println("Files cleared successfully!");
       Serial.println("------------------------");
       return;
     }

@@ -16,6 +16,7 @@ import Image from "next/image";
 import HistoryDaysWrapper from "@/components/main/historyDaysWrapper";
 import HistoryRecordsWrapper from "@/components/main/historyRecordsWrapper";
 import WeatherRadar from "@/components/main/weatherRadar";
+import Footer from "@/components/ui/footer";
 
 export const dynamic = 'force-dynamic';
 
@@ -261,6 +262,7 @@ export default async function Page() {
       <Base>
         <WeatherRadar />
       </Base>
+      <Footer lastUpdate={latestRecord?.recorded_at} />
     </Background>
   );
 }

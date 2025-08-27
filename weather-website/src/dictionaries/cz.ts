@@ -230,5 +230,10 @@ export default {
     vapor_pressure:"Max. Srážky",
 
     noData: "Žádná data pro vybraný rozsah"
+  },
+  footer: {
+    language: "Jazyk",
+    allRightsReserved: "Všechna práva vyhrazena",
+    lastRecord: "Poslední změna"
   }
 } as const;

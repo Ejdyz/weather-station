@@ -230,5 +230,10 @@ export default {
     vapor_pressure:"Vapor Pressure",
 
     noData: "No Data for selected range"
+  },
+  footer: {
+    language: "Language",
+    allRightsReserved: "All rights reserved",
+    lastRecord: "Last update"
   }
 } as const;

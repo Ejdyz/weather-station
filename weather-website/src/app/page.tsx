@@ -17,8 +17,22 @@ import HistoryDaysWrapper from "@/components/main/historyDaysWrapper";
 import HistoryRecordsWrapper from "@/components/main/historyRecordsWrapper";
 import WeatherRadar from "@/components/main/weatherRadar";
 import Footer from "@/components/ui/footer";
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(
+): Promise<Metadata> {
+  const { t } = await getTranslator();
+  
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+    openGraph: {
+      images: ['icons/icon512_maskable.png', 'screenshots/narrow.png'],
+    },
+  }
+}
 
 export default async function Page() {
   const { t } = await getTranslator();

@@ -63,7 +63,6 @@ export default function HistoryRecordsGraph({ data, selectedFilters, availableFi
           <Line
             stroke={strokes[index]}
             display={"C"}
-            label={"c"}
             type="monotone"
             key={filter.value}
             dataKey={filter.value}

@@ -205,19 +205,20 @@ export default {
 
     temperature: "Teplota",
     app_temperature:"Pocitová Teplota",
+    dew_point:"Rosný Bod",
+    
     humidity:"Relativní Vlhkost",
 
     pressure:"Relativní Tlak",
     pressure_at_sea_level:"Tlak na hladině moře",
+    saturation_vapor_pressure:"Sytostní tlak vodní páry",
+    vapor_pressure:"Tlak vodní páry",
+    
     wind_speed:"Rychlost větru",
-
     max_wind_speed:"Max. Rychlost větru",
-    wind_direction:"Max. Rychlost větru",
-    rain_mm:"Průměrná Rychlost větru",
+    rain_mm:"Srážky",
+    wind_direction:"Směr větru",
 
-    dew_point:"Min. Rychlost větru",
-    saturation_vapor_pressure:"Směr větru",
-    vapor_pressure:"Max. Srážky",
 
     noData: "Žádná data pro vybraný rozsah"
   },

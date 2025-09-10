@@ -55,7 +55,8 @@ export default function DateRangeAndTypeSelector({
 
   useEffect(() => {
     if (dateRange?.from && dateRange?.to) {
-      fetchDays(dateRange.from, dateRange.to);
+      console.log(dateRange)
+      fetchDays(new Date(dateRange.from.setHours(0, 0, 0, 0)), new Date(dateRange.to.setHours(23, 59, 59, 999)));
     }
   }, [dateRange]);
 

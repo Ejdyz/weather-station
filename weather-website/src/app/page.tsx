@@ -56,7 +56,7 @@ export default async function Page() {
   ? "night"  
   : latestRecord?.rain_mm || 0 > 0
     ? "rain"
-    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
+    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0);
 
   const data = {
     temperature: {

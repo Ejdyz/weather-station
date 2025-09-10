@@ -51,7 +51,7 @@ export async function createHistoryRecord(statusRecords: Status[]) {
     saturation_vapor_pressure: saturationVaporPressure_hPa(lastStatusRecord.temperature || 0),
     vapor_pressure: vaporPressure_hPa(lastStatusRecord.temperature || 0, lastStatusRecord.humidity || 0),
     sky_condition_icon: getIconSrcFromWeatherData(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, lastStatusRecord.wind_speed || 0, lastStatusRecord.rain_mm || 0, partOfTheDay),
-    sky_condition_description: skyCondition(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, lastStatusRecord.wind_speed || 0),
+    sky_condition_description: skyCondition(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, lastStatusRecord.wind_speed || 0, lastStatusRecord.rain_mm || 0),
   }
 
   const record = await prisma.history.create({

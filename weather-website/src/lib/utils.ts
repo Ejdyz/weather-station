@@ -241,7 +241,7 @@ export function skyConditionWithoutFog(pressure_hPa: number, humidity_percent: n
  * @param wind_mps 
  * @returns "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" | "fog"
  */
-export function skyCondition(pressure_hPa: number, humidity_percent: number, temperature_C: number, wind_mps: number) : "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" | "fog" {
+export function skyCondition(pressure_hPa: number, humidity_percent: number, temperature_C: number, wind_mps: number, rain_mm: number) : "unknown" | "overcast" | "clear" | "partly cloudy" | "cloudy" | "fog" {
   if (![pressure_hPa, humidity_percent, temperature_C, wind_mps].every(isFinite)) {
     return "unknown";
   }
@@ -257,11 +257,11 @@ export function skyCondition(pressure_hPa: number, humidity_percent: number, tem
 
   // --- Fog detection ---
   // Dense fog: tiny dpd + very high RH + light wind
-  if (dpd <= 0.5 && RH >= 97 && wind_mps <= 3) {
+  if (dpd <= 0.5 && RH >= 97 && wind_mps <= 3 && rain_mm === 0) {
     return "fog";
   }
   // Likely fog (patchy/mist): small dpd + high RH + calm wind
-  if (dpd <= 1.0 && RH >= 95 && wind_mps <= 2) {
+  if (dpd <= 1.0 && RH >= 95 && wind_mps <= 2 && rain_mm === 0) {
     return "fog";
   }
 
@@ -297,13 +297,13 @@ export function skyCondition(pressure_hPa: number, humidity_percent: number, tem
 export function getIconSrcFromWeatherData(pressure_hPa: number, humidity_percent: number, temperature_C: number, wind_mps: number, rain_mm: number, partOfTheDay: "day" | "night") {
   const isRaining = rain_mm > 0;
   const isSnowing = temperature_C < 0;
-  const skyConditionString = skyCondition(pressure_hPa, humidity_percent, temperature_C, wind_mps).replace(" ", "-");
+  const skyConditionString = skyCondition(pressure_hPa, humidity_percent, temperature_C, wind_mps, rain_mm).replace(" ", "-");
 
   const pathPrefix = "/icons/skyCondition/";
   const rainSuffix = isRaining ? isSnowing ? "-snow" : (rain_mm <= 2.5 ? "-drizzle" : "-rain") : "";
 
   if (skyConditionString === "unknown") return `${pathPrefix}partly-cloudy-${partOfTheDay}${rainSuffix}.svg`;
-  if (skyConditionString === "fog") return `${pathPrefix}fog.svg`;
+  if (skyConditionString === "fog" && !isRaining) return `${pathPrefix}fog.svg`;
   if (skyConditionString === "clear" && isRaining){
     return `${pathPrefix}cloudy${rainSuffix}.svg`;
   }

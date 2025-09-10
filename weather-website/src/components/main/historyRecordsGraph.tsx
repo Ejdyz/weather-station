@@ -58,7 +58,7 @@ export default function HistoryRecordsGraph({ data, selectedFilters, availableFi
   return (
     <ChartContainer config={{ yAxis: { label: "Value" }, xAxis: { label: "name" } }} className="-ml-7 max-h-96 w-full">
       <LineChart data={data}>
-        <YAxis stroke="#ffffff" color="#ffffff"  className="text-white stroke-amber-50 fill-white" />
+        <YAxis stroke="#ffffff" color="#ffffff" domain={["auto","auto"]} className="text-white stroke-amber-50 fill-white" />
         {availableFilters.map((filter, index) => (
           <Line
             stroke={strokes[index]}

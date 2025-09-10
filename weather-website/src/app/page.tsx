@@ -16,8 +16,23 @@ import Image from "next/image";
 import HistoryDaysWrapper from "@/components/main/historyDaysWrapper";
 import HistoryRecordsWrapper from "@/components/main/historyRecordsWrapper";
 import WeatherRadar from "@/components/main/weatherRadar";
+import Footer from "@/components/ui/footer";
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(
+): Promise<Metadata> {
+  const { t } = await getTranslator();
+  
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+    openGraph: {
+      images: ['icons/icon512_maskable.png', 'screenshots/narrow.png'],
+    },
+  }
+}
 
 export default async function Page() {
   const { t } = await getTranslator();
@@ -41,7 +56,7 @@ export default async function Page() {
   ? "night"  
   : latestRecord?.rain_mm || 0 > 0
     ? "rain"
-    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0);
+    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0);
 
   const data = {
     temperature: {
@@ -261,6 +276,7 @@ export default async function Page() {
       <Base>
         <WeatherRadar />
       </Base>
+      <Footer lastUpdate={latestRecord?.recorded_at} />
     </Background>
   );
 }

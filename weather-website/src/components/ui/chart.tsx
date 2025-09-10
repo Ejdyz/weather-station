@@ -6,6 +6,8 @@ import * as RechartsPrimitive from "recharts"
 
 import { cn, formatWeatherData } from "@/lib/utils"
 
+import { useI18n } from "@/hooks/context/i18n-context"
+
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 
@@ -132,6 +134,7 @@ function ChartTooltipContent({
     "accessibilityLayer"
   >) {
   const { config } = useChart()
+  const { t } = useI18n();
 
   const tooltipLabel = React.useMemo(() => {
     if (hideLabel || !payload?.length) {
@@ -231,7 +234,9 @@ function ChartTooltipContent({
                     {item.value != null && (
                       <div className="font-medium text-foreground tabular-num">
                         {typeof item.value === "number"
-                          ? formatWeatherData(typesMap.find(type => type.value === item.dataKey)?.label ?? "temperature", item.value)
+                          ? typesMap.find(type => type.value === item.dataKey)?.label === "wind_direction"
+                            ? t("data.wind_direction_cardinal." + formatWeatherData("wind_direction", item.value))
+                            : formatWeatherData(typesMap.find(type => type.value === item.dataKey)?.label ?? "temperature", item.value)
                           : String(item.value)}
                       </div>
                     )}

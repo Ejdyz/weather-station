@@ -1,18 +1,8 @@
 export default {
-  landing: {
-    title: 'Stránka je ve vývoji!',
-    body1: 'V blízké době se můžete těšit na novou stránku, která přinese spoustu nových funkcí a vylepšení.',
-    body2: 'Po kliknutí na tlačítko Github se dostanete na repozitář, kde můžete sledovat vývoj projektu.',
-    planned: 'Plánované vylepšení:',
-    planned_list: [
-      'Nový design a uživatelské rozhraní',
-      'Nové senzory pro měření počasí',
-      'Lepší stabilita a spolehlivost'
-    ],
-    tab_landing: 'Úvod',
-    tab_data: 'Data',
-    github: 'Github',
-    data_title: 'Dočasné zobrazení dat'
+  metadata:{
+    title: "Počasí Proboštov",
+    short_name: "Počasí",
+    description: "Meteorologická stanice s webovým rozhraním pro sledování aktuálních a historických dat o počasí ve vesnici Proboštov za pomoci vlastní metrologické stanice."
   },
   data: {
     beaufort: "Beaufortova škála",
@@ -215,20 +205,26 @@ export default {
 
     temperature: "Teplota",
     app_temperature:"Pocitová Teplota",
+    dew_point:"Rosný Bod",
+    
     humidity:"Relativní Vlhkost",
 
     pressure:"Relativní Tlak",
     pressure_at_sea_level:"Tlak na hladině moře",
+    saturation_vapor_pressure:"Sytostní tlak vodní páry",
+    vapor_pressure:"Tlak vodní páry",
+    
     wind_speed:"Rychlost větru",
-
     max_wind_speed:"Max. Rychlost větru",
-    wind_direction:"Max. Rychlost větru",
-    rain_mm:"Průměrná Rychlost větru",
+    rain_mm:"Srážky",
+    wind_direction:"Směr větru",
 
-    dew_point:"Min. Rychlost větru",
-    saturation_vapor_pressure:"Směr větru",
-    vapor_pressure:"Max. Srážky",
 
     noData: "Žádná data pro vybraný rozsah"
+  },
+  footer: {
+    language: "Jazyk",
+    allRightsReserved: "Všechna práva vyhrazena",
+    lastRecord: "Poslední změna"
   }
 } as const;

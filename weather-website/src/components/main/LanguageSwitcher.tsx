@@ -25,7 +25,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: AppLocale }
     <select
       value={value}
       onChange={(e) => updateLocale(e.target.value as AppLocale)}
-      className="border rounded p-1 text-sm bg-background text-foreground"
+      className="border border-gray-400 rounded p-1 text-xs bg-background text-foreground"
     >
       {SUPPORTED_LOCALES.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}
     </select>

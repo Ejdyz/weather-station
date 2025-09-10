@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { timingSafeCryptoCompare } from '@/lib/utils';
 import { createStatusEntry, removeStatusRecordsOlderThan, getAllStatusRecords, removeAllStatusRecords } from '@/lib/status';
 import { createHistoryRecord } from '@/lib/history';
+import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,3 +39,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 }
+
+
+export async function GET() {
+  const latestRecord = await getLatestRecordFromHistoryAndStatus();
+  const data = latestRecord ? { 
+    temperature: latestRecord.temperature,
+    humidity: latestRecord.humidity,
+    pressure: latestRecord.pressure,
+    windSpeed: latestRecord.wind_speed,
+    windDirection: latestRecord.wind_direction,
+    rain_mm: latestRecord.rain_mm,
+    recorded_at: latestRecord.recorded_at,
+  } : null;
+  return NextResponse.json({ status: 200, message: 'Latest record fetched successfully', data });
+}  

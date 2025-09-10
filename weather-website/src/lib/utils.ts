@@ -8,6 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 import { timingSafeEqual } from "crypto"
 import { FALLBACK_MOONRISE, FALLBACK_MOONSET, FALLBACK_SUNRISE, FALLBACK_SUNSET } from "@/config/config"
+import { formatInTimeZone, fromZonedTime } from "date-fns-tz"
 /**
  * Compares two strings in a timing-safe manner to prevent timing attacks.
  * @param compare - The string to compare.
@@ -324,6 +325,20 @@ export function parseTimeToDate(time: string, base: Date): Date {
   return d;
 }
 
+/**
+ * Parse a wall-clock time (e.g. "06:15") that is given in a specific IANA timezone
+ * for the same calendar day as `base`, and return a UTC Date for that instant.
+ * This keeps DST (summer/winter time) correct because the conversion uses the given zone.
+ */
+export function parseTimeInZoneToUTC(time: string, base: Date, timeZone: string = "Europe/Prague"): Date {
+  // Build a local date-time string in the target zone using that zone's calendar day
+  console.log("time:", time, "base:", base, "timeZone:", timeZone);
+  const dateStrInZone = formatInTimeZone(base, timeZone, "yyyy-MM-dd");
+  const localDateTime = `${dateStrInZone} ${time}`; // e.g., 2025-09-10 06:00
+  // Interpret the above as time in `timeZone` and convert to a UTC Date
+  return fromZonedTime(localDateTime, timeZone);
+}
+
 export interface GeolocationData {
   moonrise: Date;
   moonset: Date;
@@ -337,10 +352,11 @@ export async function fetchGeolocationData(): Promise<GeolocationData> {
   // Default values (used if API fails): create Date objects for typical times
   const today = new Date();
   let data: GeolocationData = {
-    moonrise: parseTimeToDate(FALLBACK_MOONRISE, today),
-    moonset: parseTimeToDate(FALLBACK_MOONSET, today),
-    sunrise: parseTimeToDate(FALLBACK_SUNRISE, today),
-    sunset: parseTimeToDate(FALLBACK_SUNSET, today),
+    // Fallbacks assume the location's timezone (Europe/Prague)
+    moonrise: parseTimeInZoneToUTC(FALLBACK_MOONRISE, today),
+    moonset: parseTimeInZoneToUTC(FALLBACK_MOONSET, today),
+    sunrise: parseTimeInZoneToUTC(FALLBACK_SUNRISE, today),
+    sunset: parseTimeInZoneToUTC(FALLBACK_SUNSET, today),
     golden_hour_begin: "-:-",
     golden_hour_end: "-:-",
   };
@@ -363,17 +379,20 @@ export async function fetchGeolocationData(): Promise<GeolocationData> {
     const moonriseStr: string = json.astronomy.moonrise === "-:-" ? json.astronomy.night_begin : json.astronomy.moonrise;
     const moonsetStr: string = json.astronomy.moonset === "-:-" ? json.astronomy.night_end : json.astronomy.moonset;
 
-    const sunriseDate = parseTimeToDate(sunriseStr, today);
-    const sunsetDate = parseTimeToDate(sunsetStr, today);
-    const moonriseDate = parseTimeToDate(moonriseStr, today);
-    let moonsetDate = parseTimeToDate(moonsetStr, today);
+  const sunriseDate = parseTimeInZoneToUTC(sunriseStr, today);
+  const sunsetDateInitial = parseTimeInZoneToUTC(sunsetStr, today);
+  const moonriseDate = parseTimeInZoneToUTC(moonriseStr, today);
+  let moonsetDate = parseTimeInZoneToUTC(moonsetStr, today);
+
+  // We'll adjust sunset relative to sunrise after both are UTC Dates
+  let sunsetDate = sunsetDateInitial;
 
     if (moonsetDate.getTime() <= moonriseDate.getTime()) {
       moonsetDate = new Date(moonsetDate.getTime() + 24 * 60 * 60 * 1000); // add one day
     }
 
     if (sunsetDate.getTime() <= sunriseDate.getTime()) {
-      sunsetDate.setDate(sunsetDate.getDate() + 1);
+      sunsetDate = new Date(sunsetDate.getTime() + 24 * 60 * 60 * 1000);
     }
 
     data = {

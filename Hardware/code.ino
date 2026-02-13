@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Adafruit_BMP280.h>
-#include <DHT.h>
+#include <Adafruit_SHT4x.h>
+
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
@@ -15,8 +16,10 @@
 #define ANEMOMETER_PIN 13
 #define WIND_DIR_PIN   35
 #define RAIN_PIN       14
-#define DHTPIN         27
-#define DHTTYPE        DHT22
+#define SHT40_SDA      32
+#define SHT40_SCL      27
+
+
 #define LDR_PIN        34
 // RTC Pins
 #define RTC_CLK_PIN    26 // SCLK/CLK
@@ -30,7 +33,10 @@ RtcDS1302<ThreeWire> Rtc(myWire);
 bool rtcConfidenceLost = false;
 char rtcTimestamp[25]; // "YYYY-MM-DDTHH:MM:SSZ"
 
-DHT dht(DHTPIN, DHTTYPE);
+
+TwoWire I2C_SHT = TwoWire(1);
+Adafruit_SHT4x sht4 = Adafruit_SHT4x();
+
 Adafruit_BMP280 bmp;
 
 // Constants
@@ -38,15 +44,16 @@ const float ANEMOMETER_SCALER = 0.34;  // m/s per Hz
 const float RAIN_MM_PER_TIP = 0.2794;  // mm per pulse
 
 // Values
-float dhtTemperature = 0.0, dhtHumidity = 0.0;
+float shtTemperature = 0.0, shtHumidity = 0.0;
+
 float pressure = 0.0, bmpTemperature = 0.0;
 int sunlightRaw = 0;
 
 // Wi-Fi and API
 const char* ssid = "Hotspot";
-const char* password = "testtest";
-const char* apiEndpoint = "http://192.168.1.1:3000/api/test";
-const char* apiKey = "testingKey";
+const char* password = "password";
+const char* apiEndpoint = "http://192.168.1.1:3000/api/weather";
+const char* apiKey = "xxxxxxxxxx";
 byte mac[6];
 
 // Global counters
@@ -194,14 +201,16 @@ void resendSavedData() {
   SPIFFS.rename("/unsent_data_tmp.txt", "/unsent_data.txt");
 }
 
-void sendJsonToServer(float windSpeed, int windDir, float rain, float dhtTemp, float dhtHum, float press, float bmpTemperature, int light) {
+void sendJsonToServer(float windSpeed, int windDir, float rain, float shtTemp, float shtHum, float press, float bmpTemperature, int light) {
+
   Serial.println("Sending data to API...");
   StaticJsonDocument<512> jsonDoc;
   jsonDoc["wind_speed_m_s"] = windSpeed;
   jsonDoc["wind_direction"] = windDir;
   jsonDoc["rain_mm"] = rain;
-  jsonDoc["temperature_dht"] = dhtTemp;
-  jsonDoc["humidity_dht"] = dhtHum;
+  jsonDoc["temperature_dht"] = shtTemp;
+  jsonDoc["humidity_dht"] = shtHum;
+
   jsonDoc["pressure_hpa"] = press;
   jsonDoc["temperature_bmp"] = bmpTemperature;
   jsonDoc["sunlight_raw"] = light;
@@ -300,7 +309,8 @@ void vTaskOutput(void* pvParameters) {
     resendSavedData();
     Serial.println("Finished resending saved data.");
     
-    sendJsonToServer(speed_m_s, dominantDir, rain_mm, dhtTemperature, dhtHumidity, pressure, bmpTemperature, sunlightRaw);
+    sendJsonToServer(speed_m_s, dominantDir, rain_mm, shtTemperature, shtHumidity, pressure, bmpTemperature, sunlightRaw);
+
 
     anemometerCount = 0;
     rainCount = 0;
@@ -310,8 +320,11 @@ void vTaskOutput(void* pvParameters) {
 
 void vTaskEnvironment(void* pvParameters) {
   for (;;) {
-    dhtHumidity = dht.readHumidity();
-    dhtTemperature = dht.readTemperature();
+    sensors_event_t humidity, temp;
+    sht4.getEvent(&humidity, &temp);
+    shtHumidity = humidity.relative_humidity;
+    shtTemperature = temp.temperature;
+
     bmpTemperature = bmp.readTemperature();
     pressure = bmp.readPressure() / 100.0F;
     sunlightRaw = analogRead(LDR_PIN);
@@ -335,7 +348,14 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(ANEMOMETER_PIN), anemometerISR, FALLING);
   attachInterrupt(digitalPinToInterrupt(RAIN_PIN), rainISR, FALLING);
 
-  dht.begin();
+  I2C_SHT.begin(SHT40_SDA, SHT40_SCL);
+  if (!sht4.begin(&I2C_SHT)) {
+    Serial.println("SHT40 not found");
+  } else {
+    sht4.setPrecision(SHT4X_HIGH_PRECISION);
+    sht4.setHeater(SHT4X_NO_HEATER);
+  }
+
 
   if (!bmp.begin()) {
     Serial.println("BMP280 not detected!");

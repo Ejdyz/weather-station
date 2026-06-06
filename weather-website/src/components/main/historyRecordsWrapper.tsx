@@ -25,6 +25,7 @@ export default async function HistoryRecordsWrapper() {
     
     { value: "wind_speed", label: t("historyRecordsSortItems.wind_speed") },
     { value: "max_wind_speed", label: t("historyRecordsSortItems.max_wind_speed") },
+    { value: "min_wind_speed", label: t("historyRecordsSortItems.min_wind_speed") },
     { value: "rain_mm", label: t("historyRecordsSortItems.rain_mm") },
     { value: "wind_direction", label: t("historyRecordsSortItems.wind_direction") },
 

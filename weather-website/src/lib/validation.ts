@@ -3,6 +3,8 @@ import { timingSafeCryptoCompare } from './utils';
 
 export const StatusApiSchema = z.object({
   wind_speed_m_s: z.number("Value must be a number or null").nullable(),
+  wind_speed_max_m_s: z.number("Value must be a number or null").nullable(),
+  wind_speed_min_m_s: z.number("Value must be a number or null").nullable(),
   wind_direction: z.number("Value must be a number or null").nullable(),
   rain_mm: z.number("Value must be a number or null").nullable(),
   temperature_dht: z.number("Value must be a number or null").nullable(),

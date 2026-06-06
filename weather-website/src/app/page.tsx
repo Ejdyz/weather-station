@@ -42,7 +42,7 @@ export default async function Page() {
   const latestRecord = await getLatestRecordFromHistoryAndStatus();
   const lastHistoryRecord = await getLastHistoryRecord();
   const lastHistoryDay = await getLastHistoryDay();
-
+  
   const windDirectionValue = convertDirectionToCardinalString(latestRecord?.wind_direction || 0);
 
   const sunset = lastHistoryDay?.sunset || parseTimeToDate(FALLBACK_SUNSET, new Date());
@@ -50,13 +50,13 @@ export default async function Page() {
   const currentTime = latestRecord?.recorded_at || latestRecord?.created_at || new Date();
   const partOfDay = currentTime < sunset && currentTime > sunrise ? "day" : "night";
 
-  const mainWeatherIconSrc = getIconSrcFromWeatherData(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0, partOfDay);
+  const mainWeatherIconSrc = getIconSrcFromWeatherData(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0, partOfDay);
 
   const backgroundType = partOfDay === "night"
   ? "night"  
   : latestRecord?.rain_mm || 0 > 0
     ? "rain"
-    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0);
+    : skyCondition(latestRecord?.pressure || 0, latestRecord?.humidity || 0, latestRecord?.temperature || 0, latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0, latestRecord?.rain_mm || 0);
 
   const data = {
     temperature: {
@@ -68,7 +68,7 @@ export default async function Page() {
       title: t("data.apparent"),
       shortTitle: t("data.apparent_short"),
       key: 'apparent',
-      value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, latestRecord?.wind_speed || 0))
+      value: formatWeatherData('temperature', apparentTemperature(latestRecord?.temperature || 0, latestRecord?.humidity || 0, latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0))
     },
     skyCondition: {
       title: t("data.sky_condition"),
@@ -113,24 +113,31 @@ export default async function Page() {
       icon: "/icons/barometer.svg"
     },
     windSpeed: { 
+      title: t("data.max_wind_speed_1m"), 
+      key: 'max_wind_speed', 
+      value: formatWeatherData('wind_speed_ms', latestRecord?.max_wind_speed || latestRecord?.wind_speed),
+      valueKmh: formatWeatherData('wind_speed_kmh', latestRecord?.max_wind_speed || latestRecord?.wind_speed),
+      icon: (latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
+    },
+    avgWindSpeed: { 
       title: t("data.wind_speed"), 
       key: 'wind_speed', 
       value: formatWeatherData('wind_speed_ms', latestRecord?.wind_speed),
       valueKmh: formatWeatherData('wind_speed_kmh', latestRecord?.wind_speed),
       icon: (latestRecord?.wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
     },
-    maxWindSpeed: { 
-      title: t("data.max_wind_speed"), 
-      key: 'max_wind_speed', 
-      value: formatWeatherData('wind_speed_ms', lastHistoryRecord?.max_wind_speed),
-      valueKmh: formatWeatherData('wind_speed_kmh', lastHistoryRecord?.max_wind_speed),
-      icon: (lastHistoryRecord?.max_wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
+    minWindSpeed: { 
+      title: t("data.min_wind_speed_1m"), 
+      key: 'min_wind_speed', 
+      value: formatWeatherData('wind_speed_ms', latestRecord?.min_wind_speed),
+      valueKmh: formatWeatherData('wind_speed_kmh', latestRecord?.min_wind_speed),
+      icon: (latestRecord?.min_wind_speed || 0) > 2.5 ? "/icons/windsock.svg" : "/icons/windsock-weak.svg",
     },
     beaufort: {
-      title: beaufort[windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)],
+      title: beaufort[windSpeedToBeaufortIndex(latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0)],
       key: 'beaufort',
-      value: windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0),
-      icon: `/icons/wind-beaufort-${windSpeedToBeaufortIndex(latestRecord?.wind_speed || 0)}.svg`,
+      value: windSpeedToBeaufortIndex(latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0),
+      icon: `/icons/wind-beaufort-${windSpeedToBeaufortIndex(latestRecord?.max_wind_speed || latestRecord?.wind_speed || 0)}.svg`,
     },
     wind_direction: { 
       title: t("data.wind_direction"), 
@@ -194,7 +201,7 @@ export default async function Page() {
                 additionalData={
                   [{ 
                     value: data.windSpeed.valueKmh, 
-                    title: t("data.wind_speed"), 
+                    title: t("data.max_wind_speed_1m"), 
                     icon: data.windSpeed.icon 
                   },
                   { 
@@ -203,9 +210,14 @@ export default async function Page() {
                     icon: data.beaufort.icon 
                   },
                   {
-                    value: data.maxWindSpeed.value + " (" + data.maxWindSpeed.valueKmh + ")",
-                    title: t("data.max_wind_speed"),
-                    icon: data.maxWindSpeed.icon
+                    value: data.avgWindSpeed.value + " (" + data.avgWindSpeed.valueKmh + ")",
+                    title: t("data.avg_wind_speed_1m"),
+                    icon: data.avgWindSpeed.icon
+                  },
+                  {
+                    value: data.minWindSpeed.value + " (" + data.minWindSpeed.valueKmh + ")",
+                    title: t("data.min_wind_speed_1m"),
+                    icon: data.minWindSpeed.icon
                   }
                 ]
                 }/>

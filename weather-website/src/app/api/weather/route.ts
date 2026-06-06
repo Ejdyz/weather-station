@@ -10,13 +10,13 @@ import { getLatestRecordFromHistoryAndStatus } from "@/lib/history";
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-
+    console.log("data",data)
     if (!timingSafeCryptoCompare(data.api_key, process.env.API_KEY)) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
     
     const parsedData = StatusApiSchema.safeParse(data);
-    
+    console.log("parsedData",parsedData)
     if (!parsedData.success) {
       return NextResponse.json({ status: 400, message: 'Invalid user data', data: z.treeifyError(parsedData.error) });
     }
@@ -48,6 +48,8 @@ export async function GET() {
     humidity: latestRecord.humidity,
     pressure: latestRecord.pressure,
     windSpeed: latestRecord.wind_speed,
+    windSpeedMax: latestRecord.max_wind_speed,
+    windSpeedMin: latestRecord.min_wind_speed,
     windDirection: latestRecord.wind_direction,
     rain_mm: latestRecord.rain_mm,
     recorded_at: latestRecord.recorded_at,

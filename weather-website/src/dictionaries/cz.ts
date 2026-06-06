@@ -43,7 +43,12 @@ export default {
     saturation_vapor_pressure: 'Sytostní tlak vodní páry',
     vapor_pressure: 'Tlak vodní páry',
     wind_speed: 'Rychlost větru',
-    max_wind_speed: 'Maximální rychlost větru za posledních 5 minut',
+    avg_wind_speed_1m: "Průměrná rychlost větru za poslední minutu",
+    avg_wind_speed_5m: "Průměrná rychlost větru za posledních 5 minut",
+    max_wind_speed_1m: 'Maximální rychlost větru za poslední minutu',
+    min_wind_speed_1m: 'Minimální rychlost větru za poslední minutu',
+    max_wind_speed_5m: 'Maximální rychlost větru za posledních 5 minut',
+    min_wind_speed_5m: 'Minimální rychlost větru za posledních 5 minut',
     wind_direction: 'Směr větru',
     wind_direction_cardinal:{
       N: 'Sever',
@@ -214,8 +219,9 @@ export default {
     saturation_vapor_pressure:"Sytostní tlak vodní páry",
     vapor_pressure:"Tlak vodní páry",
     
-    wind_speed:"Rychlost větru",
+    wind_speed:"Průměrná Rychlost větru",
     max_wind_speed:"Max. Rychlost větru",
+    min_wind_speed:"Min. Rychlost větru",
     rain_mm:"Srážky",
     wind_direction:"Směr větru",
 

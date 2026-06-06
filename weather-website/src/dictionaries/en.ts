@@ -42,7 +42,10 @@ export default {
     saturation_vapor_pressure: 'Saturation vapor pressure',
     vapor_pressure: 'Vapor pressure',
     wind_speed: 'Wind speed',
-    max_wind_speed: 'Max wind speed in past 5min',
+    max_wind_speed_1m: 'Max wind speed in past minute',
+    min_wind_speed_1m: 'Min wind speed in past minute',
+    max_wind_speed_5m: 'Max wind speed in past 5 minutes',
+    min_wind_speed_5m: 'Min wind speed in past 5 minutes',
     wind_direction: 'Wind direction',
     wind_direction_cardinal: {
       N: 'North',
@@ -211,6 +214,7 @@ export default {
     wind_speed:"Wind Speed",
 
     max_wind_speed:"Max. Wind Speed",
+    min_wind_speed:"Min. Wind Speed",
     wind_direction:"Wind Direction",
     rain_mm:"Rain (mm)",
 

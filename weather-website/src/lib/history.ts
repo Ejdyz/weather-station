@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { createOrGetHistoryDaysFromDate, updateHistoryDayWithHistoryRecords } from '@/lib/days';
 import { Status } from '@/generated/prisma';
 import { getLastStatusRecord } from '@/lib/status';
-import { max } from 'lodash';
+import { max, min } from 'lodash';
 import { 
   apparentTemperature,
   dewPointTemperature,
@@ -24,21 +24,30 @@ export async function createHistoryRecord(statusRecords: Status[]) {
   const partOfTheDay = lastStatusRecord.recorded_at >= geoAPIData.sunrise && lastStatusRecord.recorded_at <= geoAPIData.sunset ? "day" : "night";
 
 
+  const avg_wind_speed = (() => {
+    const vals = statusRecords.map(r => r.wind_speed).filter((v): v is number => v !== null);
+    return vals.length ? vals.reduce((sum, v) => sum + v, 0) / vals.length : null;
+  })();
+
   const data = {
     recorded_at: lastStatusRecord.recorded_at,
     history_daysId: lastHistoryDay.id,
     temperature: lastStatusRecord.temperature,
-    app_temperature: apparentTemperature(lastStatusRecord.temperature || 0, lastStatusRecord.humidity || 0, lastStatusRecord.wind_speed || 0),
+    app_temperature: apparentTemperature(lastStatusRecord.temperature || 0, lastStatusRecord.humidity || 0, avg_wind_speed || 0),
     humidity: lastStatusRecord.humidity,
     pressure: lastStatusRecord.pressure,
     pressure_at_sea_level: pressureAtSeaLevel(lastStatusRecord.pressure || 0, lastStatusRecord.temperature || 0),
     light: lastStatusRecord.light,
-    wind_speed: lastStatusRecord.wind_speed,
+    wind_speed: avg_wind_speed,
     max_wind_speed: (() => {
-        const vals = statusRecords.map(r => r.wind_speed).filter((v): v is number => v !== null);
+        const vals = statusRecords.map(r => r.wind_speed_max).filter((v): v is number => v !== null);
         return vals.length ? max(vals) : null;
     })(),
-    beaufort: windSpeedToBeaufortIndex(lastStatusRecord.wind_speed || 0),
+    min_wind_speed: (() => {
+        const vals = statusRecords.map(r => r.wind_speed_min).filter((v): v is number => v !== null);
+        return vals.length ? min(vals) : null;
+    })(),
+    beaufort: windSpeedToBeaufortIndex(avg_wind_speed || 0),
     wind_direction: (() => {
         const vals = statusRecords.map(r => r.wind_direction).filter((v): v is number => v !== null);
         return vals.length ? vals.reduce((sum, v) => sum + v, 0) / vals.length : null;
@@ -50,8 +59,8 @@ export async function createHistoryRecord(statusRecords: Status[]) {
     dew_point: dewPointTemperature(lastStatusRecord.temperature || 0, lastStatusRecord.humidity || 0),
     saturation_vapor_pressure: saturationVaporPressure_hPa(lastStatusRecord.temperature || 0),
     vapor_pressure: vaporPressure_hPa(lastStatusRecord.temperature || 0, lastStatusRecord.humidity || 0),
-    sky_condition_icon: getIconSrcFromWeatherData(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, lastStatusRecord.wind_speed || 0, lastStatusRecord.rain_mm || 0, partOfTheDay),
-    sky_condition_description: skyCondition(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, lastStatusRecord.wind_speed || 0, lastStatusRecord.rain_mm || 0),
+    sky_condition_icon: getIconSrcFromWeatherData(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, avg_wind_speed || 0, lastStatusRecord.rain_mm || 0, partOfTheDay),
+    sky_condition_description: skyCondition(lastStatusRecord.pressure || 0, lastStatusRecord.humidity || 0, lastStatusRecord.temperature || 0, avg_wind_speed || 0, lastStatusRecord.rain_mm || 0),
   }
 
   const record = await prisma.history.create({
@@ -74,6 +83,7 @@ export async function getAllHistoryRecordsForHistoryDayUpdate(historyDayId: numb
       pressure: true,
       light: true,
       wind_speed: true,
+      min_wind_speed: true,
       wind_direction: true,
       rain_mm: true,
     },
@@ -114,7 +124,11 @@ export async function getLastHistoryRecord() {
 export async function getLatestRecordFromHistoryAndStatus() {
   const latestStatus = await getLastStatusRecord();
   if (latestStatus !== null) {
-    return latestStatus;
+    return {
+      ...latestStatus,
+      max_wind_speed: latestStatus.wind_speed_max,
+      min_wind_speed: latestStatus.wind_speed_min
+    };
   }
   const latestHistory = await getLastHistoryRecord();
   return latestHistory;
@@ -141,6 +155,7 @@ export async function getHistoryRecordsWithSpace(count:number, spaceBetweenMin:n
       light: true,
       wind_speed: true,
       max_wind_speed: true,
+      min_wind_speed: true,
       beaufort: true,
       wind_direction: true,
       rain_mm: true,

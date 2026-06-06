@@ -49,6 +49,7 @@ export default function HistoryRecordsGraph({ data, selectedFilters, availableFi
     
     { value: "wind_speed", label: "wind_speed_ms" },
     { value: "max_wind_speed", label: "wind_speed_ms" },
+    { value: "min_wind_speed", label: "wind_speed_ms" },
 
     { value: "rain_mm", label: "rain_mm" },
     

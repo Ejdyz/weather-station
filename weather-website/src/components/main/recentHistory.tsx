@@ -78,10 +78,6 @@ export default async function RecentHistory({sunsetDate = defaultSunsetDate, sun
         data: formatWeatherData("pressure", record.vapor_pressure),
       },
       {
-        name: t("data.wind_speed"),
-        data: formatWeatherData("wind_speed_ms", record?.wind_speed) + " (" + formatWeatherData("wind_speed_kmh", record?.wind_speed) + ")",
-      },
-      {
         name: t("data.wind_direction"),
         data: wind_direction[formatWeatherData("wind_direction", record?.wind_direction) as keyof typeof wind_direction],
       },
@@ -90,8 +86,16 @@ export default async function RecentHistory({sunsetDate = defaultSunsetDate, sun
         data: beaufort[record?.beaufort || 0] + " (" + record?.beaufort + ". " + t("data.beaufort_number") + ")",
       },
       {
-        name: t("data.max_wind_speed"),
+        name: t("data.avg_wind_speed_5m"),
+        data: formatWeatherData("wind_speed_ms", record?.wind_speed) + " (" + formatWeatherData("wind_speed_kmh", record?.wind_speed) + ")",
+      },
+      {
+        name: t("data.max_wind_speed_5m"),
         data: formatWeatherData("wind_speed_ms", record?.max_wind_speed) + " (" + formatWeatherData("wind_speed_kmh", record?.max_wind_speed) + ")",
+      },
+      {
+        name: t("data.min_wind_speed_5m"),
+        data: formatWeatherData("wind_speed_ms", record?.min_wind_speed) + " (" + formatWeatherData("wind_speed_kmh", record?.min_wind_speed) + ")",
       },
       {
         name: t("data.rain"),

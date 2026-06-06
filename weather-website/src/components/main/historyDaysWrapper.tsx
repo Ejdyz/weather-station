@@ -50,6 +50,7 @@ export default async function HistoryDaysWrapper() {
     availableFilters[4],
     availableFilters[7],
     availableFilters[9],
+    availableFilters[10],
     availableFilters[11],
     availableFilters[12],
   ];

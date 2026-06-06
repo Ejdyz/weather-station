@@ -24,6 +24,8 @@ model Status {
   pressure       Float?
   light          Int?
   wind_speed     Float?
+  wind_speed_max Float?
+  wind_speed_min Float?
   wind_direction Float?
   rain_mm        Float?
   rtc_sync_lost  Boolean?
@@ -41,6 +43,7 @@ model History {
   light          Int?
   wind_speed     Float?
   max_wind_speed Float?
+  min_wind_speed Float?
   beaufort       Int?
   wind_direction Float?
   rain_mm        Float?

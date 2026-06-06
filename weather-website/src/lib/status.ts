@@ -15,6 +15,8 @@ export async function createStatusEntry(data: StatusEntry) {
       pressure: data.pressure_hpa,
       light: data.sunlight_raw,
       wind_speed: data.wind_speed_m_s,
+      wind_speed_max: data.wind_speed_max_m_s,
+      wind_speed_min: data.wind_speed_min_m_s,
       wind_direction: data.wind_direction,
       rain_mm: data.rain_mm,
     },

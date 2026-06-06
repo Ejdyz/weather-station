@@ -19,7 +19,6 @@
 #define SHT40_SDA      32
 #define SHT40_SCL      27
 
-
 #define LDR_PIN        34
 // RTC Pins
 #define RTC_CLK_PIN    26 // SCLK/CLK
@@ -42,6 +41,11 @@ Adafruit_BMP280 bmp;
 // Constants
 const float ANEMOMETER_SCALER = 0.34;  // m/s per Hz
 const float RAIN_MM_PER_TIP = 0.2794;  // mm per pulse
+
+const uint32_t ANEMOMETER_INTERVAL_MS = 5000;
+const int WIND_SPEED_SAMPLES = (60000 / ANEMOMETER_INTERVAL_MS) + 2;
+float windSpeedSamples[WIND_SPEED_SAMPLES];
+volatile int currentWindSpeedSample = 0;
 
 // Values
 float shtTemperature = 0.0, shtHumidity = 0.0;
@@ -201,11 +205,13 @@ void resendSavedData() {
   SPIFFS.rename("/unsent_data_tmp.txt", "/unsent_data.txt");
 }
 
-void sendJsonToServer(float windSpeed, int windDir, float rain, float shtTemp, float shtHum, float press, float bmpTemperature, int light) {
+void sendJsonToServer(float windSpeedAvg, float windSpeedMax, float windSpeedMin, int windDir, float rain, float shtTemp, float shtHum, float press, float bmpTemperature, int light) {
 
   Serial.println("Sending data to API...");
   StaticJsonDocument<512> jsonDoc;
-  jsonDoc["wind_speed_m_s"] = windSpeed;
+  jsonDoc["wind_speed_m_s"] = windSpeedAvg;
+  jsonDoc["wind_speed_max_m_s"] = windSpeedMax;
+  jsonDoc["wind_speed_min_m_s"] = windSpeedMin;
   jsonDoc["wind_direction"] = windDir;
   jsonDoc["rain_mm"] = rain;
   jsonDoc["temperature_dht"] = shtTemp;
@@ -285,6 +291,27 @@ void vTaskWindDir(void* pvParameters) {
   }
 }
 
+void vTaskWindSpeed(void* pvParameters) {
+  TickType_t xLastWakeTime = xTaskGetTickCount();
+  for (;;) {
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(ANEMOMETER_INTERVAL_MS));
+    
+    vTaskSuspendAll();
+    uint32_t count = anemometerCount;
+    anemometerCount = 0;
+    xTaskResumeAll();
+    
+    float hz = count / (ANEMOMETER_INTERVAL_MS / 1000.0f);
+    float speed_m_s = hz * ANEMOMETER_SCALER;
+    
+    vTaskSuspendAll();
+    if (currentWindSpeedSample < WIND_SPEED_SAMPLES) {
+      windSpeedSamples[currentWindSpeedSample++] = speed_m_s;
+    }
+    xTaskResumeAll();
+  }
+}
+
 void vTaskOutput(void* pvParameters) {
   TickType_t xLastWakeTime = xTaskGetTickCount();
   for (;;) {
@@ -292,8 +319,31 @@ void vTaskOutput(void* pvParameters) {
 
     updateRtcStatus();
 
-    float speed_m_s = (anemometerCount / 60.0f) * ANEMOMETER_SCALER;
-    float speed_km_h = speed_m_s * 3.6f;
+    vTaskSuspendAll();
+    int samplesCount = currentWindSpeedSample;
+    float localSamples[WIND_SPEED_SAMPLES];
+    for (int i = 0; i < samplesCount; i++) {
+        localSamples[i] = windSpeedSamples[i];
+    }
+    currentWindSpeedSample = 0;
+    xTaskResumeAll();
+
+    float windSpeedAvg = 0.0;
+    float windSpeedMax = 0.0;
+    float windSpeedMin = 99999.0;
+
+    if (samplesCount > 0) {
+      for (int i = 0; i < samplesCount; i++) {
+        float s = localSamples[i];
+        windSpeedAvg += s;
+        if (s > windSpeedMax) windSpeedMax = s;
+        if (s < windSpeedMin) windSpeedMin = s;
+      }
+      windSpeedAvg /= samplesCount;
+    } else {
+      windSpeedMin = 0.0;
+    }
+
     float rain_mm = rainCount * RAIN_MM_PER_TIP;
 
     int maxCount = 0, dominantIdx = 0;
@@ -309,10 +359,8 @@ void vTaskOutput(void* pvParameters) {
     resendSavedData();
     Serial.println("Finished resending saved data.");
     
-    sendJsonToServer(speed_m_s, dominantDir, rain_mm, shtTemperature, shtHumidity, pressure, bmpTemperature, sunlightRaw);
+    sendJsonToServer(windSpeedAvg, windSpeedMax, windSpeedMin, dominantDir, rain_mm, shtTemperature, shtHumidity, pressure, bmpTemperature, sunlightRaw);
 
-
-    anemometerCount = 0;
     rainCount = 0;
     for (int i = 0; i < 8; i++) windDirCount[i] = 0;
   }
@@ -380,6 +428,7 @@ void setup() {
   // Create tasks
   xTaskCreate(vTaskWifiWatchdog, "WiFiWatch", 3072, NULL, 1, NULL);
   xTaskCreate(vTaskWindDir, "WindDir", 4096, NULL, 1, NULL);
+  xTaskCreate(vTaskWindSpeed, "WindSpeed", 4096, NULL, 1, NULL);
   xTaskCreate(vTaskOutput, "Output", 8192, NULL, 1, NULL);
   xTaskCreate(vTaskEnvironment, "Environment", 4096, NULL, 1, NULL);
 

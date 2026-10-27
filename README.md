@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://github.com/dolezalll/3itcTeamGame">
-    <img src="https://github.com/Ejdyz/weather-station/assets/103042103/fb7fff09-5f3c-4d35-aaa4-a3c8753112f8" alt="Logo" width="200" height="120">
-  </a>
+  <img src="https://github.com/Ejdyz/weather-station/assets/103042103/fb7fff09-5f3c-4d35-aaa4-a3c8753112f8" alt="Logo" width="200" height="120">
 </p>
 
 # Meteorological Station V2
